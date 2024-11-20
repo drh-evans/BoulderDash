@@ -55,4 +55,17 @@ public class Player {
     public void setLevelUnlocked(int levelUnlocked) {
         this.levelUnlocked = levelUnlocked;
     }
+
+    /**
+     * Increments the players level by 1
+     */
+    public void progressLevel() {
+        if (levelUnlocked < MAX_LEVEL) {
+            // increments by 1 if less than max level.
+            levelUnlocked++;
+        } else {
+            // otherwise sets to the max level.
+            levelUnlocked = MAX_LEVEL;
+        }
+    }
 }
