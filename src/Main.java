@@ -106,10 +106,19 @@ public class Main extends Application {
     public void processKeyEvent(KeyEvent event) {
         // We change the behaviour depending on the actual key that was pressed.
         switch (event.getCode()) {
-            case RIGHT:
+            case RIGHT, D:
                 // Right key was pressed. So move the player right by one cell.
                 playerX = playerX + 1;
                 break;
+            case LEFT, A:
+                // Left key was pressed. So move the player left by one cell.
+                playerX = playerX - 1;
+            case UP, W:
+                // Up key was pressed. So move the player up by one cell.
+                playerY = playerY - 1;
+            case DOWN, S:
+                // Down key was pressed. So move the player down by one cell.
+                playerY = playerY + 1;
             default:
                 // Do nothing for all other keys.
                 break;
