@@ -3,10 +3,11 @@
  * @author rhysevans
  */
 public class Player {
+    private static final int MAX_LEVEL = 10;
     private final String name;
+    private final Character playerCharacter;
     private int highScore;
     private int levelUnlocked = 1;
-    private static final int MAX_LEVEL = 10;
 
     /**
      *
@@ -14,6 +15,7 @@ public class Player {
      */
     public Player(String name) {
         this.name = name;
+        playerCharacter = new Character();
     }
 
     /**
