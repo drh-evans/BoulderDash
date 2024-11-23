@@ -17,9 +17,10 @@ public class Level {
      * @throws FileNotFoundException
      */
     public Level(File file) throws FileNotFoundException {
+        FileInputStream streamReader = new FileInputStream(file);
 
         // Create a scanner to read the level attributes from its file
-        Scanner fileScanner = new Scanner(new FileInputStream(file));
+        Scanner fileScanner = new Scanner(streamReader);
         fileScanner.useDelimiter("--LEVELDATA");
 
         // Jump to the level data section of the file
@@ -50,10 +51,18 @@ public class Level {
         this.diamondsToWin = diamondsToWin;
         this.amoebaSpreadRate = amoebaSpreadRate;
         this.amoebaMaxSize = amoebaMaxSize;
+
+        Scanner dimensionReader = new Scanner(streamReader);
+        int width = dimensionReader.nextInt();
+        int height = dimensionReader.nextInt();
+
+        Board board = new Board(height, width, file);
+
     }
 
     // TODO: Load levels
     public void initialiseLevel() {
+
 
 
     }

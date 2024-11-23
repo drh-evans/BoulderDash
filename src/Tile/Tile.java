@@ -1,6 +1,7 @@
 package Tile;
 
 public abstract class Tile {
+
     protected int x;
     protected int y;
     protected String tileType;
