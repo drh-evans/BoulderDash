@@ -1,12 +1,61 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Level {
+
     private int[] highScores;
     private int timeToComplete;
     private int diamondsToWin;
-    private  int amoebaSpreadRate;
+    private int amoebaSpreadRate;
     private int amoebaMaxSize;
+
+    /**
+     * Constructor for the level class, utilises file reading to initialise basic attributes
+     * @param file {@code File} level file containing information about the board and level
+     * @throws FileNotFoundException
+     */
+    public Level(File file) throws FileNotFoundException {
+
+        // Create a scanner to read the level attributes from its file
+        Scanner fileScanner = new Scanner(new FileInputStream(file));
+        fileScanner.useDelimiter("--LEVELDATA");
+
+        // Jump to the level data section of the file
+        fileScanner.next();
+        fileScanner.nextLine();
+
+        // Create a new scanner to parse the highscores array
+        Scanner scoresScanner = new Scanner(fileScanner.nextLine());
+        scoresScanner.useDelimiter(",");
+        int[] highScores = new int[10];
+        int currentIndex = 0;
+
+        // Add each score to the array
+        while (scoresScanner.hasNext()) {
+            highScores[currentIndex] = scoresScanner.nextInt();
+            currentIndex++;
+        }
+
+        // Initialise the level attributes from their respective lines in the file
+        int timeToComplete = Integer.parseInt(fileScanner.nextLine());
+        int diamondsToWin = Integer.parseInt(fileScanner.nextLine());
+        int amoebaSpreadRate = Integer.parseInt(fileScanner.nextLine());
+        int amoebaMaxSize = Integer.parseInt(fileScanner.nextLine());
+        fileScanner.close();
+
+        this.highScores = highScores;
+        this.timeToComplete = timeToComplete;
+        this.diamondsToWin = diamondsToWin;
+        this.amoebaSpreadRate = amoebaSpreadRate;
+        this.amoebaMaxSize = amoebaMaxSize;
+    }
 
     // TODO: Load levels
     public void initialiseLevel() {
+
+
     }
 
     public int[] getHighScores() {

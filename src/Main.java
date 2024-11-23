@@ -33,6 +33,7 @@ import javafx.util.Duration;
  *
  * @author Liam O'Reilly
  */
+
 public class Main extends Application {
     // The dimensions of the window
     private static final int WINDOW_WIDTH = 800;
@@ -336,6 +337,5 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        Player player1 = new Player("John");
     }
 }
