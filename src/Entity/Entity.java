@@ -7,6 +7,7 @@ public abstract class Entity {
   protected String actorType;
   protected int gameTick;
 
-  public abstract void removeTarget();
-  public abstract void isColliding(); 
+  protected abstract void removeTarget();
+  protected abstract void isColliding(); 
+  protected abstract void dropDiamond();
 }
