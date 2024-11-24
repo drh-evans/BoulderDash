@@ -1,18 +1,14 @@
 package Entity;
 
 public class Frog extends Enemy {
-  private int[][] playerPosition;
+  private int playerPositionX;
+  private int playerPositionY;
   private boolean playerReachable;
-
-  public Frog() {
-    playerPosition = = new int[1][2];
-  }
-    
 
   // Track the player's position
   private void getPlayerPosition(Character character) {
-    playerPosition[0][0] = character.getX();
-    playerPosition[0][1] = character.getY();
+    playerPositionX = character.getX();
+    playerPositionY = character.getY();
   }
 
   
