@@ -1,5 +1,5 @@
 /**
- * Character class representing a players character.
+ * Character class representing a player's character.
  * @author rhysevans
  */
 public class Character {

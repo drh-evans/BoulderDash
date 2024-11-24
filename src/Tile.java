@@ -1,5 +1,3 @@
-package Tile;
-
 public abstract class Tile {
 
     protected int x;

@@ -1,16 +1,14 @@
-package Entity;
-
-public class Boulder extend Entity {
+public class Boulder extends Entity {
   protected boolean isPushable;
 
   public Boulder(boolean isPassive, boolean canFall, Tile position, String actorType, int gameTick, boolean isPushable) {
-   super(true, canFall, position, "Boulder", gameTick);
-   this.isPushable = isPushable;
+    super(true, canFall, position, "Boulder", gameTick);
+    this.isPushable = isPushable;
   }
 
   protected void isColliding (MagicWall magicWall) {
-    
-    }
+  }
+
 
   protected void isColliding (Character character) {
   
@@ -20,4 +18,27 @@ public class Boulder extend Entity {
   }
 
 
+  /**
+   *
+   */
+  @Override
+  protected void removeTarget() {
+
+  }
+
+  /**
+   *
+   */
+  @Override
+  protected void isColliding() {
+
+  }
+
+  /**
+   *
+   */
+  @Override
+  protected void dropDiamond() {
+
+  }
 }

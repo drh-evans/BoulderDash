@@ -62,9 +62,7 @@ public class Level {
 
     // TODO: Load levels
     public void initialiseLevel() {
-
-
-
+        
     }
 
     public int[] getHighScores() {
