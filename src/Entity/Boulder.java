@@ -3,11 +3,9 @@ package Entity;
 public class Boulder extend Entity {
   protected boolean isPushable;
 
-  public Boulder() {
-    isPassive = true;
-    canFall = false;
-    isPushable = true;
-    actorType = "Boulder";
+  public Boulder(boolean isPassive, boolean canFall, Tile position, String actorType, int gameTick, boolean isPushable) {
+   super(true, canFall, position, "Boulder", gameTick);
+   this.isPushable = isPushable;
   }
 
   protected void isColliding (MagicWall magicWall) {
