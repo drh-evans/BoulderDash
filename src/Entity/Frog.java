@@ -9,10 +9,8 @@ public class Frog extends Enemy {
   private int playerPositionY;
   private boolean playerReachable;
 
- public Frog () {
-  isPassive = false;
-  canFall = false;
-  actorType = "Frog";
+ public Frog (boolean isPassive, boolean canFall, Tile position, String actorType, int gameTick) {
+  super(false, false, position, "Frog", gameTick);
  
  }
 
