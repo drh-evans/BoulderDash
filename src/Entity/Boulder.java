@@ -9,14 +9,14 @@ public class Boulder extend Entity {
     actorType = "Boulder";
   }
 
-  private void isColliding (MagicWall magicWall) {
+  protected void isColliding (MagicWall magicWall) {
     
     }
 
-  private void isColliding (Character character) {
+  protected void isColliding (Character character) {
   
   }
-  public void removeTarget (Character character) {
+  protected void removeTarget (Character character) {
     character = null;
   }
 
