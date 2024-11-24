@@ -6,6 +6,7 @@ public class Boulder extend Entity {
   public Boulder() {
     isPassive = true;
     canFall = false;
+    isPushable = true;
     actorType = "Boulder";
   }
 
