@@ -10,18 +10,17 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import java.io.FileNotFoundException;
 
 /**
  * Sample application that demonstrates the use of JavaFX Canvas for a Game.
@@ -33,22 +32,24 @@ import javafx.util.Duration;
  *
  * @author Liam O'Reilly
  */
-
 public class Main extends Application {
     // The dimensions of the window
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 500;
 
-    // The dimensions of the canvas
-    private static final int CANVAS_WIDTH = 600;
-    private static final int CANVAS_HEIGHT = 400;
 
     // The width and height (in pixels) of each cell that makes up the game.
     private static final int GRID_CELL_WIDTH = 50;
     private static final int GRID_CELL_HEIGHT = 50;
 
     // The width of the grid in number of cells.
-    private static final int GRID_WIDTH = 12;
+    // TODO ensure that the height and width is same as loaded
+    private static final int GRID_WIDTH = Level.getWidth();
+    private static final int GRID_HEIGHT = Level.getHeight();
+
+    // The dimensions of the canvas
+    private static final int CANVAS_WIDTH = GRID_WIDTH * GRID_CELL_WIDTH;
+    private static final int CANVAS_HEIGHT = GRID_HEIGHT * GRID_CELL_HEIGHT;
 
     // The canvas in the GUI. This needs to be a global variable
     // (in this setup) as we need to access it in different methods.
@@ -73,15 +74,15 @@ public class Main extends Application {
      */
     public void start(Stage primaryStage) {
         // Load images. Note we use png images with a transparent background.
-        playerImage = new Image("player.png");
-        dirtImage = new Image("dirt.png");
-        iconImage = new Image("icon.png");
+        playerImage = new Image("Images/player.png");
+        dirtImage = new Image("Images/dirt.png");
 
         // Build the GUI
         Pane root = buildGUI();
-
+        root.setBackground(Background.fill(Color.MIDNIGHTBLUE));
         // Create a scene from the GUI
         Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+        scene.setFill(Color.MIDNIGHTBLUE);
 
         // Register an event handler for key presses.
         // This causes the processKeyEvent method to be called each time a key is pressed.
@@ -96,6 +97,7 @@ public class Main extends Application {
 
         // Display the scene on the stage
         drawGame();
+        primaryStage.setTitle("Boulder Dash Group 9");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -105,29 +107,25 @@ public class Main extends Application {
      * @param event The key event that was pressed.
      */
     public void processKeyEvent(KeyEvent event) {
-        // We change the behaviour depending on the actual key that was pressed.
         switch (event.getCode()) {
-            case RIGHT, D:
+            case D, RIGHT:
                 // Right key was pressed. So move the player right by one cell.
                 playerX = playerX + 1;
                 break;
-            case LEFT, A:
-                // Left key was pressed. So move the player left by one cell.
+            case A, LEFT:
                 playerX = playerX - 1;
                 break;
-            case UP, W:
-                // Up key was pressed. So move the player up by one cell.
-                playerY = playerY - 1;
-                break;
-            case DOWN, S:
-                // Down key was pressed. So move the player down by one cell.
+            case S, DOWN:
+                // Right key was pressed. So move the player right by one cell.
                 playerY = playerY + 1;
+                break;
+            case W, UP:
+                playerY = playerY - 1;
                 break;
             default:
                 // Do nothing for all other keys.
                 break;
         }
-
         // Redraw game as the player may have moved.
         drawGame();
 
@@ -146,15 +144,13 @@ public class Main extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         // Set the background to gray.
-        gc.setFill(Color.GRAY);
+        gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         // Draw row of dirt images
         // We multiply by the cell width and height to turn a coordinate in our grid into a pixel coordinate.
         // We draw the row at y value 2.
-        for (int x = 0; x < GRID_WIDTH; x++) {
-            gc.drawImage(dirtImage, x * GRID_CELL_WIDTH, 2 * GRID_CELL_HEIGHT);
-        }
+        Level.initialiseLevel(gc);
 
         // Draw player at current location
         gc.drawImage(playerImage, playerX * GRID_CELL_WIDTH, playerY * GRID_CELL_HEIGHT);
@@ -194,26 +190,6 @@ public class Main extends Application {
         }
         // We then redraw the whole canvas.
         drawGame();
-    }
-
-    /**
-     * React when an object is dragged onto the canvas.
-     * @param event The drag event itself which contains data about the drag that occurred.
-     */
-    public void canvasDragDroppedOccured(DragEvent event) {
-        double x = event.getX();
-        double y = event.getY();
-
-        // Print a string showing the location.
-        String s = String.format("You dropped at (%f, %f) relative to the canvas.", x, y);
-        System.out.println(s);
-
-        // Draw an icon at the dropped location.
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        // Draw the the image so the top-left corner is where we dropped.
-        gc.drawImage(iconImage, x, y);
-        // Draw the the image so the center is where we dropped.
-        // gc.drawImage(iconImage, x - iconImage.getWidth() / 2.0, y - iconImage.getHeight() / 2.0);
     }
 
     /**
@@ -285,26 +261,6 @@ public class Main extends Application {
         draggableImage.setImage(iconImage);
         toolbar.getChildren().add(draggableImage);
 
-        // This code setup what happens when the dragging starts on the image.
-        // You probably don't need to change this (unless you wish to do more advanced things).
-        draggableImage.setOnDragDetected(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                // Mark the drag as started.
-                // We do not use the transfer mode (this can be used to indicate different forms
-                // of drags operations, for example, moving files or copying files).
-                Dragboard db = draggableImage.startDragAndDrop(TransferMode.ANY);
-
-                // We have to put some content in the clipboard of the drag event.
-                // We do not use this, but we could use it to store extra data if we wished.
-                ClipboardContent content = new ClipboardContent();
-                content.putString("Hello");
-                db.setContent(content);
-
-                // Consume the event. This means we mark it as dealt with.
-                event.consume();
-            }
-        });
-
         // This code allows the canvas to receive a dragged object within its bounds.
         // You probably don't need to change this (unless you wish to do more advanced things).
         canvas.setOnDragOver(new EventHandler<DragEvent>() {
@@ -320,22 +276,15 @@ public class Main extends Application {
             }
         });
 
-        // This code allows the canvas to react to a dragged object when it is finally dropped.
-        // You probably don't need to change this (unless you wish to do more advanced things).
-        canvas.setOnDragDropped(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                // We call this method which is where the bulk of the behaviour takes place.
-                canvasDragDroppedOccured(event);
-                // Consume the event. This means we mark it as dealt with.
-                event.consume();
-            }
-        });
-
         // Finally, return the border pane we built up.
         return root;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        System.out.println("Actual height and width: ");
+        System.out.println(GRID_HEIGHT);
+        System.out.println(GRID_WIDTH);
+        Level l1 = new Level("src/Level1.txt");
         launch(args);
     }
 }

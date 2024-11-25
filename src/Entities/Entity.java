@@ -1,3 +1,5 @@
+package Entities;
+
 public abstract class Entity {
   protected boolean isPassive;
   protected boolean canFall;

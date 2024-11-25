@@ -1,8 +1,17 @@
+import Entities.Entity;
+import Tiles.Dirt;
+import Tiles.Path;
+import Tiles.Tile;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * @author Nathan Welby
+ * @deprecated
+ */
 public class Board {
 
     private int width;

@@ -1,11 +1,5 @@
-2 2
-
-D D
-D D
-
---LEVELDATA
-1,2,3,4,5,6,7,8,9,10
-120
-5
-2
-15
+4 12
+P P P D P P D P D D D D
+D D D D D D D D D D D D
+P P P P P P P P P P P P
+P P P D P P D P D D D E

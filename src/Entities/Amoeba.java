@@ -1,10 +1,12 @@
-public class Butterfly extends FlyingEnemy{
+package Entities;
+
+public class Amoeba extends Entity {
     /**
      *
      */
     @Override
     protected void removeTarget() {
-        
+
     }
 
     /**
