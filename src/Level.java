@@ -21,71 +21,108 @@ public class Level {
     private static final int GRID_CELL_WIDTH = 50;
     private static final int GRID_CELL_HEIGHT = 50;
 
-    // The width of the grid in number of cells.
-    private static final int GRID_WIDTH = 12;
-    private static final int GRID_HEIGHT = 8;
+    // Txt file where level information is stored
+    private final File levelFile;
 
-    // TODO: Bug to be fixed (to do with the static)
-    private static int width = 12;
-    private static int height = 4;
+    // Top ten highest scores of this level
+    private final int[] highscores = new int[10];
 
-    /*
-    private static String[] tiles ={"P","P","W","D","P","P","D","P","D","D","D","P",
-            "D","D","D","D","D","D","D","D","D","D","D","D",
-            "P","P","P","P","W","P","P","P","P","P","P","P",
-            "TW","TW","TW","TW","P","P","D","P","D","D","D","E"};
-     */
-    private static String[] tiles;
+    // Auxiliary level attributes (not currently in use)
+    private final int timeToComplete;
+    private final int diamondsToWin;
+    private final int amoebaSpreadRate;
+    private final int amoebaMaxSize;
+
+    // Width and height of level in tiles
+    private int width;
+    private int height;
+
+    // Array to store tile placeholders
+    private String[] tiles;
 
     /**
-     *
+     * Initialises auxiliary attributes of the level
      * @param levelPath levelPath, a file path to a level.txt file.
      * @throws FileNotFoundException
      */
-    public Level (String levelPath) throws FileNotFoundException {
+    public Level(String levelPath) throws FileNotFoundException {
+        // initialise the levelFile attribute for future reference
+        levelFile = new File(levelPath);
+
+        // Create a scanner to read the level attributes from its file
+        Scanner fileScanner = new Scanner(levelFile);
+        fileScanner.useDelimiter("--LEVELDATA");
+
+        // Jump to the level data section of the file
+        fileScanner.next();
+        fileScanner.nextLine();
+
+        // Create a new scanner to parse the highscores array
+        Scanner scoresScanner = new Scanner(fileScanner.nextLine());
+        scoresScanner.useDelimiter(",");
+        int currentIndex = 0;
+
+        // Add each score to the array
+        while (scoresScanner.hasNext()) {
+            getHighscores()[currentIndex] = scoresScanner.nextInt();
+            currentIndex++;
+        }
+
+        // Initialise the level attributes from their respective lines in the file
+        timeToComplete = Integer.parseInt(fileScanner.nextLine());
+        diamondsToWin = Integer.parseInt(fileScanner.nextLine());
+        amoebaSpreadRate = Integer.parseInt(fileScanner.nextLine());
+        amoebaMaxSize = Integer.parseInt(fileScanner.nextLine());
+        fileScanner.close();
+
+        // call the loadLevel() method to handle the tile array
         loadLevel(levelPath);
     }
 
     /**
-     * Loads a levels file data.
+     * Loads a level's tile data.
      * @param path path, the file path of the level file.
      * @throws FileNotFoundException
      */
-    public static void loadLevel (String path) throws FileNotFoundException {
-        try {
-            // Find file and create scanner with the space delimiter.
-            File level = new File(path);
-            Scanner levelScanner = new Scanner(level);
-            levelScanner.useDelimiter(" |\\n");
+    public void loadLevel(String path) throws FileNotFoundException {
+        // Find file and create scanner with the space delimiter.
+        File level = new File(path);
+        Scanner levelScanner = new Scanner(level);
 
-            height = levelScanner.nextInt();
-            width = levelScanner.nextInt();
+        // Initialise level height and width
+        height = Integer.parseInt(levelScanner.next());
+        width = Integer.parseInt(levelScanner.next());
 
-            System.out.println("Loaded height and width: ");
-            System.out.println(height);
-            System.out.println(width);
+        // Set the max size of the tile array equal to the number of tile tokens in the file
+        tiles = new String[width * height];
 
-            int amountOfTiles = height * width;
-            tiles = new String[amountOfTiles];
-
-            System.out.println("Loaded tiles.");
-            // Set the tiles into position in the array.
-            for (int i = 0; i < tiles.length; i++) {
-                tiles[i] = levelScanner.next();
-                System.out.print(tiles[i] + " ");
+        // Set the tiles into position in the array.
+        // Reads the array one row at a time
+        // Keeps track of position using a nested for loop
+        for (int y = 0; y < height; y++) {
+            if (levelScanner.hasNextLine()) {
+                levelScanner.nextLine();
+                for (int x = 0; x < width; x++) {
+                    if (levelScanner.hasNext()) {
+                        tiles[(y * width) + x] = levelScanner.next();
+                    }
+                }
             }
-            levelScanner.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            throw e;
         }
+
+        // Print the array contents and size for testing
+        for (String tile : tiles) {
+            System.out.print(tile + " ");
+        }
+        System.out.println("Tile array size: " + tiles.length);
+        levelScanner.close();
     }
 
     /**
      * Method to initialise the visualisation of the level.
      * @param gc the graphics context of the canvas
      */
-    public static void initialiseLevel(GraphicsContext gc) {
+    public void initialiseLevel(GraphicsContext gc) {
         // The row / columns.
         int row = 0;
         int col = 0;
@@ -133,11 +170,59 @@ public class Level {
         }
     }
 
-    public static int getWidth() {
+    /**
+     * Returns the width of the level in tiles
+     * @return {@code int} the width of the level in tiles
+     */
+    public int getWidth() {
         return width;
     }
 
-    public static int getHeight() {
+    /**
+     * Returns the height of the level in tiles
+     * @return {@code int} the height of the level in tiles
+     */
+    public int getHeight() {
         return height;
+    }
+
+    /**
+     * Returns the amount of time given to complete the level
+     * @return {@code int} the amount of time to complete the level
+     */
+    public int getTimeToComplete() {
+        return timeToComplete;
+    }
+
+    /**
+     * Returns the amount of diamonds required to complete the level
+     * @return {@code int} the amount of diamonds required to beat the level
+     */
+    public int getDiamondsToWin() {
+        return diamondsToWin;
+    }
+
+    /**
+     * Returns the spread rate of amoeba in the level
+     * @return {@code int} the spread rate of amoeba in the level
+     */
+    public int getAmoebaSpreadRate() {
+        return amoebaSpreadRate;
+    }
+
+    /**
+     * Returns the maximum size of amoeba in the level
+     * @return {@code int} the maximum size of amoeba in the level
+     */
+    public int getAmoebaMaxSize() {
+        return amoebaMaxSize;
+    }
+
+    /**
+     * Gets the array of the top ten scores of the level
+     * @return {@code int[]} top ten scores of the level
+     */
+    public int[] getHighscores() {
+        return highscores;
     }
 }

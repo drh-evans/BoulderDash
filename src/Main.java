@@ -37,19 +37,20 @@ public class Main extends Application {
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 500;
 
-
     // The width and height (in pixels) of each cell that makes up the game.
     private static final int GRID_CELL_WIDTH = 50;
     private static final int GRID_CELL_HEIGHT = 50;
 
     // The width of the grid in number of cells.
-    // TODO ensure that the height and width is same as loaded
-    private static final int GRID_WIDTH = Level.getWidth();
-    private static final int GRID_HEIGHT = Level.getHeight();
+    private final Level testLevel = new Level("src/Level1.txt");
+
+    // update the grid width and height to match level width and height
+    private final int gridWidth = testLevel.getWidth();
+    private final int gridHeight = testLevel.getHeight();
 
     // The dimensions of the canvas
-    private static final int CANVAS_WIDTH = GRID_WIDTH * GRID_CELL_WIDTH;
-    private static final int CANVAS_HEIGHT = GRID_HEIGHT * GRID_CELL_HEIGHT;
+    private final int canvasWidth = gridWidth * GRID_CELL_WIDTH;
+    private final int canvasHeight = gridHeight * GRID_CELL_HEIGHT;
 
     // The canvas in the GUI. This needs to be a global variable
     // (in this setup) as we need to access it in different methods.
@@ -67,6 +68,13 @@ public class Main extends Application {
 
     // Timeline which will cause tick method to be called periodically.
     private Timeline tickTimeline;
+
+    /**
+     * Placeholder constructor used temporarily for testing
+     * @throws FileNotFoundException
+     */
+    public Main() throws FileNotFoundException {
+    }
 
     /**
      * Setup the new application.
@@ -150,7 +158,7 @@ public class Main extends Application {
         // Draw row of dirt images
         // We multiply by the cell width and height to turn a coordinate in our grid into a pixel coordinate.
         // We draw the row at y value 2.
-        Level.initialiseLevel(gc);
+        testLevel.initialiseLevel(gc);
 
         // Draw player at current location
         gc.drawImage(playerImage, playerX * GRID_CELL_WIDTH, playerY * GRID_CELL_HEIGHT);
@@ -202,7 +210,7 @@ public class Main extends Application {
 
         // Create the canvas that we will draw on.
         // We store this as a gloabl variable so other methods can access it.
-        canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+        canvas = new Canvas(canvasWidth, canvasHeight);
         root.setCenter(canvas);
 
         // Create a toolbar with some nice padding and spacing
@@ -281,10 +289,22 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
+        Main main = new Main();
+
         System.out.println("Actual height and width: ");
-        System.out.println(GRID_HEIGHT);
-        System.out.println(GRID_WIDTH);
-        Level l1 = new Level("src/Level1.txt");
+        System.out.println(main.gridHeight);
+        System.out.println(main.gridWidth);
+
+        System.out.println("Auxiliary level attributes: ");
+        System.out.print("Highscores: ");
+        for (int score : main.testLevel.getHighscores()) {
+            System.out.print(score + " ");
+        }
+        System.out.println();
+        System.out.println("Time to complete: " + main.testLevel.getTimeToComplete());
+        System.out.println("Diamonds to win: " + main.testLevel.getDiamondsToWin());
+        System.out.println("Amoeba spread rate: " + main.testLevel.getAmoebaSpreadRate());
+        System.out.println("Amoeba max size: " + main.testLevel.getAmoebaMaxSize());
         launch(args);
     }
 }
