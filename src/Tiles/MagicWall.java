@@ -1,6 +1,10 @@
 package Tiles;
 
-import Tiles.Tile;
-
 public class MagicWall extends Tile {
+
+    public MagicWall(int x, int y) {
+        super(x, y, "Magic Wall", true, false, false);
+    }
+
+
 }
