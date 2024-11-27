@@ -43,10 +43,10 @@ public class Board {
 
                 switch(tileCode) {
                     case "D":
-                        tileBoard[y][x] = new Dirt();
+                        tileBoard[y][x] = new Dirt(x,y);
 
                     case "P":
-                        tileBoard[y][x] = new Path();
+                        tileBoard[y][x] = new Path(x,y);
                 }
             }
         }
