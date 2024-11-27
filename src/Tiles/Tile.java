@@ -5,8 +5,20 @@ public abstract class Tile {
     protected int x;
     protected int y;
     protected String tileType;
-    protected boolean isDestructable;
+    protected boolean isDestructible;
     protected boolean isTraversable;
+    protected boolean isTraversableEnemies;
+
+
+
+    public Tile (int x, int y, String tileType, boolean isDestructible, boolean isTraversable, boolean isTraversableEnemies) {
+        this.x = x;
+        this.y = y;
+        this.tileType = tileType;
+        this.isDestructible = isDestructible;
+        this.isTraversable = isTraversable;
+        this.isTraversableEnemies = isTraversableEnemies;
+    }
 
     public int getX() {
         return x;
@@ -32,12 +44,12 @@ public abstract class Tile {
         this.tileType = tileType;
     }
 
-    public boolean isDestructable() {
-        return isDestructable;
+    public boolean isDestructible() {
+        return isDestructible;
     }
 
-    public void setDestructable(boolean destructable) {
-        isDestructable = destructable;
+    public void setDestructible(boolean destructible) {
+        isDestructible = destructible;
     }
 
     public boolean isTraversable() {
@@ -47,4 +59,7 @@ public abstract class Tile {
     public void setTraversable(boolean traversable) {
         isTraversable = traversable;
     }
+
 }
+
+
