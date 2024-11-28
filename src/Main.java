@@ -63,6 +63,7 @@ public class Main extends Application {
     private Image iconImage;
 
     // X and Y coordinate of player on the grid.
+    private Character character = new Character();
     private int playerX = 0;
     private int playerY = 0;
 
@@ -87,7 +88,7 @@ public class Main extends Application {
 
         // Build the GUI
         Pane root = buildGUI();
-        root.setBackground(Background.fill(Color.MIDNIGHTBLUE));
+        // root.setBackground(Background.fill(Color.MIDNIGHTBLUE));
         // Create a scene from the GUI
         Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
         scene.setFill(Color.MIDNIGHTBLUE);
@@ -115,39 +116,10 @@ public class Main extends Application {
      * @param event The key event that was pressed.
      */
     public void processKeyEvent(KeyEvent event) {
-            switch (event.getCode()) {
-                case D, RIGHT:
-                    // Right key/D was pressed. So move the player right by one cell.
-                    playerX = playerX + 1;
-                    if (playerX == gridWidth) {
-                        playerX--;
-                    }
-                    break;
-                case A, LEFT:
-                    // Left key/A was pressed. So move the player right by one cell.
-                    playerX = playerX - 1;
-                    if (playerX < 0) {
-                        playerX++;
-                    }
-                    break;
-                case S, DOWN:
-                    // Down key/S was pressed. So move the player right by one cell.
-                    playerY = playerY + 1;
-                    if (playerY == gridHeight) {
-                        playerY--;
-                    }
-                    break;
-                case W, UP:
-                    // Up key/W was pressed. So move the player right by one cell.
-                    playerY = playerY - 1;
-                    if (playerY < 0) {
-                        playerY++;
-                    }
-                    break;
-                default:
-                    // Do nothing for all other keys.
-                    break;
-            }
+        character.moveCharacter(event, gridWidth, gridHeight);
+
+        playerX = character.getX();
+        playerY = character.getY();
         // Redraw game as the player may have moved.
         drawGame();
         System.out.println("(" + playerX + " " + playerY + ")");
