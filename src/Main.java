@@ -115,28 +115,42 @@ public class Main extends Application {
      * @param event The key event that was pressed.
      */
     public void processKeyEvent(KeyEvent event) {
-        switch (event.getCode()) {
-            case D, RIGHT:
-                // Right key was pressed. So move the player right by one cell.
-                playerX = playerX + 1;
-                break;
-            case A, LEFT:
-                playerX = playerX - 1;
-                break;
-            case S, DOWN:
-                // Right key was pressed. So move the player right by one cell.
-                playerY = playerY + 1;
-                break;
-            case W, UP:
-                playerY = playerY - 1;
-                break;
-            default:
-                // Do nothing for all other keys.
-                break;
-        }
+            switch (event.getCode()) {
+                case D, RIGHT:
+                    // Right key/D was pressed. So move the player right by one cell.
+                    playerX = playerX + 1;
+                    if (playerX == gridWidth) {
+                        playerX--;
+                    }
+                    break;
+                case A, LEFT:
+                    // Left key/A was pressed. So move the player right by one cell.
+                    playerX = playerX - 1;
+                    if (playerX < 0) {
+                        playerX++;
+                    }
+                    break;
+                case S, DOWN:
+                    // Down key/S was pressed. So move the player right by one cell.
+                    playerY = playerY + 1;
+                    if (playerY == gridHeight) {
+                        playerY--;
+                    }
+                    break;
+                case W, UP:
+                    // Up key/W was pressed. So move the player right by one cell.
+                    playerY = playerY - 1;
+                    if (playerY < 0) {
+                        playerY++;
+                    }
+                    break;
+                default:
+                    // Do nothing for all other keys.
+                    break;
+            }
         // Redraw game as the player may have moved.
         drawGame();
-
+        System.out.println("(" + playerX + " " + playerY + ")");
         // Consume the event. This means we mark it as dealt with. This stops other GUI nodes (buttons etc) responding to it.
         event.consume();
     }
