@@ -1,8 +1,8 @@
 package Tiles;
 
 public class TitaniumWall extends Tile {
-
+    static final String tileType = "T";
     public TitaniumWall(int x, int y) {
-        super(x, y, "Titanium Wall", false, false, false);
+        super(x, y, false, false, false);
     }
 }

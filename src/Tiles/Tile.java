@@ -11,10 +11,9 @@ public abstract class Tile {
 
 
 
-    public Tile (int x, int y, String tileType, boolean isDestructible, boolean isTraversable, boolean isTraversableEnemies) {
+    public Tile (int x, int y, boolean isDestructible, boolean isTraversable, boolean isTraversableEnemies) {
         this.x = x;
         this.y = y;
-        this.tileType = tileType;
         this.isDestructible = isDestructible;
         this.isTraversable = isTraversable;
         this.isTraversableEnemies = isTraversableEnemies;
