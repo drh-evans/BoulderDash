@@ -1,5 +1,8 @@
 package Tiles;
 
+/**
+ * @author Adam Bartlett
+ */
 public abstract class Tile {
 
     protected int x;
@@ -8,7 +11,6 @@ public abstract class Tile {
     protected boolean isDestructible;
     protected boolean isTraversable;
     protected boolean isTraversableEnemies;
-
 
 
     public Tile (int x, int y, boolean isDestructible, boolean isTraversable, boolean isTraversableEnemies) {

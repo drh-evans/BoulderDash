@@ -64,8 +64,8 @@ public class Main extends Application {
 
     // X and Y coordinate of player on the grid.
     private Character character = new Character();
-    private int playerX = 0;
-    private int playerY = 0;
+    private int playerX;
+    private int playerY;
 
     // Timeline which will cause tick method to be called periodically.
     private Timeline tickTimeline;
@@ -122,7 +122,6 @@ public class Main extends Application {
         playerY = character.getY();
         // Redraw game as the player may have moved.
         drawGame();
-        System.out.println("(" + playerX + " " + playerY + ")");
         // Consume the event. This means we mark it as dealt with. This stops other GUI nodes (buttons etc) responding to it.
         event.consume();
     }

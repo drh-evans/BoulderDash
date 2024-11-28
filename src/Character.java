@@ -2,7 +2,7 @@ import javafx.scene.input.KeyEvent;
 
 /**
  * Character class representing a player's character.
- * @author rhysevans
+ * @author Rhys Evans
  */
 public class Character {
     private int X;
