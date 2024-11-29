@@ -142,26 +142,13 @@ public class Level {
             for (Tile tile : tiles) {
                 // check tiles array for the type of tile.
                 switch (tile.getTileToken()) {
-                    case "D":
-                        gc.drawImage(DIRT, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
-                        break;
-                    case "P":
-                        gc.drawImage(PATH, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
-                        break;
-                    case "E":
-                        gc.drawImage(EXIT, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
-                        break;
-                    case "W":
-                        gc.drawImage(WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
-                        break;
-                    case "MW":
-                        gc.drawImage(MAGIC_WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
-                        break;
-                    case "TW":
-                        gc.drawImage(TITANIUM_WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
-                        break;
-                    default:
-                        break;
+                    case "D" -> gc.drawImage(DIRT, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "P" -> gc.drawImage(PATH, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "E" -> gc.drawImage(EXIT, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "W" -> gc.drawImage(WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "M"-> gc.drawImage(MAGIC_WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "T" -> gc.drawImage(TITANIUM_WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    default -> System.out.println("No valid tile found!");
                 }
 
                 x++;
