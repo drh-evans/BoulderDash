@@ -1,3 +1,5 @@
+import Tiles.Tile;
+
 /**
  * Class to build and store the players relevant data.
  * @author rhysevans

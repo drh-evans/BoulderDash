@@ -90,4 +90,4 @@ public class Character {
     public void setY(int y) {
         Y = y;
     }
-}
+    }
