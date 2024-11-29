@@ -1,7 +1,9 @@
+import Tiles.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -38,7 +40,7 @@ public class Level {
     private int height;
 
     // Array to store tile placeholders
-    private String[] tiles;
+    private Tile[] tiles;
 
     /**
      * Initialises auxiliary attributes of the level
@@ -94,7 +96,9 @@ public class Level {
         width = Integer.parseInt(levelScanner.next());
 
         // Set the max size of the tile array equal to the number of tile tokens in the file
-        tiles = new String[width * height];
+        tiles = new Tile[width * height];
+        Tile currentTile;
+        HashMap<String, Tile> objectTokenMap = Tile.getObjectTokenMap();
 
         // Set the tiles into position in the array.
         // Reads the array one row at a time
@@ -104,15 +108,18 @@ public class Level {
                 levelScanner.nextLine();
                 for (int x = 0; x < width; x++) {
                     if (levelScanner.hasNext()) {
-                        tiles[(y * width) + x] = levelScanner.next();
+                        currentTile = objectTokenMap.get(levelScanner.next());
+                        currentTile.setX(x);
+                        currentTile.setY(y);
+                        tiles[(y * width) + x] = currentTile;
                     }
                 }
             }
         }
 
         // Print the array contents and size for testing
-        for (String tile : tiles) {
-            System.out.print(tile + " ");
+        for (Tile tile : tiles) {
+            System.out.print(tile.getTileToken() + " ");
         }
         System.out.println("Tile array size: " + tiles.length);
         levelScanner.close();
@@ -132,9 +139,9 @@ public class Level {
 
         // Check that the board hasn't been filled.
         while (col < width && row < height) {
-            for (String tile : tiles) {
+            for (Tile tile : tiles) {
                 // check tiles array for the type of tile.
-                switch (tile) {
+                switch (tile.getTileToken()) {
                     case "D":
                         gc.drawImage(DIRT, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                         break;
