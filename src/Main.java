@@ -13,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -66,9 +65,14 @@ public class Main extends Application {
     private Character character = new Character();
     private int playerX;
     private int playerY;
+    // String to represent the key pressed.
+    private String keyPressed = " ";
 
     // Timeline which will cause tick method to be called periodically.
     private Timeline tickTimeline;
+
+    // Boolean to decide game status.
+    private boolean gameOver = false;
 
     /**
      * Placeholder constructor used temporarily for testing
@@ -99,7 +103,7 @@ public class Main extends Application {
 
         // Register a tick method to be called periodically.
         // Make a new timeline with one keyframe that triggers the tick method every half a second.
-        tickTimeline = new Timeline(new KeyFrame(Duration.millis(500), event -> tick()));
+        tickTimeline = new Timeline(new KeyFrame(Duration.millis(600), event -> tick()));
         // Loop the timeline forever
         tickTimeline.setCycleCount(Animation.INDEFINITE);
         // We start the timeline upon a button press.
@@ -113,15 +117,26 @@ public class Main extends Application {
 
     /**
      * Process a key event due to a key being pressed, e.g., to move the player.
+     *
      * @param event The key event that was pressed.
      */
     public void processKeyEvent(KeyEvent event) {
-        character.moveCharacter(event, gridWidth, gridHeight);
-
+        // character.moveCharacter(event, gridWidth, gridHeight);
+        switch (event.getCode()) {
+            case UP, W -> keyPressed = "UP";
+            case DOWN, S -> keyPressed = "DOWN";
+            case RIGHT, D -> keyPressed = "RIGHT";
+            case LEFT, A -> keyPressed = "LEFT";
+            default -> keyPressed = " ";
+        }
+        System.out.println(keyPressed);
+        /*
         playerX = character.getX();
         playerY = character.getY();
+
         // Redraw game as the player may have moved.
         drawGame();
+         */
         // Consume the event. This means we mark it as dealt with. This stops other GUI nodes (buttons etc) responding to it.
         event.consume();
     }
@@ -175,13 +190,15 @@ public class Main extends Application {
      * over them all and calling their own tick method).
      */
     public void tick() {
-        // Here we move the player right one cell and teleport
-        // them back to the left side when they reach the right side.
-        playerX = playerX + 1;
-        if (playerX > 11) {
-            playerX = 0;
-        }
-        // We then redraw the whole canvas.
+        // Move the character.
+        character.moveCharacter(keyPressed, gridWidth, gridHeight);
+
+        // Reset key pressed so that new movement is read or character doesn't move.
+        keyPressed = " ";
+        playerX = character.getX();
+        playerY = character.getY();
+
+        // Redraw the game with new X, Y.
         drawGame();
     }
 

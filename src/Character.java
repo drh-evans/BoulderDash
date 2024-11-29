@@ -1,49 +1,53 @@
-import javafx.scene.input.KeyEvent;
 
 /**
- * Character class representing a player's character.
+ * Character class to control the movement and representation of
+ * a player's character in-game.
  * @author Rhys Evans
  */
 public class Character {
     private int X;
     private int Y;
 
+    /**
+     * Creates a character to be spawned on the map.
+     */
     public Character() {
         this.X = 0;
         this.Y = 0;
     }
 
     /**
-     * Controls character movement.
-     * @param event event key inputted by player.
+     * Controls the characters movement based off of keyboard input.
+     * Checks if the players move is within the grid limits.
+     * @param keyPressed key inputted by player.
      * @param gridWidth the width of the game grid.
      * @param gridHeight the height of the game grid.
      */
-    public void moveCharacter(KeyEvent event, int gridWidth, int gridHeight) {
-        switch (event.getCode()) {
-            case D, RIGHT:
-                // Right key/D was pressed. So move the player right by one cell.
+    public void moveCharacter(String keyPressed, int gridWidth, int gridHeight) {
+        switch (keyPressed) {
+            case "RIGHT":
+                // Right key was pressed. So move the player right by one cell.
                 X++;
                 if (X == gridWidth) {
                     X--;
                 }
                 break;
-            case A, LEFT:
-                // Left key/A was pressed. So move the player right by one cell.
+            case "LEFT":
+                // Left key was pressed. So move the player right by one cell.
                 X--;
                 if (X < 0) {
                     X++;
                 }
                 break;
-            case S, DOWN:
-                // Down key/S was pressed. So move the player right by one cell.
+            case "DOWN":
+                // Down key was pressed. So move the player right by one cell.
                 Y++;
                 if (Y == gridHeight) {
                     Y--;
                 }
                 break;
-            case W, UP:
-                // Up key/W was pressed. So move the player right by one cell.
+            case "UP":
+                // Up key was pressed. So move the player right by one cell.
                 Y--;
                 if (Y < 0) {
                     Y++;
@@ -55,18 +59,34 @@ public class Character {
         }
     }
 
+    /**
+     * Getter for the characters X coordinate.
+     * @return X the characters X coordinate.
+     */
     public int getX() {
         return X;
     }
 
+    /**
+     * Setter for the characters X coordinate.
+     * @param x the characters new X coordinate.
+     */
     public void setX(int x) {
         X = x;
     }
 
+    /**
+     * Getter for the characters Y coordinate.
+     * @return Y the characters Y coordinate.
+     */
     public int getY() {
         return Y;
     }
 
+    /**
+     * Setter for the characters Y coordinate.
+     * @param y the characters new Y coordinate.
+     */
     public void setY(int y) {
         Y = y;
     }
