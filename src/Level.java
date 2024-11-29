@@ -165,6 +165,20 @@ public class Level {
     }
 
     /**
+     * Destroys the tile at the players position if it is destructible
+     * @param player
+     */
+    public void destroyTile(Player player) {
+        // Retrieve the X and Y coordinates of the character
+        int tilePos = player.getPlayerCharacter().getY() * width + player.getPlayerCharacter().getX();
+
+        // Checks if the occupied tile is destructible
+        if (tiles[tilePos].isDestructible() && tiles[tilePos] != null) {
+            tiles[tilePos] = null;
+        }
+    }
+
+    /**
      * Returns the width of the level in tiles
      * @return {@code int} the width of the level in tiles
      */
