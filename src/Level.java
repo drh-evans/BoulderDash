@@ -36,11 +36,11 @@ public class Level {
     private final int amoebaMaxSize;
 
     // Width and height of level in tiles
-    private int width;
+    private static int width;
     private int height;
 
     // Array to store tile placeholders
-    private Tile[] tiles;
+    private static Tile[] tiles;
 
     /**
      * Initialises auxiliary attributes of the level
@@ -177,6 +177,27 @@ public class Level {
             tiles[tilePos] = null;
         }
     }
+
+
+    /**
+     * Checks the tile a player will move on to.
+     * @param x The x coordinate of the tile
+     * @param y The y coordinate of the tile
+     * @param tileToken Checks if tile matches the token
+     */
+    public static boolean checkTile(int x, int y, String tileToken){
+        int tilePos = y * width + x;
+        return tiles[tilePos].getTileToken().equals(tileToken) && (tiles[tilePos] != null);
+    }
+
+    public static void transformToPath(int x, int y){
+        int tilePos = y * width + x;
+        if(tiles[tilePos].isDestructible()) {
+            tiles[tilePos] = new Path(x,y);
+        }
+
+    }
+
 
     /**
      * Returns the width of the level in tiles

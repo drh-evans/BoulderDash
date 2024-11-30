@@ -28,6 +28,12 @@ public class Character {
             case "RIGHT":
                 // Right key was pressed. So move the player right by one cell.
                 X++;
+                if (Level.checkTile(X, Y, "D")) {
+                    // Call method to turn dirt to path
+                    Level.transformToPath(X,Y);
+                    System.out.println("Test Dirt");
+                }
+
                 if (X == gridWidth) {
                     X--;
                 }
@@ -35,6 +41,11 @@ public class Character {
             case "LEFT":
                 // Left key was pressed. So move the player right by one cell.
                 X--;
+                if (Level.checkTile(X, Y, "D")) {
+                    // Call method to turn dirt to path
+                    Level.transformToPath(X,Y);
+                    System.out.println("Test Dirt");
+                }
                 if (X < 0) {
                     X++;
                 }
@@ -42,6 +53,11 @@ public class Character {
             case "DOWN":
                 // Down key was pressed. So move the player right by one cell.
                 Y++;
+                if (Level.checkTile(X, Y, "D")) {
+                    // Call method to turn dirt to path
+                    Level.transformToPath(X,Y);
+                    System.out.println("Test Dirt");
+                }
                 if (Y == gridHeight) {
                     Y--;
                 }
@@ -49,6 +65,11 @@ public class Character {
             case "UP":
                 // Up key was pressed. So move the player right by one cell.
                 Y--;
+                if (Level.checkTile(X, Y, "D")) {
+                    // Call method to turn dirt to path
+                    Level.transformToPath(X,Y);
+                    System.out.println("Test Dirt");
+                }
                 if (Y < 0) {
                     Y++;
                 }
