@@ -28,50 +28,49 @@ public class Character {
             case "RIGHT":
                 // Right key was pressed. So move the player right by one cell.
                 X++;
+                if (X == gridWidth) {
+                    X--;
+                }
                 if (Level.checkTile(X, Y, "D")) {
                     // Call method to turn dirt to path
                     Level.transformToPath(X,Y);
                     System.out.println("Test Dirt");
-                }
-
-                if (X == gridWidth) {
-                    X--;
                 }
                 break;
             case "LEFT":
                 // Left key was pressed. So move the player right by one cell.
                 X--;
+                if (X < 0) {
+                    X++;
+                }
                 if (Level.checkTile(X, Y, "D")) {
                     // Call method to turn dirt to path
                     Level.transformToPath(X,Y);
                     System.out.println("Test Dirt");
-                }
-                if (X < 0) {
-                    X++;
                 }
                 break;
             case "DOWN":
                 // Down key was pressed. So move the player right by one cell.
                 Y++;
+                if (Y == gridHeight) {
+                    Y--;
+                }
                 if (Level.checkTile(X, Y, "D")) {
                     // Call method to turn dirt to path
                     Level.transformToPath(X,Y);
                     System.out.println("Test Dirt");
-                }
-                if (Y == gridHeight) {
-                    Y--;
                 }
                 break;
             case "UP":
                 // Up key was pressed. So move the player right by one cell.
                 Y--;
+                if (Y < 0) {
+                    Y++;
+                }
                 if (Level.checkTile(X, Y, "D")) {
                     // Call method to turn dirt to path
                     Level.transformToPath(X,Y);
                     System.out.println("Test Dirt");
-                }
-                if (Y < 0) {
-                    Y++;
                 }
                 break;
             default:

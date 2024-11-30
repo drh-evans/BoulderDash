@@ -190,12 +190,18 @@ public class Level {
         return tiles[tilePos].getTileToken().equals(tileToken) && (tiles[tilePos] != null);
     }
 
+    /**
+     * transforms a dirt tile to a path tile.
+     * @param x the players x position.
+     * @param y the players y position.
+     */
     public static void transformToPath(int x, int y){
         int tilePos = y * width + x;
+        // check if the tile is destructible.
         if(tiles[tilePos].isDestructible()) {
+            // turn the tile to path.
             tiles[tilePos] = new Path(x,y);
         }
-
     }
 
 
