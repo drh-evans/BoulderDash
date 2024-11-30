@@ -28,9 +28,12 @@ public class Character {
             case "RIGHT":
                 // Right key was pressed. So move the player right by one cell.
                 X++;
-                if (X == gridWidth) {
+
+                //Checks if the tile is traversable and within the board
+                if (X == gridWidth || !Level.checkTileIsTraversable(X,Y)) {
                     X--;
                 }
+
                 if (Level.checkTile(X, Y, "D")) {
                     // Call method to turn dirt to path
                     Level.transformToPath(X,Y);
@@ -40,9 +43,12 @@ public class Character {
             case "LEFT":
                 // Left key was pressed. So move the player right by one cell.
                 X--;
-                if (X < 0) {
-                    X++;
+
+                //Checks if the tile is traversable and within the board
+                if (X < 0 || !Level.checkTileIsTraversable(X,Y)) {
+                X++;
                 }
+
                 if (Level.checkTile(X, Y, "D")) {
                     // Call method to turn dirt to path
                     Level.transformToPath(X,Y);
@@ -52,9 +58,12 @@ public class Character {
             case "DOWN":
                 // Down key was pressed. So move the player right by one cell.
                 Y++;
-                if (Y == gridHeight) {
+
+                //Checks if the tile is traversable and within the board
+                if (Y == gridHeight || !Level.checkTileIsTraversable(X,Y)){
                     Y--;
                 }
+
                 if (Level.checkTile(X, Y, "D")) {
                     // Call method to turn dirt to path
                     Level.transformToPath(X,Y);
@@ -64,9 +73,12 @@ public class Character {
             case "UP":
                 // Up key was pressed. So move the player right by one cell.
                 Y--;
-                if (Y < 0) {
+
+                //Checks if the tile is traversable and within the board
+                if (Y < 0 || !Level.checkTileIsTraversable(X,Y)) {
                     Y++;
                 }
+
                 if (Level.checkTile(X, Y, "D")) {
                     // Call method to turn dirt to path
                     Level.transformToPath(X,Y);

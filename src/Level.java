@@ -179,6 +179,17 @@ public class Level {
     }
 
 
+
+    /**
+     * Checks that the tile a player will move to is traversable
+     * @param x The x coordinate of the tile
+     * @param y The y coordinate of the tile
+     */
+    public static boolean checkTileIsTraversable(int x, int y){
+        int tilePos = y * width + x;
+        return tiles[tilePos].isTraversable() && (tiles[tilePos] != null);
+    }
+
     /**
      * Checks the tile a player will move on to.
      * @param x The x coordinate of the tile
