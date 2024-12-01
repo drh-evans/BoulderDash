@@ -181,6 +181,22 @@ public class Level {
         }
     }
 
+    /**
+     * Track and rank the top 10 score of level
+     * @param newHighScore
+     */
+    public void newHighScore(int newHighScore) {
+        for (int i = 0;i < highscores.length; i++) {
+            if(newHighScore > highscores[i]) {
+                for (int j = highscores.length - 1; j > i; j--) {
+                    highscores[j] = highscores[j - 1];
+                }
+                highscores[i] = newHighScore;
+                break;
+            }
+        }
+    }
+
     public Tile[] getTiles() {
         return tiles;
     }

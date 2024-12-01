@@ -189,6 +189,13 @@ public class LevelController {
         stage.show();
     }
 
+    //Score checking everytime a player finish a level
+    public void scoreChecking(Player player, Level currentLevel, int score) {
+        if (score > player.getHighScore()) {
+            player.setHighScore(score);
+        }
+        currentLevel.newHighScore(score);
+    }
 
     /**
      * Process a key event due to a key being pressed, e.g., to move the player.
