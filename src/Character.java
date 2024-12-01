@@ -1,5 +1,8 @@
 import Tiles.Path;
 import Tiles.Tile;
+import javafx.scene.canvas.GraphicsContext;
+
+import java.io.FileNotFoundException;
 
 /**
  * Character class to control the movement and representation of
@@ -9,6 +12,7 @@ import Tiles.Tile;
 public class Character {
     private int x;
     private int y;
+    private int diamondsCollected;
     private Level currentLevel;
     private Tile[] tiles;
 
@@ -98,6 +102,22 @@ public class Character {
             transformToPath(tilePos);
         } else if (checkExitTile(tilePos)) {
             System.out.println("GAME OVER");
+            loadNextLevel();
+        }
+    }
+
+    private void loadNextLevel() {
+        try {
+            // Loads the next level
+            currentLevel.loadLevel("src/Level2.txt");
+
+            // Resets the characters position for next level
+            x = 0;
+            y = 0;
+
+            System.out.println("Loading next Level");
+        } catch (FileNotFoundException e) {
+            System.out.println("No level found");
         }
     }
 
