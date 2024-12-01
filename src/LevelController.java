@@ -3,8 +3,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 /**
@@ -274,11 +277,32 @@ public class LevelController {
         Button centerPlayerLocationButton = new Button("Center Player");
         toolbar.getChildren().add(centerPlayerLocationButton);
 
+
         // Setup the behaviour of the button.
         centerPlayerLocationButton.setOnAction(e -> {
             // We keep this method short and use a method for the bulk of the work.
             movePlayerToCenter(currentLevel);
         });
+
+        // Return to main menu
+        Button returnToMenu = new Button("Return to main menu");
+        toolbar.getChildren().add(returnToMenu);
+
+        returnToMenu.setOnAction(e -> {
+            Parent menu = null;
+            try {
+                // loads menu fxml file
+                menu = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            // get present stage
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            // set new stage
+            stage.setScene(new Scene(menu));
+            stage.show();
+        });
+
 
         // Tick Timeline buttons
         Button startTickTimelineButton = new Button("Play");
