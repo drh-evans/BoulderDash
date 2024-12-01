@@ -45,6 +45,8 @@ public class LevelController {
     // The width of the grid in number of cells.
     private final Level testLevel = new Level("src/Level1.txt");
     private final Level l2 = new Level("src/Level2.txt");
+    private final Level l3 = new Level("src/Level3.txt");
+
 
     // update the grid width and height to match level width and height
     private int gridWidth;
@@ -82,21 +84,30 @@ public class LevelController {
 
 
     /**
-     * Creates level ones display.
-     * @param openGame button was pressed.
+     * Creates a template for each level creation.
+     * @param desiredLevel The level to be loaded.
      */
-    public void createLevel1(ActionEvent openGame) {
+    public void createLevelTemplate(Level desiredLevel){
         //Sets attributes for the level
-        Level desiredLevel = testLevel;
         setGridWidth(desiredLevel.getWidth());
         setGridHeight(desiredLevel.getHeight());
         setCharacter(new Character(desiredLevel));
 
         canvasHeight = gridHeight * GRID_CELL_HEIGHT;
         canvasWidth = gridWidth * GRID_CELL_WIDTH;
+    }
+
+
+    /**
+     * Creates level ones display.
+     * @param openGame button was pressed.
+     */
+    public void createLevel1(ActionEvent openGame) {
+        //Sets attributes for the level
+        createLevelTemplate(testLevel);
 
         //Calls Liam's code to create the game display
-        createGame(openGame, desiredLevel);
+        createGame(openGame, testLevel);
     }
 
 
@@ -106,20 +117,25 @@ public class LevelController {
      */
     public void createLevel2(ActionEvent openGame) {
         //Sets attributes for the level
-        Level desiredLevel = l2;
-        setGridWidth(desiredLevel.getWidth());
-        setGridHeight(desiredLevel.getHeight());
-        setCharacter(new Character(desiredLevel));
-
-        canvasHeight = gridHeight * GRID_CELL_HEIGHT;
-        canvasWidth = gridWidth * GRID_CELL_WIDTH;
+        createLevelTemplate(l2);
 
         //Calls Liam's code to create the game display
-        createGame(openGame, desiredLevel);
+        createGame(openGame, l2);
     }
 
+    /**
+     * Creates level threes display.
+     * @param openGame button was pressed.
+     */
+    public void createLevel3(ActionEvent openGame) {
+        //Sets attributes for the level
+        createLevelTemplate(l3);
 
+        //Calls Liam's code to create the game display
+        createGame(openGame, l3);
+    }
 
+    
     /**
      * Updates stage to display the game.
      * @param openGame button was pressed.
