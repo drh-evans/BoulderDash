@@ -106,11 +106,11 @@ public class Character {
         }
     }
 
+    // TODO FIX BUG WITH LEVEL LOAD
     private void loadNextLevel() {
         try {
             // Loads the next level
             currentLevel.loadLevel("src/Level2.txt");
-
             // Resets the characters position for next level
             x = 0;
             y = 0;
