@@ -39,7 +39,7 @@ public class Character {
                     x--;
                 }
 
-                checkDirt(x, y,gridWidth);
+                checkTile(x, y,gridWidth);
 
                 break;
             case "LEFT":
@@ -51,7 +51,7 @@ public class Character {
                 x++;
                 }
 
-                checkDirt(x, y,gridWidth);
+                checkTile(x, y,gridWidth);
 
                 break;
             case "DOWN":
@@ -63,7 +63,7 @@ public class Character {
                     y--;
                 }
 
-                checkDirt(x, y,gridWidth);
+                checkTile(x, y,gridWidth);
 
                 break;
             case "UP":
@@ -75,7 +75,7 @@ public class Character {
                     y++;
                 }
                 // check if the tile is dirt
-                checkDirt(x, y,gridWidth);
+                checkTile(x, y,gridWidth);
                 break;
             default:
                 // Do nothing for all other keys.
@@ -89,13 +89,15 @@ public class Character {
      * @param y the prospective y coordinate.
      * @param width the grids width.
      */
-    private void checkDirt(int x, int y, int width) {
+    private void checkTile(int x, int y, int width) {
         // The position of the tile.
         int tilePos = y * width + x;
         // If the tile is a dirt tile.
         if (checkDirtTile(tilePos)) {
             // Convert the tile to a path.
             transformToPath(tilePos);
+        } else if (checkExitTile(tilePos)) {
+            System.out.println("GAME OVER");
         }
     }
 
@@ -118,6 +120,16 @@ public class Character {
      */
     private boolean checkDirtTile(int tilePos) {
         return tiles[tilePos].getTileToken().equals("D") && (tiles[tilePos] != null);
+    }
+
+    // TODO, implement that the level changes if exit is stood on (and min diamonds unlocked)
+    private boolean checkExitTile(int tilePos) {
+        return tiles[tilePos].getTileToken().equals("E") && (tiles[tilePos] != null);
+    }
+
+    // TODO implement that diamonds can be collected and then turn to paths
+    private boolean checkDiamondTile(int tilePos) {
+        return tiles[tilePos].getTileToken().equals("*") && (tiles[tilePos] != null);
     }
 
     private void transformToPath(int tilePos) {
