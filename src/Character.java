@@ -1,3 +1,5 @@
+import Tiles.Path;
+import Tiles.Tile;
 
 /**
  * Character class to control the movement and representation of
@@ -5,15 +7,19 @@
  * @author Rhys Evans
  */
 public class Character {
-    private int X;
-    private int Y;
+    private int x;
+    private int y;
+    private Level currentLevel;
+    private Tile[] tiles;
 
     /**
      * Creates a character to be spawned on the map.
      */
-    public Character() {
-        this.X = 0;
-        this.Y = 0;
+    public Character(Level level) {
+        this.x = 0;
+        this.y = 0;
+        this.currentLevel = level;
+        this.tiles = currentLevel.getTiles();
     }
 
     /**
@@ -27,63 +33,49 @@ public class Character {
         switch (keyPressed) {
             case "RIGHT":
                 // Right key was pressed. So move the player right by one cell.
-                X++;
-
+                x++;
                 //Checks if the tile is traversable and within the board
-                if (X == gridWidth || !Level.checkTileIsTraversable(X,Y)) {
-                    X--;
+                if (x == gridWidth || !checkTileIsTraversable(x, y, gridWidth)) {
+                    x--;
                 }
 
-                if (Level.checkTile(X, Y, "D")) {
-                    // Call method to turn dirt to path
-                    Level.transformToPath(X,Y);
-                    System.out.println("Test Dirt");
-                }
+                checkDirt(x, y,gridWidth);
+
                 break;
             case "LEFT":
                 // Left key was pressed. So move the player right by one cell.
-                X--;
+                x--;
 
                 //Checks if the tile is traversable and within the board
-                if (X < 0 || !Level.checkTileIsTraversable(X,Y)) {
-                X++;
+                if (x < 0 || !checkTileIsTraversable(x, y, gridWidth)) {
+                x++;
                 }
 
-                if (Level.checkTile(X, Y, "D")) {
-                    // Call method to turn dirt to path
-                    Level.transformToPath(X,Y);
-                    System.out.println("Test Dirt");
-                }
+                checkDirt(x, y,gridWidth);
+
                 break;
             case "DOWN":
                 // Down key was pressed. So move the player right by one cell.
-                Y++;
+                y++;
 
                 //Checks if the tile is traversable and within the board
-                if (Y == gridHeight || !Level.checkTileIsTraversable(X,Y)){
-                    Y--;
+                if (y == gridHeight || !checkTileIsTraversable(x, y, gridWidth)){
+                    y--;
                 }
 
-                if (Level.checkTile(X, Y, "D")) {
-                    // Call method to turn dirt to path
-                    Level.transformToPath(X,Y);
-                    System.out.println("Test Dirt");
-                }
+                checkDirt(x, y,gridWidth);
+
                 break;
             case "UP":
                 // Up key was pressed. So move the player right by one cell.
-                Y--;
+                y--;
 
                 //Checks if the tile is traversable and within the board
-                if (Y < 0 || !Level.checkTileIsTraversable(X,Y)) {
-                    Y++;
+                if (y < 0 || !checkTileIsTraversable(x, y, gridWidth)) {
+                    y++;
                 }
-
-                if (Level.checkTile(X, Y, "D")) {
-                    // Call method to turn dirt to path
-                    Level.transformToPath(X,Y);
-                    System.out.println("Test Dirt");
-                }
+                // check if the tile is dirt
+                checkDirt(x, y,gridWidth);
                 break;
             default:
                 // Do nothing for all other keys.
@@ -92,11 +84,57 @@ public class Character {
     }
 
     /**
+     * Checks if the new tile is a dirt tile, if so changes to path.
+     * @param x the prospective x coordinate.
+     * @param y the prospective y coordinate.
+     * @param width the grids width.
+     */
+    private void checkDirt(int x, int y, int width) {
+        // The position of the tile.
+        int tilePos = y * width + x;
+        // If the tile is a dirt tile.
+        if (checkDirtTile(tilePos)) {
+            // Convert the tile to a path.
+            transformToPath(tilePos);
+        }
+    }
+
+    /**
+     *
+     * @param x the new player x.
+     * @param y the new player y.
+     * @param width the grid width.
+     * @return
+     */
+    private boolean checkTileIsTraversable(int x, int y, int width){
+        int tilePos = y * width + x;
+        return tiles[tilePos].isTraversable() && (tiles[tilePos] != null);
+    }
+
+    /**
+     *
+     * @param tilePos the tiles position.
+     * @return whether the tile is dirt.
+     */
+    private boolean checkDirtTile(int tilePos) {
+        return tiles[tilePos].getTileToken().equals("D") && (tiles[tilePos] != null);
+    }
+
+    private void transformToPath(int tilePos) {
+        // check if the tile is destructible.
+        if(tiles[tilePos].isDestructible()) {
+            // turn the tile to path.
+            tiles[tilePos] = new Path(x,y);
+        }
+    }
+
+
+    /**
      * Getter for the characters X coordinate.
      * @return X the characters X coordinate.
      */
     public int getX() {
-        return X;
+        return x;
     }
 
     /**
@@ -104,7 +142,7 @@ public class Character {
      * @param x the characters new X coordinate.
      */
     public void setX(int x) {
-        X = x;
+        this.x = x;
     }
 
     /**
@@ -112,7 +150,7 @@ public class Character {
      * @return Y the characters Y coordinate.
      */
     public int getY() {
-        return Y;
+        return y;
     }
 
     /**
@@ -120,6 +158,6 @@ public class Character {
      * @param y the characters new Y coordinate.
      */
     public void setY(int y) {
-        Y = y;
+        this.y = y;
     }
 }

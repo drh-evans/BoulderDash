@@ -16,7 +16,7 @@ public class Amoeba extends Entity {
      *
      */
     @Override
-    protected void removeTarget() {
+    public void removeTarget() {
 
     }
 
@@ -24,7 +24,7 @@ public class Amoeba extends Entity {
      *
      */
     @Override
-    protected void isColliding() {
+    public void isColliding() {
 
     }
 
@@ -32,7 +32,7 @@ public class Amoeba extends Entity {
      *
      */
     @Override
-    protected void dropDiamond() {
+    public void dropDiamond() {
 
     }
 }

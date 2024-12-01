@@ -42,6 +42,7 @@ public class Main extends Application {
 
     // The width of the grid in number of cells.
     private final Level testLevel = new Level("src/Level1.txt");
+    private final Level l2 = new Level("src/Level2.txt");
 
     // update the grid width and height to match level width and height
     private final int gridWidth = testLevel.getWidth();
@@ -62,7 +63,7 @@ public class Main extends Application {
     private Image iconImage;
 
     // X and Y coordinate of player on the grid.
-    private Character character = new Character();
+    private final Character character = new Character(testLevel);
     private int playerX;
     private int playerY;
     // String to represent the key pressed.
@@ -72,7 +73,7 @@ public class Main extends Application {
     private Timeline tickTimeline;
 
     // Boolean to decide game status.
-    private boolean gameOver = false;
+    private final boolean gameOver = false;
 
     /**
      * Placeholder constructor used temporarily for testing
@@ -129,14 +130,9 @@ public class Main extends Application {
             case LEFT, A -> keyPressed = "LEFT";
             default -> keyPressed = " ";
         }
-        System.out.println(keyPressed);
-        /*
-        playerX = character.getX();
-        playerY = character.getY();
 
         // Redraw game as the player may have moved.
         drawGame();
-         */
         // Consume the event. This means we mark it as dealt with. This stops other GUI nodes (buttons etc) responding to it.
         event.consume();
     }
@@ -158,6 +154,7 @@ public class Main extends Application {
         // Draw row of dirt images
         // We multiply by the cell width and height to turn a coordinate in our grid into a pixel coordinate.
         // We draw the row at y value 2.
+
         testLevel.initialiseLevel(gc);
 
         // Draw player at current location
@@ -168,8 +165,8 @@ public class Main extends Application {
      * Reset the player's location and move them back to (0,0).
      */
     public void resetPlayerLocation() {
-        playerX = 0;
-        playerY = 0;
+        character.setX(0);
+        character.setY(0);
         drawGame();
     }
 
@@ -178,8 +175,8 @@ public class Main extends Application {
      */
     public void movePlayerToCenter() {
         // We just move the player to cell (5, 2)
-        playerX = 5;
-        playerY = 2;
+        character.setX(5);
+        character.setY(2);
         drawGame();
     }
 
@@ -244,8 +241,8 @@ public class Main extends Application {
         });
 
         // Tick Timeline buttons
-        Button startTickTimelineButton = new Button("Start Ticks");
-        Button stopTickTimelineButton = new Button("Stop Ticks");
+        Button startTickTimelineButton = new Button("Play");
+        Button stopTickTimelineButton = new Button("Pause");
         // We add both buttons at the same time to the timeline (we could have done this in two steps).
         toolbar.getChildren().addAll(startTickTimelineButton, stopTickTimelineButton);
         // Stop button is disabled by default

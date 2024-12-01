@@ -16,7 +16,7 @@ public class Wall extends Tile{
     }
 
     /**
-     * Positionless constructor for use in the object token hashmap
+     * Positionless constructor for use in the object token hashmap.
      */
     public Wall() {
         super(true, false, false, "W");

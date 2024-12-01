@@ -5,7 +5,7 @@ public class Butterfly extends FlyingEnemy {
      *
      */
     @Override
-    protected void removeTarget() {
+    public void removeTarget() {
         
     }
 
@@ -13,7 +13,7 @@ public class Butterfly extends FlyingEnemy {
      *
      */
     @Override
-    protected void isColliding() {
+    public void isColliding() {
 
     }
 
@@ -21,7 +21,7 @@ public class Butterfly extends FlyingEnemy {
      *
      */
     @Override
-    protected void dropDiamond() {
+    public void dropDiamond() {
 
     }
 }

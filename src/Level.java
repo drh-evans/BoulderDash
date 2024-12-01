@@ -36,11 +36,11 @@ public class Level {
     private final int amoebaMaxSize;
 
     // Width and height of level in tiles
-    private static int width;
+    private int width;
     private int height;
 
     // Array to store tile placeholders
-    private static Tile[] tiles;
+    private Tile[] tiles;
 
     /**
      * Initialises auxiliary attributes of the level
@@ -100,17 +100,20 @@ public class Level {
         Tile currentTile;
         HashMap<String, Tile> objectTokenMap = Tile.getObjectTokenMap();
 
-        // Set the tiles into position in the array.
-        // Reads the array one row at a time
-        // Keeps track of position using a nested for loop
+        /* Set the tiles into position in the array.
+         * Reads the array one row at a time.
+         * Keeps track of position using a nested for loop .
+         */
         for (int y = 0; y < height; y++) {
             if (levelScanner.hasNextLine()) {
                 levelScanner.nextLine();
                 for (int x = 0; x < width; x++) {
                     if (levelScanner.hasNext()) {
                         currentTile = objectTokenMap.get(levelScanner.next());
+                        // set the X and Y coordinates of the new tile.
                         currentTile.setX(x);
                         currentTile.setY(y);
+                        // add the new tile to its position in the array.
                         tiles[(y * width) + x] = currentTile;
                     }
                 }
@@ -178,43 +181,9 @@ public class Level {
         }
     }
 
-
-
-    /**
-     * Checks that the tile a player will move to is traversable
-     * @param x The x coordinate of the tile
-     * @param y The y coordinate of the tile
-     */
-    public static boolean checkTileIsTraversable(int x, int y){
-        int tilePos = y * width + x;
-        return tiles[tilePos].isTraversable() && (tiles[tilePos] != null);
+    public Tile[] getTiles() {
+        return tiles;
     }
-
-    /**
-     * Checks the tile a player will move on to.
-     * @param x The x coordinate of the tile
-     * @param y The y coordinate of the tile
-     * @param tileToken Checks if tile matches the token
-     */
-    public static boolean checkTile(int x, int y, String tileToken){
-        int tilePos = y * width + x;
-        return tiles[tilePos].getTileToken().equals(tileToken) && (tiles[tilePos] != null);
-    }
-
-    /**
-     * transforms a dirt tile to a path tile.
-     * @param x the players x position.
-     * @param y the players y position.
-     */
-    public static void transformToPath(int x, int y){
-        int tilePos = y * width + x;
-        // check if the tile is destructible.
-        if(tiles[tilePos].isDestructible()) {
-            // turn the tile to path.
-            tiles[tilePos] = new Path(x,y);
-        }
-    }
-
 
     /**
      * Returns the width of the level in tiles

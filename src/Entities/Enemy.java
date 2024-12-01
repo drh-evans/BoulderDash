@@ -4,17 +4,17 @@ import Entities.Entity;
 
 public class Enemy extends Entity {
     @Override
-    protected void removeTarget() {
+    public void removeTarget() {
 
     }
 
     @Override
-    protected void isColliding() {
+    public void isColliding() {
 
     }
 
     @Override
-    protected void dropDiamond() {
+    public void dropDiamond() {
 
     }
 }
