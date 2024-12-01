@@ -2,8 +2,12 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,6 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Sample application that demonstrates the use of JavaFX Canvas for a Game.
@@ -82,11 +87,24 @@ public class Main extends Application {
     public Main() throws FileNotFoundException {
     }
 
+
     /**
-     * Setup the new application.
-     * @param primaryStage The stage that is to be used for the application.
+     * Loads the main menu
+     * @param stage The stage that is to be used for the application.
      */
-    public void start(Stage primaryStage) {
+    public void start(Stage stage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle("Main Menu!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Creates a new stage to display the game.
+     */
+    public void createGame(ActionEvent openGame) {
+        Stage stage = (Stage) ((Node) openGame.getSource()).getScene().getWindow();
         // Load images. Note we use png images with a transparent background.
         playerImage = new Image("Images/player.png");
         dirtImage = new Image("Images/dirt.png");
@@ -111,9 +129,9 @@ public class Main extends Application {
 
         // Display the scene on the stage
         drawGame();
-        primaryStage.setTitle("Boulder Dash Group 9");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setTitle("Boulder Dash Group 9");
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
