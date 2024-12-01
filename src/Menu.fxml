@@ -8,15 +8,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MenuController">
    <children>
       <ImageView fitHeight="327.0" fitWidth="477.0" layoutX="-43.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/MenuBackground.jpg" />
          </image>
       </ImageView>
-      <Button layoutY="477.0" mnemonicParsing="false" onAction="#createGame" text="Temp Load Game" />
-      <MenuButton alignment="CENTER" contentDisplay="RIGHT" layoutX="110.0" layoutY="336.0" minWidth="200.0" mnemonicParsing="false" text="Select Profile" textAlignment="CENTER">
+      <ImageView fitHeight="198.0" fitWidth="461.0" layoutX="-11.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/MenuHeader.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="110.0" layoutY="231.0" minWidth="200.0" mnemonicParsing="false" text="Create Profile" textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <MenuButton alignment="CENTER" contentDisplay="RIGHT" layoutX="110.0" layoutY="293.0" minWidth="200.0" mnemonicParsing="false" text="Select Profile" textAlignment="CENTER">
         <items>
           <MenuItem mnemonicParsing="false" text="Action 1" />
           <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -25,16 +34,11 @@
             <Font size="16.0" />
          </font>
       </MenuButton>
-      <Button layoutX="110.0" layoutY="398.0" minWidth="200.0" mnemonicParsing="false" text="High Score Table" textAlignment="CENTER">
+      <Button layoutX="110.0" layoutY="356.0" minWidth="200.0" mnemonicParsing="false" text="High Score Table" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font></Button>
-      <ImageView fitHeight="198.0" fitWidth="461.0" layoutX="-11.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Images/MenuHeader.png" />
-         </image>
-      </ImageView>
-      <Button layoutX="110.0" layoutY="275.0" minWidth="200.0" mnemonicParsing="false" text="Create Profile" textAlignment="CENTER">
+      <Button layoutX="110.0" layoutY="418.0" minWidth="200.0" mnemonicParsing="false" onAction="#openLevels" text="Load Levels" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>

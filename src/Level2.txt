@@ -1,6 +1,6 @@
 4 14
-W W W W W W W W W W W W W W
-W P P P P P P P P P P P P W
+D D W W W W W W W W W W W W
+D P P P P P P P P P P P P W
 W P P P P P P P P P P P P W
 W W W W W W W W W W W W W W
 
