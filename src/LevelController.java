@@ -174,6 +174,21 @@ public class LevelController {
         stage.show();
     }
 
+    public void returnToMenu(ActionEvent e){
+        Parent menu = null;
+        try {
+            // loads menu fxml file
+            menu = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        // get present stage
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        // set new stage
+        stage.setScene(new Scene(menu));
+        stage.show();
+    }
+
 
     /**
      * Process a key event due to a key being pressed, e.g., to move the player.
@@ -304,20 +319,7 @@ public class LevelController {
         Button returnToMenu = new Button("Return to main menu");
         toolbar.getChildren().add(returnToMenu);
 
-        returnToMenu.setOnAction(e -> {
-            Parent menu = null;
-            try {
-                // loads menu fxml file
-                menu = FXMLLoader.load(getClass().getResource("Menu.fxml"));
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            // get present stage
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            // set new stage
-            stage.setScene(new Scene(menu));
-            stage.show();
-        });
+        returnToMenu.setOnAction(this::returnToMenu);
 
 
         // Tick Timeline buttons
