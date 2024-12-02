@@ -197,6 +197,7 @@ public class LevelController {
         currentLevel.newHighScore(score);
     }
 
+
     /**
      * Process a key event due to a key being pressed, e.g., to move the player.
      *
