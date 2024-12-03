@@ -309,31 +309,10 @@ public class LevelController {
         toolbar.setPadding(new Insets(10, 10, 10, 10));
         root.setTop(toolbar);
 
+        scoreDisplay.setFont(Font.font("Impact", 18));
         toolbar.getChildren().add(scoreDisplay);
 
         // Create the toolbar content
-
-        // Reset Player Location Button
-        Button resetPlayerLocationButton = new Button("Reset Player");
-        toolbar.getChildren().add(resetPlayerLocationButton);
-
-        // Setup the behaviour of the button.
-        resetPlayerLocationButton.setOnAction(e -> {
-            // We keep this method short and use a method for the bulk of the work.
-            resetPlayerLocation(currentLevel);
-        });
-
-        // Center Player Button
-        Button centerPlayerLocationButton = new Button("Center Player");
-        toolbar.getChildren().add(centerPlayerLocationButton);
-
-
-        // Setup the behaviour of the button.
-        centerPlayerLocationButton.setOnAction(e -> {
-            // We keep this method short and use a method for the bulk of the work.
-            movePlayerToCenter(currentLevel);
-        });
-
         // Return to main menu
         Button returnToMenu = new Button("Return to main menu");
         toolbar.getChildren().add(returnToMenu);
