@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -36,7 +35,7 @@ import java.io.IOException;
  * A class which holds the methods that control Levels. It contains loading different levels and
  * creating the game.
  *
- * @author Liam O'Reilly, Adam Bartlett
+ * @author Liam O'Reilly, Adam Bartlett, Rhys Evans
  */
 public class LevelController {
     // The dimensions of the window
@@ -84,6 +83,7 @@ public class LevelController {
 
     // Timeline which will cause tick method to be called periodically.
     private Timeline tickTimeline;
+    private Timeline clockTimeline;
 
     // Boolean to decide game status.
     private boolean gameOver = false;
@@ -172,10 +172,13 @@ public class LevelController {
 
         // Register a tick method to be called periodically.
         // Make a new timeline with one keyframe that triggers the tick method every half a second.
-        tickTimeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> tick(desiredLevel)));
+        tickTimeline = new Timeline(new KeyFrame(Duration.millis(600), event -> tick(desiredLevel)));
         // Loop the timeline forever
         tickTimeline.setCycleCount(Animation.INDEFINITE);
-        // We start the timeline upon a button press.
+
+        // Tick timeline for the timer, set to 1s.
+        clockTimeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> clockTick(desiredLevel)));
+        clockTimeline.setCycleCount(Animation.INDEFINITE);
 
         // Display the scene on the stage
         drawGame(desiredLevel);
@@ -210,7 +213,6 @@ public class LevelController {
 
     /**
      * Process a key event due to a key being pressed, e.g., to move the player.
-     *
      * @param event The key event that was pressed.
      */
     public void processKeyEvent(KeyEvent event, Level currentLevel) {
@@ -222,7 +224,6 @@ public class LevelController {
             case LEFT, A -> keyPressed = "LEFT";
             default -> keyPressed = " ";
         }
-
         // Redraw game as the player may have moved.
         drawGame(currentLevel);
         // Consume the event. This means we mark it as dealt with. This stops other GUI nodes (buttons etc) responding to it.
@@ -275,8 +276,6 @@ public class LevelController {
         drawGame(currentLevel);
     }
 
-    //TODO work around with timeline -- default should be 1000ms for ticking and frog, 200ms default, 600ms player
-
     /**
      * This method is called periodically by the tick timeline
      * and would for, example move, perform logic in the game,
@@ -287,6 +286,16 @@ public class LevelController {
         // Move the character.
         character.moveCharacter(keyPressed, gridWidth, gridHeight);
 
+        // Reset key pressed so that new movement is read or character doesn't move.
+        keyPressed = " ";
+        playerX = character.getX();
+        playerY = character.getY();
+
+        // Redraw the game with new X, Y.
+        drawGame(currentLevel);
+    }
+
+    private void clockTick(Level currentLevel) {
         // get the current time to complete.
         int time = currentLevel.getTimeToComplete();
 
@@ -296,13 +305,9 @@ public class LevelController {
         } else if (!gameOver){
             // decrease time to complete by 1.
             currentLevel.setTimeToComplete();
+            System.out.println(currentLevel.getTimeToComplete());
         }
-        // Reset key pressed so that new movement is read or character doesn't move.
-        keyPressed = " ";
-        playerX = character.getX();
-        playerY = character.getY();
-
-        // Redraw the game with new X, Y.
+        // redraw the graphics in current state.
         drawGame(currentLevel);
     }
 
@@ -352,6 +357,7 @@ public class LevelController {
             // Start the tick timeline and enable/disable buttons as appropriate.
             startTickTimelineButton.setDisable(true);
             tickTimeline.play();
+            clockTimeline.play();
             stopTickTimelineButton.setDisable(false);
         });
 
@@ -359,6 +365,7 @@ public class LevelController {
             // Stop the tick timeline and enable/disable buttons as appropriate.
             stopTickTimelineButton.setDisable(true);
             tickTimeline.stop();
+            clockTimeline.stop();
             startTickTimelineButton.setDisable(false);
         });
 
