@@ -1,17 +1,19 @@
-package Entities;
-
-import Tiles.MagicWall;
+package Game_Objects.Entities;
+import Game_Objects.Tiles.MagicWall;
 
 public class Boulder extends Entity {
-  protected boolean isPushable;
+  private boolean isPushable;
 
-  /*
-  public Boulder(boolean isPassive, boolean canFall, Tile position, String actorType, int gameTick, boolean isPushable) {
-    super(true, canFall, position, "Boulder", gameTick);
-    this.isPushable = isPushable;
+
+  public Boulder(int x, int y) {
+    super(x, y, true, true, 10, "B");
+    this.isPushable = false;
   }
 
-   */
+  public Boulder() {
+    super(true, true, 10, "B");
+    isPushable = false;
+  }
 
   protected void isColliding (MagicWall magicWall) {
   }

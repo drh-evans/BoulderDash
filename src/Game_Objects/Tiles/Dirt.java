@@ -1,4 +1,4 @@
-package Tiles;
+package Game_Objects.Tiles;
 
 /**
  * Class to store information regarding dirt tiles in the game

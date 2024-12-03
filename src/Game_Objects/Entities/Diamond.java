@@ -1,13 +1,18 @@
-package Entities;
+package Game_Objects.Entities;
 
-public class Diamond extends Entity{
+public class Diamond extends Entity {
     private boolean pickedUp;
 
-    public Diamond() {
-        this.canFall = false;
-        this.isPassive = true;
+    public Diamond(int x, int y) {
+        super(x, y, true, true, 10, "*");
         this.pickedUp = false;
     }
+
+    public Diamond() {
+        super(true, true, 10, "*");
+        this.pickedUp = false;
+    }
+
     /**
      *
      */

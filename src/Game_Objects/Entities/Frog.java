@@ -1,20 +1,26 @@
-package Entities;
+package Game_Objects.Entities;
 
 /**
   * Frog class represent frog entity
   * @author elbucheung
 */
-public class Frog extends Enemy {
+public class Frog extends Entity {
   private int playerPositionX;
   private int playerPositionY;
   private boolean playerReachable;
 
-/*
- public Frog (boolean isPassive, boolean canFall, Tile position, String actorType, int gameTick) {
-  super(false, false, position, "Frog", gameTick);
+
+ public Frog(int x, int y) {
+  super(x, y, false, false, 10, "F");
+
  }
 
- */
+  public Frog() {
+    super(false, false, 10, "F");
+
+  }
+
+
 
   // Track the player's position
   private void getPlayerPosition(Character character) {
@@ -22,5 +28,20 @@ public class Frog extends Enemy {
     playerPositionX = character.getX();
     playerPositionY = character.getY();
      */
+  }
+
+  @Override
+  protected void removeTarget() {
+
+  }
+
+  @Override
+  protected void isColliding() {
+
+  }
+
+  @Override
+  protected void dropDiamond() {
+
   }
 }

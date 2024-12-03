@@ -1,39 +1,16 @@
-package Tiles;
-import java.util.HashMap;
+package Game_Objects.Tiles;
+import Game_Objects.GameObject;
 
 /**
  * Tile class to store information regarding tiles in the game
  * @author Adam Bartlett, Nathan Welby
  */
-public abstract class Tile {
+public abstract class Tile extends GameObject {
 
     // Basic attributes for each tile
-    protected int x;
-    protected int y;
-    private final String tileToken;
     protected boolean isDestructible;
     protected boolean isTraversable;
     private boolean isTraversableEnemies;
-
-    // Hashmap to map tile tokens to their respective tile subclass
-    // NOTE: called OBJECT_TOKEN_MAP since it may be used with entities as well
-    private static final HashMap<String, Tile> OBJECT_TOKEN_MAP = new HashMap<>();
-    static {
-        getObjectTokenMap().put("P", new Path());
-        getObjectTokenMap().put("D", new Dirt());
-        getObjectTokenMap().put("E", new Exit());
-        getObjectTokenMap().put("RK", new Key(Colours.RED));
-        getObjectTokenMap().put("YK", new Key(Colours.YELLOW));
-        getObjectTokenMap().put("GK", new Key(Colours.GREEN));
-        getObjectTokenMap().put("BK", new Key(Colours.BLUE));
-        getObjectTokenMap().put("RD", new LockedDoor(Colours.RED));
-        getObjectTokenMap().put("YD", new LockedDoor(Colours.YELLOW));
-        getObjectTokenMap().put("GD", new LockedDoor(Colours.GREEN));
-        getObjectTokenMap().put("BD", new LockedDoor(Colours.BLUE));
-        getObjectTokenMap().put("W", new Wall());
-        getObjectTokenMap().put("M", new MagicWall());
-        getObjectTokenMap().put("T", new TitaniumWall());
-    }
 
     /**
      * Default constructor for constructing normal Tile objects
@@ -42,15 +19,13 @@ public abstract class Tile {
      * @param isDestructible {@code boolean} is the tile destructible
      * @param isTraversable {@code boolean} is the tile traversible by the player
      * @param isTraversableEnemies {@code boolean} is the tile traversible by enemies
-     * @param tileToken {@code String} token for the tile type
+     * @param objectToken {@code String} token for the tile type
      */
-    public Tile (int x, int y, boolean isDestructible, boolean isTraversable, boolean isTraversableEnemies, String tileToken) {
-        this.x = x;
-        this.y = y;
+    public Tile(int x, int y, boolean isDestructible, boolean isTraversable, boolean isTraversableEnemies, String objectToken) {
+        super(x, y, objectToken);
         this.isDestructible = isDestructible;
         this.isTraversable = isTraversable;
         this.setTraversableEnemies(isTraversableEnemies);
-        this.tileToken = tileToken;
     }
 
     /**
@@ -59,54 +34,28 @@ public abstract class Tile {
      * @param isDestructible {@code boolean} is the tile destructible
      * @param isTraversable {@code boolean} is the tile traversible by the player
      * @param isTraversableEnemies {@code boolean} is the tile traversible by enemies
-     * @param tileToken {@code String} token for the tile type
+     * @param objectToken {@code String} token for the tile type
      */
-    public Tile(boolean isDestructible, boolean isTraversable, boolean isTraversableEnemies, String tileToken) {
+    public Tile(boolean isDestructible, boolean isTraversable, boolean isTraversableEnemies, String objectToken) {
+        super(objectToken);
         this.isDestructible = isDestructible;
         this.isTraversable = isTraversable;
         this.setTraversableEnemies(isTraversableEnemies);
-        this.tileToken = tileToken;
     }
 
-    /**
-     * Gets the object token map
-     * @return {@code HashMap<String, Tile>} object token map
-     */
-    public static HashMap<String, Tile> getObjectTokenMap() {
-        return OBJECT_TOKEN_MAP;
-    }
+    /*
+    public static GameObject changeTile(GameObject tile, String newTileToken) {
+        int xPos = tile.getX();
+        int yPos = tile.getY();
 
-    /**
-     * Gets the x position of the tile
-     * @return {@code int} the x position of the tile
-     */
-    public int getX() {
-        return x;
-    }
+        tile = GameObject.getObjectTokenMap().get(newTileToken);
 
-    /**
-     * Updates the x position of the tile
-     * @param x {@code int} the new x position of the tile
-     */
-    public void setX(int x) {
-        this.x = x;
-    }
+        tile.setX(xPos);
+        tile.setY(yPos);
 
-    /**
-     * Gets the y position of the tile
-     * @return {@code int} the y position of the tile
-     */
-    public int getY() {
-        return y;
+        return tile;
     }
-
-    /**
-     * Updates the y position of the tile
-     * @param y {@code int} the new y position of the tile
-     */
-    public void setY(int y) {
-        this.y = y;
-    }
+    */
 
     /**
      * Gets whether the tile is destructible
@@ -157,14 +106,6 @@ public abstract class Tile {
      */
     public void setTraversableEnemies(boolean traversableEnemies) {
         isTraversableEnemies = traversableEnemies;
-    }
-
-    /**
-     * Gets the tile token of the tile
-     * @return {@code String} the tile token of the tile
-     */
-    public String getTileToken() {
-        return tileToken;
     }
 }
 

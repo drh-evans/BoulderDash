@@ -1,4 +1,6 @@
-import Tiles.*;
+import Game_Objects.GameObject;
+import Game_Objects.Tiles.Path;
+import Game_Objects.Tiles.Tile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import java.io.File;
@@ -42,7 +44,7 @@ public class Level {
     private int height;
 
     // Array to store tile placeholders
-    private Tile[] tiles;
+    private GameObject[] gameBoard;
 
     /**
      * Initialises auxiliary attributes of the level
@@ -98,9 +100,9 @@ public class Level {
         width = Integer.parseInt(levelScanner.next());
 
         // Set the max size of the tile array equal to the number of tile tokens in the file
-        tiles = new Tile[width * height];
-        Tile currentTile;
-        HashMap<String, Tile> objectTokenMap = Tile.getObjectTokenMap();
+        gameBoard = new GameObject[width * height];
+        GameObject currentObject;
+        HashMap<String, GameObject> objectTokenMap = GameObject.getObjectTokenMap();
 
         /* Set the tiles into position in the array.
          * Reads the array one row at a time.
@@ -111,22 +113,22 @@ public class Level {
                 levelScanner.nextLine();
                 for (int x = 0; x < width; x++) {
                     if (levelScanner.hasNext()) {
-                        currentTile = objectTokenMap.get(levelScanner.next());
+                        currentObject = objectTokenMap.get(levelScanner.next());
                         // set the X and Y coordinates of the new tile.
-                        currentTile.setX(x);
-                        currentTile.setY(y);
+                        currentObject.setX(x);
+                        currentObject.setY(y);
                         // add the new tile to its position in the array.
-                        tiles[(y * width) + x] = currentTile;
+                        gameBoard[(y * width) + x] = currentObject;
                     }
                 }
             }
         }
 
         // Print the array contents and size for testing
-        for (Tile tile : tiles) {
-            System.out.print(tile.getTileToken() + " ");
+        for (GameObject object : gameBoard) {
+            System.out.print(object.getObjectToken() + " ");
         }
-        System.out.println("Tile array size: " + tiles.length);
+        System.out.println("Tile array size: " + gameBoard.length);
         levelScanner.close();
     }
 
@@ -144,9 +146,9 @@ public class Level {
 
         // Check that the board hasn't been filled.
         while (col < width && row < height) {
-            for (Tile tile : tiles) {
+            for (GameObject object : gameBoard) {
                 // check tiles array for the type of tile.
-                switch (tile.getTileToken()) {
+                switch (object.getObjectToken()) {
                     case "D" -> gc.drawImage(DIRT, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "P" -> gc.drawImage(PATH, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "E" -> gc.drawImage(EXIT, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
@@ -179,9 +181,15 @@ public class Level {
         // Retrieve the X and Y coordinates of the character
         int tilePos = player.getPlayerCharacter().getY() * width + player.getPlayerCharacter().getX();
 
-        // Checks if the occupied tile is destructible
-        if (tiles[tilePos].isDestructible() && tiles[tilePos] != null) {
-            tiles[tilePos] = null;
+        // Only proceed if the object is a Tile subclass
+        if (gameBoard[tilePos].getClass().isAssignableFrom(Tile.class)) {
+            // Creates a tile object so isDestructible() can be used
+            Tile tile = (Tile) gameBoard[tilePos];
+
+            // Checks if the occupied tile is destructible
+            if (tile.isDestructible()) {
+                gameBoard[tilePos] = new Path();
+            }
         }
     }
 
@@ -203,8 +211,12 @@ public class Level {
 
 
 
-    public Tile[] getTiles() {
-        return tiles;
+    /**
+     * Gets the array of game objects
+     * @return {@code GameObject[]} the array of game objects
+     */
+    public GameObject[] getGameBoard() {
+        return gameBoard;
     }
 
     /**

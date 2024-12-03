@@ -1,4 +1,4 @@
-package Tiles;
+package Game_Objects.Tiles;
 
 /**
  * Class to store information regarding path tiles in the game

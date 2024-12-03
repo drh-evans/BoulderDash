@@ -1,6 +1,7 @@
-import Tiles.Path;
-import Tiles.Tile;
-import javafx.scene.canvas.GraphicsContext;
+import Game_Objects.GameObject;
+import Game_Objects.Tiles.Dirt;
+import Game_Objects.Tiles.Path;
+import Game_Objects.Tiles.Tile;
 
 import java.io.FileNotFoundException;
 
@@ -14,7 +15,7 @@ public class Character {
     private int y;
     private int diamondsCollected;
     private Level currentLevel;
-    private Tile[] tiles;
+    private final GameObject[] gameBoard;
 
     /**
      * Creates a character to be spawned on the map.
@@ -23,7 +24,7 @@ public class Character {
         this.x = 0;
         this.y = 0;
         this.currentLevel = level;
-        this.tiles = currentLevel.getTiles();
+        this.gameBoard = currentLevel.getGameBoard();
     }
 
     /**
@@ -121,6 +122,8 @@ public class Character {
         }
     }
 
+
+    // TODO ADD TILE CHECK BEFORE INSTANTIATION
     /**
      *
      * @param x the new player x.
@@ -130,7 +133,11 @@ public class Character {
      */
     private boolean checkTileIsTraversable(int x, int y, int width){
         int tilePos = y * width + x;
-        return tiles[tilePos].isTraversable() && (tiles[tilePos] != null);
+
+        // Creates a tile object so isTraversible() can be used
+        Tile tile = (Tile) gameBoard[tilePos];
+
+        return tile.isTraversable();
     }
 
     /**
@@ -139,24 +146,28 @@ public class Character {
      * @return whether the tile is dirt.
      */
     private boolean checkDirtTile(int tilePos) {
-        return tiles[tilePos].getTileToken().equals("D") && (tiles[tilePos] != null);
+        return gameBoard[tilePos].getObjectToken().equals("D") && (gameBoard[tilePos] != null);
     }
 
     // TODO, implement that the level changes if exit is stood on (and min diamonds unlocked)
     private boolean checkExitTile(int tilePos) {
-        return tiles[tilePos].getTileToken().equals("E") && (tiles[tilePos] != null);
+        return gameBoard[tilePos].getObjectToken().equals("E") && (gameBoard[tilePos] != null);
     }
 
     // TODO implement that diamonds can be collected and then turn to paths
     private boolean checkDiamondTile(int tilePos) {
-        return tiles[tilePos].getTileToken().equals("*") && (tiles[tilePos] != null);
+        return gameBoard[tilePos].getObjectToken().equals("*") && (gameBoard[tilePos] != null);
     }
 
+    // TODO ADD TILE CHECK BEFORE INSTANTIATION
     private void transformToPath(int tilePos) {
+        // Creates a tile object so isDestructible() can be used
+        Tile tile = (Tile) gameBoard[tilePos];
+
         // check if the tile is destructible.
-        if(tiles[tilePos].isDestructible()) {
+        if(tile.isDestructible()) {
             // turn the tile to path.
-            tiles[tilePos] = new Path(x,y);
+            gameBoard[tilePos] = new Path(x,y);
         }
     }
 

@@ -1,4 +1,4 @@
-package Tiles;
+package Game_Objects.Tiles;
 
 /**
  * Enum used to track the colour of Key and LockedDoor objects

@@ -1,4 +1,4 @@
-package Tiles;
+package Game_Objects.Tiles;
 import java.util.HashMap;
 
 /**
@@ -17,7 +17,7 @@ public class LockedDoor extends Tile {
     }
 
     // Basic attributes of the locked door
-    private final String tileToken;
+    private final String objectToken;
     private final Colours colour;
 
     /**
@@ -30,7 +30,7 @@ public class LockedDoor extends Tile {
         this.colour = colour;
 
         // Override the previous tile token initialisation in the superclass constructor
-        tileToken = DOOR_COLOURS_MAP.get(colour);
+        objectToken = DOOR_COLOURS_MAP.get(colour);
     }
 
     /**
@@ -41,7 +41,7 @@ public class LockedDoor extends Tile {
         this.colour = colour;
 
         // Override the previous tile token initialisation in the superclass constructor
-        tileToken = DOOR_COLOURS_MAP.get(colour);
+        objectToken = DOOR_COLOURS_MAP.get(colour);
     }
 
     /**
@@ -49,8 +49,8 @@ public class LockedDoor extends Tile {
      * @return {@code String} tile token of the locked door
      */
     @Override
-    public String getTileToken() {
-        return tileToken;
+    public String getObjectToken() {
+        return objectToken;
     }
 
     /**
