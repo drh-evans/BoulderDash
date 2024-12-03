@@ -235,7 +235,8 @@ public class LevelController {
     public void drawGame(Level chosenLevel) {
         // Get the Graphic Context of the canvas. This is what we draw on.
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        scoreDisplay.setText("Score: " + Integer.toString(character.getScore()));
+        scoreDisplay.setText("SCORE: " + Integer.toString(character.getScore()));
+
         // Clear canvas
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -272,6 +273,8 @@ public class LevelController {
         drawGame(currentLevel);
     }
 
+    //TODO work around with timeline -- default should be 1000ms for ticking and frog, 200ms default, 600ms player
+
     /**
      * This method is called periodically by the tick timeline
      * and would for, example move, perform logic in the game,
@@ -282,6 +285,13 @@ public class LevelController {
         // Move the character.
         character.moveCharacter(keyPressed, gridWidth, gridHeight);
 
+        int time = currentLevel.getTimeToComplete();
+        if (time == 0) {
+            gameOver = true;
+        } else if (!gameOver){
+            timeDisplay.setText("TIME: " + Integer.toString(time));
+            currentLevel.setTimeToComplete();
+        }
         // Reset key pressed so that new movement is read or character doesn't move.
         keyPressed = " ";
         playerX = character.getX();
@@ -311,6 +321,10 @@ public class LevelController {
 
         scoreDisplay.setFont(Font.font("Impact", 18));
         toolbar.getChildren().add(scoreDisplay);
+
+        timeDisplay.setFont(Font.font("Impact", 18));
+        toolbar.getChildren().add(timeDisplay);
+
 
         // Create the toolbar content
         // Return to main menu
