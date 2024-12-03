@@ -8,8 +8,6 @@ import Game_Objects.GameObject;
 public abstract class Tile extends GameObject {
 
     // Basic attributes for each tile
-    protected boolean isDestructible;
-    protected boolean isTraversable;
     private boolean isTraversableEnemies;
 
     /**
@@ -56,23 +54,6 @@ public abstract class Tile extends GameObject {
         return tile;
     }
     */
-
-    /**
-     * Gets whether the tile is destructible
-     * @return {@code true}: if the tile is destructible <br>
-     * {@code false}: otherwise
-     */
-    public boolean isDestructible() {
-        return isDestructible;
-    }
-
-    /**
-     * Updates a tile's destructibility
-     * @param destructible {@code boolean} the new destructibility of the tile
-     */
-    public void setDestructible(boolean destructible) {
-        isDestructible = destructible;
-    }
 
     /**
      * Gets whether the tile is traversible by the player

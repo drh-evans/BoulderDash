@@ -5,7 +5,7 @@
 public class Player {
     private static final int MAX_LEVEL = 10;
     private final String name;
-    // private final Character playerCharacter;
+    private final Character playerCharacter;
     private int highScore;
     private int levelUnlocked = 1;
 
@@ -13,9 +13,9 @@ public class Player {
      *
      * @param name
      */
-    public Player(String name) {
+    public Player(String name, Level desiredLevel) {
         this.name = name;
-       // playerCharacter = new Character();
+        this.playerCharacter = new Character(desiredLevel, this);
     }
 
     /**
@@ -76,6 +76,6 @@ public class Player {
      * @return the players representative.
      */
     public Character getPlayerCharacter() {
-        return null;
+        return playerCharacter;
     }
 }

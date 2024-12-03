@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 public abstract class GameObject {
 
+    protected boolean isTraversable;
+    protected boolean isDestructible;
+
+
     // Hashmap to map tile tokens to their respective tile subclass
     // NOTE: called OBJECT_TOKEN_MAP since it may be used with entities as well
     private static final HashMap<String, GameObject> OBJECT_TOKEN_MAP = new HashMap<>();
@@ -106,4 +110,25 @@ public abstract class GameObject {
         return objectToken;
     }
 
+    public boolean isTraversable() {
+        return isTraversable;
+    }
+
+
+    /**
+     * Gets whether the tile is destructible
+     * @return {@code true}: if the tile is destructible <br>
+     * {@code false}: otherwise
+     */
+    public boolean isDestructible() {
+        return isDestructible;
+    }
+
+    /**
+     * Updates a tile's destructibility
+     * @param destructible {@code boolean} the new destructibility of the tile
+     */
+    public void setDestructible(boolean destructible) {
+        isDestructible = destructible;
+    }
 }

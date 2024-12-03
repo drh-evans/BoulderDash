@@ -68,6 +68,7 @@ public class LevelController {
 
     // X and Y coordinate of player on the grid.
     private Character character;
+    private Player player;
     private int playerX;
     private int playerY;
     // String to represent the key pressed.
@@ -91,7 +92,8 @@ public class LevelController {
         //Sets attributes for the level
         setGridWidth(desiredLevel.getWidth());
         setGridHeight(desiredLevel.getHeight());
-        setCharacter(new Character(desiredLevel));
+        player = new Player("John", desiredLevel);
+        setCharacter(player.getPlayerCharacter());
 
         canvasHeight = gridHeight * GRID_CELL_HEIGHT;
         canvasWidth = gridWidth * GRID_CELL_WIDTH;

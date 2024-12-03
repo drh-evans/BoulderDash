@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 public class Character {
     private int x;
     private int y;
+    private int currentScore;
     private int diamondsCollected;
     private Level currentLevel;
     private final GameObject[] gameBoard;
@@ -20,7 +21,7 @@ public class Character {
     /**
      * Creates a character to be spawned on the map.
      */
-    public Character(Level level) {
+    public Character(Level level, Player player) {
         this.x = 0;
         this.y = 0;
         this.currentLevel = level;
@@ -104,6 +105,10 @@ public class Character {
         } else if (checkExitTile(tilePos)) {
             System.out.println("GAME OVER");
             loadNextLevel();
+        } else if (checkDiamondTile(tilePos)) {
+            transformToPath(tilePos);
+            currentScore++;
+            System.out.println(currentScore);
         }
     }
 
@@ -135,8 +140,7 @@ public class Character {
         int tilePos = y * width + x;
 
         // Creates a tile object so isTraversible() can be used
-        Tile tile = (Tile) gameBoard[tilePos];
-
+        GameObject tile = gameBoard[tilePos];
         return tile.isTraversable();
     }
 
@@ -162,8 +166,7 @@ public class Character {
     // TODO ADD TILE CHECK BEFORE INSTANTIATION
     private void transformToPath(int tilePos) {
         // Creates a tile object so isDestructible() can be used
-        Tile tile = (Tile) gameBoard[tilePos];
-
+        GameObject tile = gameBoard[tilePos];
         // check if the tile is destructible.
         if(tile.isDestructible()) {
             // turn the tile to path.
