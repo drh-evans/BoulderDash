@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -22,6 +23,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileNotFoundException;
@@ -63,6 +66,9 @@ public class LevelController {
     // We could use FXML to place code in the controller instead.
     private Canvas canvas;
 
+    private Text scoreDisplay = new Text();
+    private Text timeDisplay = new Text();
+
     // Loaded images
     private Image playerImage;
     private Image dirtImage;
@@ -80,7 +86,7 @@ public class LevelController {
     private Timeline tickTimeline;
 
     // Boolean to decide game status.
-    private final boolean gameOver = false;
+    private boolean gameOver = false;
 
     public LevelController() throws FileNotFoundException {
     }
@@ -229,7 +235,7 @@ public class LevelController {
     public void drawGame(Level chosenLevel) {
         // Get the Graphic Context of the canvas. This is what we draw on.
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
+        scoreDisplay.setText("Score: " + Integer.toString(character.getScore()));
         // Clear canvas
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -292,7 +298,6 @@ public class LevelController {
     private Pane buildGUI(Level currentLevel) {
         // Create top-level panel that will hold all GUI nodes.
         BorderPane root = new BorderPane();
-
         // Create the canvas that we will draw on.
         // We store this as a gloabl variable so other methods can access it.
         canvas = new Canvas(canvasWidth, canvasHeight);
@@ -303,6 +308,8 @@ public class LevelController {
         toolbar.setSpacing(10);
         toolbar.setPadding(new Insets(10, 10, 10, 10));
         root.setTop(toolbar);
+
+        toolbar.getChildren().add(scoreDisplay);
 
         // Create the toolbar content
 
