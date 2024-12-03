@@ -172,7 +172,7 @@ public class LevelController {
 
         // Register a tick method to be called periodically.
         // Make a new timeline with one keyframe that triggers the tick method every half a second.
-        tickTimeline = new Timeline(new KeyFrame(Duration.millis(600), event -> tick(desiredLevel)));
+        tickTimeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> tick(desiredLevel)));
         // Loop the timeline forever
         tickTimeline.setCycleCount(Animation.INDEFINITE);
         // We start the timeline upon a button press.
@@ -236,6 +236,8 @@ public class LevelController {
         // Get the Graphic Context of the canvas. This is what we draw on.
         GraphicsContext gc = canvas.getGraphicsContext2D();
         scoreDisplay.setText("SCORE: " + Integer.toString(character.getScore()));
+        timeDisplay.setText("TIME: " + Integer.toString(chosenLevel.getTimeToComplete()));
+
 
         // Clear canvas
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -285,11 +287,14 @@ public class LevelController {
         // Move the character.
         character.moveCharacter(keyPressed, gridWidth, gridHeight);
 
+        // get the current time to complete.
         int time = currentLevel.getTimeToComplete();
+
+        // check the time/game state validity.
         if (time == 0) {
             gameOver = true;
         } else if (!gameOver){
-            timeDisplay.setText("TIME: " + Integer.toString(time));
+            // decrease time to complete by 1.
             currentLevel.setTimeToComplete();
         }
         // Reset key pressed so that new movement is read or character doesn't move.
