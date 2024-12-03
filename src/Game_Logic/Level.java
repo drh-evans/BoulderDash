@@ -1,3 +1,6 @@
+package Game_Logic;
+
+import Game_Logic.Player;
 import Game_Objects.GameObject;
 import Game_Objects.Tiles.Path;
 import Game_Objects.Tiles.Tile;

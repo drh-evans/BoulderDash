@@ -8,16 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Game_Logic.MenuController">
    <children>
       <ImageView fitHeight="327.0" fitWidth="477.0" layoutX="-43.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Images/MenuBackground.jpg" />
+            <Image url="@../Images/MenuBackground.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="198.0" fitWidth="461.0" layoutX="-11.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Images/MenuHeader.png" />
+            <Image url="@../Images/MenuHeader.png" />
          </image>
       </ImageView>
       <Button layoutX="110.0" layoutY="231.0" minWidth="200.0" mnemonicParsing="false" text="Create Profile" textAlignment="CENTER">

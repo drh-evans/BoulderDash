@@ -1,7 +1,8 @@
+package Game_Logic;
+
+import Game_Objects.Entities.Diamond;
 import Game_Objects.GameObject;
-import Game_Objects.Tiles.Dirt;
 import Game_Objects.Tiles.Path;
-import Game_Objects.Tiles.Tile;
 
 import java.io.FileNotFoundException;
 
@@ -13,9 +14,10 @@ import java.io.FileNotFoundException;
 public class Character {
     private int x;
     private int y;
-    private int currentScore;
-    private int diamondsCollected;
+    private int score;
+    private int diamondsCollected = 0;
     private Level currentLevel;
+    private Player currentPlayer;
     private final GameObject[] gameBoard;
 
     /**
@@ -26,6 +28,7 @@ public class Character {
         this.y = 0;
         this.currentLevel = level;
         this.gameBoard = currentLevel.getGameBoard();
+        this.currentPlayer = player;
     }
 
     /**
@@ -106,22 +109,29 @@ public class Character {
             System.out.println("GAME OVER");
             loadNextLevel();
         } else if (checkDiamondTile(tilePos)) {
+            Diamond diamond = (Diamond) gameBoard[tilePos];
+            diamond.collectDiamond(this);
             transformToPath(tilePos);
-            currentScore++;
-            System.out.println(currentScore);
         }
     }
 
     // TODO FIX BUG WITH LEVEL LOAD
+
+    /**
+     * Load the next level upon contact with an exit tile.
+     */
     private void loadNextLevel() {
         try {
-            // Loads the next level
-            currentLevel.loadLevel("src/Level2.txt");
-            // Resets the characters position for next level
-            x = 0;
-            y = 0;
+            if (diamondsCollected >= currentLevel.getDiamondsToWin()) {
+                // Loads the next level
+                currentLevel.loadLevel("src/LevelFiles/Level2.txt");
+                // Resets the characters position for next level
+                x = 0;
+                y = 0;
 
-            System.out.println("Loading next Level");
+                currentPlayer.progressLevel();
+                System.out.println("Loading next Level");
+            }
         } catch (FileNotFoundException e) {
             System.out.println("No level found");
         }
@@ -130,7 +140,7 @@ public class Character {
 
     // TODO ADD TILE CHECK BEFORE INSTANTIATION
     /**
-     *
+     * Checks that the next tile is a traversable tile.
      * @param x the new player x.
      * @param y the new player y.
      * @param width the grid width.
@@ -206,4 +216,21 @@ public class Character {
     public void setY(int y) {
         this.y = y;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int newScore) {
+        score = newScore;
+    }
+
+    public int getDiamondsCollected(){
+        return diamondsCollected;
+    }
+
+    public void setDiamondsCollected() {
+        diamondsCollected++;
+    }
 }
+

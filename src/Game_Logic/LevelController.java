@@ -1,3 +1,5 @@
+package Game_Logic;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -43,9 +45,9 @@ public class LevelController {
     private static final int GRID_CELL_HEIGHT = 50;
 
     // The width of the grid in number of cells.
-    private final Level testLevel = new Level("src/Level1.txt");
-    private final Level l2 = new Level("src/Level2.txt");
-    private final Level l3 = new Level("src/Level3.txt");
+    private final Level testLevel = new Level("src/LevelFiles/Level1.txt");
+    private final Level l2 = new Level("src/LevelFiles/Level2.txt");
+    private final Level l3 = new Level("src/LevelFiles/Level3.txt");
 
 
     // update the grid width and height to match level width and height

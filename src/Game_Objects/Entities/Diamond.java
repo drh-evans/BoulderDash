@@ -1,5 +1,8 @@
 package Game_Objects.Entities;
 
+import Game_Logic.Character;
+import Game_Logic.Player;
+
 public class Diamond extends Entity {
     private boolean pickedUp;
 
@@ -40,5 +43,17 @@ public class Diamond extends Entity {
     @Override
     protected void dropDiamond() {
 
+    }
+
+    /**
+     * Method to set a characters score.
+     * @param character the player profile.
+     */
+    public void collectDiamond(Character character) {
+        int oldScore = character.getScore();
+        int newScore = oldScore + 10;
+        character.setDiamondsCollected();
+        character.setScore(newScore);
+        pickedUp = true;
     }
 }

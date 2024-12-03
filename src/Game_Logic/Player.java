@@ -1,3 +1,9 @@
+package Game_Logic;
+
+import Game_Objects.Tiles.Key;
+
+import java.util.ArrayList;
+
 /**
  * Class to build and store the players relevant data.
  * @author rhysevans
@@ -8,7 +14,7 @@ public class Player {
     private final Character playerCharacter;
     private int highScore;
     private int levelUnlocked = 1;
-
+    private ArrayList<Key> inventory = new ArrayList<>();
     /**
      *
      * @param name
@@ -19,7 +25,7 @@ public class Player {
     }
 
     /**
-     * Increments the players level by 1
+     * Increments the players level by 1.
      */
     public void progressLevel() {
         if (levelUnlocked < MAX_LEVEL) {
@@ -31,6 +37,27 @@ public class Player {
         }
     }
 
+    /**
+     * Adds a key to a players inventory.
+     * @param key the key obtained by the player.
+     */
+    public void addToInventory(Key key) {
+        inventory.add(key);
+    }
+
+    /**
+     * Checks the inventory for a specific key.
+     * @param token the keys object token.
+     * @return boolean false (doesn't have), true (has the key).
+     */
+    public boolean checkInventory(String token) {
+        for (Key key : inventory) {
+            if (key.getObjectToken().equals(token)) {
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Getter for the Players name.
      * @return the username of the player.
