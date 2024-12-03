@@ -3,8 +3,13 @@ package Game_Objects.Entities;
 import Game_Logic.Character;
 import Game_Logic.Player;
 
+/**
+ * Class to represent diamond entities.
+ * @author Elbu Cheung, Rhys Evans.
+ */
 public class Diamond extends Entity {
     private boolean pickedUp;
+    private boolean isFalling = false;
 
     public Diamond(int x, int y) {
         super(x, y, true, true, 10, "*");
@@ -45,6 +50,8 @@ public class Diamond extends Entity {
 
     }
 
+    public void drop() {
+    }
     /**
      * Method to set a characters score.
      * @param character the player profile.

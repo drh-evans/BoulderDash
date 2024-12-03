@@ -295,6 +295,10 @@ public class LevelController {
         drawGame(currentLevel);
     }
 
+    /**
+     * Method to tick the clock down per second.
+     * @param currentLevel the current level.
+     */
     private void clockTick(Level currentLevel) {
         // get the current time to complete.
         int time = currentLevel.getTimeToComplete();
@@ -305,7 +309,6 @@ public class LevelController {
         } else if (!gameOver){
             // decrease time to complete by 1.
             currentLevel.setTimeToComplete();
-            System.out.println(currentLevel.getTimeToComplete());
         }
         // redraw the graphics in current state.
         drawGame(currentLevel);
@@ -342,7 +345,6 @@ public class LevelController {
         toolbar.getChildren().add(returnToMenu);
 
         returnToMenu.setOnAction(this::returnToMenu);
-
 
         // Tick Timeline buttons
         Button startTickTimelineButton = new Button("Play");
