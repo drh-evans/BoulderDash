@@ -1,6 +1,5 @@
 package Game_Logic;
 
-import Game_Logic.Player;
 import Game_Objects.GameObject;
 import Game_Objects.Tiles.Path;
 import Game_Objects.Tiles.Tile;
@@ -39,7 +38,7 @@ public class Level {
     private final int[] highscores = new int[10];
 
     // Auxiliary level attributes (not currently in use)
-    private final int timeToComplete;
+    private int timeToComplete;
     private final int diamondsToWin;
     private final int amoebaSpreadRate;
     private final int amoebaMaxSize;
@@ -280,5 +279,9 @@ public class Level {
      */
     public int[] getHighscores() {
         return highscores;
+    }
+
+    public void setTimeToComplete() {
+        timeToComplete--;
     }
 }
