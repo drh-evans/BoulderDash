@@ -25,6 +25,8 @@ public class Level {
     private static final Image TITANIUM_WALL = new Image("Images/titaniumwall.png");
     private static final Image DIAMOND = new Image("Images/diamond.png");
     private static final Image BOULDER = new Image("Images/boulder.png");
+    private static final Image FIREFLY = new Image("Images/firefly.png");
+    private static final Image BUTTERFLY = new Image("Images/butterfly.png");
 
     // Size of each cell on a grid.
     private static final int GRID_CELL_WIDTH = 50;
@@ -160,6 +162,8 @@ public class Level {
                     case "T" -> gc.drawImage(TITANIUM_WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "*" -> gc.drawImage(DIAMOND, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "B" -> gc.drawImage(BOULDER, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "FR", "FL" -> gc.drawImage(FIREFLY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "BR", "BL" -> gc.drawImage(BUTTERFLY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     default -> System.out.println("No valid tile found!");
                 }
 

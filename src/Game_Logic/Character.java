@@ -96,7 +96,7 @@ public class Character {
      * Checks if the new tile is a dirt tile, if so changes to path.
      * @param x the prospective x coordinate.
      * @param y the prospective y coordinate.
-     * @param width the grids width.
+     * @param width the grid's width.
      */
     private void checkTile(int x, int y, int width) {
         // The position of the tile.
@@ -111,6 +111,7 @@ public class Character {
         } else if (checkDiamondTile(tilePos)) {
             Diamond diamond = (Diamond) gameBoard[tilePos];
             diamond.collectDiamond(this);
+            System.out.println(score);
             transformToPath(tilePos);
         }
     }
@@ -128,7 +129,6 @@ public class Character {
                 // Resets the characters position for next level
                 x = 0;
                 y = 0;
-
                 currentPlayer.progressLevel();
                 System.out.println("Loading next Level");
             }
@@ -144,31 +144,39 @@ public class Character {
      * @param x the new player x.
      * @param y the new player y.
      * @param width the grid width.
-     * @return
+     * @return boolean, if the tile is traversable.
      */
     private boolean checkTileIsTraversable(int x, int y, int width){
         int tilePos = y * width + x;
 
-        // Creates a tile object so isTraversible() can be used
+        // Creates a tile object so isTraversable() can be used
         GameObject tile = gameBoard[tilePos];
         return tile.isTraversable();
     }
 
     /**
-     *
-     * @param tilePos the tiles position.
-     * @return whether the tile is dirt.
+     * Check whether the tile is a dirt tile.
+     * @param tilePos the next tile position.
+     * @return a boolean as to the status of the tile.
      */
     private boolean checkDirtTile(int tilePos) {
         return gameBoard[tilePos].getObjectToken().equals("D") && (gameBoard[tilePos] != null);
     }
 
-    // TODO, implement that the level changes if exit is stood on (and min diamonds unlocked)
+    /**
+     * Check whether the tile is an exit tile.
+     * @param tilePos the next tile position.
+     * @return a boolean as to the status of the tile.
+     */
     private boolean checkExitTile(int tilePos) {
         return gameBoard[tilePos].getObjectToken().equals("E") && (gameBoard[tilePos] != null);
     }
 
-    // TODO implement that diamonds can be collected and then turn to paths
+    /**
+     * Check whether the tile is a diamond.
+     * @param tilePos the next tile position.
+     * @return a boolean as to the status of the tile.
+     */
     private boolean checkDiamondTile(int tilePos) {
         return gameBoard[tilePos].getObjectToken().equals("*") && (gameBoard[tilePos] != null);
     }
@@ -217,18 +225,33 @@ public class Character {
         this.y = y;
     }
 
+    /**
+     * Get the score obtained by the player.
+     * @return score, the score obtained by a player.
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Set the score obtained by a player.
+     * @param newScore the new score obtained.
+     */
     public void setScore(int newScore) {
         score = newScore;
     }
 
+    /**
+     * Get the amount of diamonds collected by a player.
+     * @return diamonds collected - the amount of diamonds collected.
+     */
     public int getDiamondsCollected(){
         return diamondsCollected;
     }
 
+    /**
+     * Increment the diamonds collected.
+     */
     public void setDiamondsCollected() {
         diamondsCollected++;
     }
