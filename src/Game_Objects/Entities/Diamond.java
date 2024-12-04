@@ -15,6 +15,7 @@ public class Diamond extends Entity {
         super(x, y, true, true, 10, "*");
         this.pickedUp = false;
         this.isTraversable = true;
+        this.isDestructible = true;
     }
 
     public Diamond() {

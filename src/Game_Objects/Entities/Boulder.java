@@ -25,6 +25,7 @@ public class Boulder extends Entity {
   public Boulder(int x, int y) {
     super(x, y, true, true, 10, "B");
     this.isPushable = false;
+    this.isDestructible = true;
   }
 
   /**
