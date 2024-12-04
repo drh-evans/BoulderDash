@@ -35,6 +35,11 @@ public class Level {
     private static final Image BOULDER = new Image("Images/boulder.png");
     private static final Image FIREFLY = new Image("Images/firefly.png");
     private static final Image BUTTERFLY = new Image("Images/butterfly.png");
+    private static final Image GREEN_KEY = new Image("Images/greenkey.png");
+    private static final Image BLUE_KEY = new Image("Images/bluekey.png");
+    private static final Image YELLOW_KEY = new Image("Images/yellowkey.png");
+    private static final Image RED_KEY = new Image("Images/redkey.png");
+
 
     // Size of each cell on a grid.
     private static final int GRID_CELL_WIDTH = 50;
@@ -127,28 +132,18 @@ public class Level {
                 for (int x = 0; x < width; x++) {
                     if (levelScanner.hasNext()) {
                         currentObject = objectTokenMap.get(levelScanner.next());
-                        if (currentObject.getObjectToken().equals("D")) {
-                            gameBoard[(y * width) + x] = new Dirt(x, y);
-                        } else if (currentObject.getObjectToken().equals("P")) {
-                            gameBoard[(y * width) + x] = new Path(x, y);
-                        } else if (currentObject.getObjectToken().equals("*")) {
-                            gameBoard[(y * width) + x] = new Diamond(x, y);
-                        } else if (currentObject.getObjectToken().equals("B")) {
-                            gameBoard[(y * width) + x] = new Boulder(x, y);
-                        } else if (currentObject.getObjectToken().equals("M")) {
-                            gameBoard[(y * width) + x] = new MagicWall(x, y);
-                        } else if (currentObject.getObjectToken().equals("E")) {
-                            gameBoard[(y * width) + x] = new Exit(x, y);
-                        } else if (currentObject.getObjectToken().equals("W")) {
-                            gameBoard[(y * width) + x] = new Wall(x, y);
-                        } else if (currentObject.getObjectToken().equals("T")) {
-                            gameBoard[(y * width) + x] = new TitaniumWall(x, y);
+                        // Check for tiles that match the input and then create the tiles/entities.
+                        switch (currentObject.getObjectToken()) {
+                            case "D" -> gameBoard[(y * width) + x] = new Dirt(x, y);
+                            case "P" -> gameBoard[(y * width) + x] = new Path(x, y);
+                            case "W" -> gameBoard[(y * width) + x] = new Wall(x, y);
+                            case "M" -> gameBoard[(y * width) + x] = new MagicWall(x, y);
+                            case "T" -> gameBoard[(y * width) + x] = new TitaniumWall(x, y);
+                            case "E" -> gameBoard[(y * width) + x] = new Exit(x, y);
+                            case "*" -> gameBoard[(y * width) + x] = new Diamond(x, y);
+                            case "B" -> gameBoard[(y * width) + x] = new Boulder(x, y);
+                            default -> System.out.println("No tile found");
                         }
-                        // set the X and Y coordinates of the new tile.
-                        //currentObject.setX(x);
-                        //currentObject.setY(y);
-                        // add the new tile to its position in the array.
-                        //gameBoard[(y * width) + x] = currentObject;
                     }
                 }
             }
