@@ -1,6 +1,6 @@
 8 14
 P D * * YK P P P P P P P P P
-W YD W W W W W W W W W W W W
+W YD W W W W W W YD W W W W W
 P D P P BK P P P P P P P P P
 W W W BD W W W W W W W W W W
 P GK P P P RK P P P P P P P P
