@@ -65,6 +65,15 @@ public class Player {
     }
 
     /**
+     * Remove a key once used.
+     * @param colour the keys colour.
+     */
+    public void removeKey(Colours colour) {
+        // if the key is the same colour as the door used, remove it.
+        inventory.removeIf(key -> key.getColour() == colour);
+    }
+
+    /**
      * Checks the inventory for a specific key.
      * @param token the keys object token.
      * @return boolean false (doesn't have), true (has the key).

@@ -133,10 +133,10 @@ public class Character {
             // Check if the player has the current doors key.
             boolean hasKey = currentPlayer.checkInventory(doorColour);
             // Open the door.
-            System.out.println(hasKey);
             if (hasKey) {
                 door.setTraversable(true);
                 transformToPath(tilePos);
+                currentPlayer.removeKey(doorColour);
             }
         }
     }
