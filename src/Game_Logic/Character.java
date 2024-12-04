@@ -3,6 +3,7 @@ package Game_Logic;
 import Game_Objects.Entities.Boulder;
 import Game_Objects.Entities.Diamond;
 import Game_Objects.GameObject;
+import Game_Objects.Tiles.Key;
 import Game_Objects.Tiles.Path;
 
 import java.io.FileNotFoundException;
@@ -121,7 +122,10 @@ public class Character {
         } else if (checkDiamondTile(tilePos)) {
             Diamond diamond = (Diamond) gameBoard[tilePos];
             diamond.collectDiamond(this);
-            System.out.println(score);
+            transformToPath(tilePos);
+        } else if (checkKeyTile(tilePos)) {
+            Key key = (Key) gameBoard[tilePos];
+            key.collectKey(currentPlayer);
             transformToPath(tilePos);
         }
     }
@@ -202,6 +206,18 @@ public class Character {
 
     private boolean checkMagicWallTile(int tilePos) {
         return gameBoard[tilePos].getObjectToken().equals("M") && (gameBoard[tilePos] != null);
+    }
+
+    /**
+     * Checks if the tile is a key.
+     * @param tilePos the tiles position.
+     * @return keyStatus, a boolean whether it is a key or not.
+     */
+    private boolean checkKeyTile(int tilePos) {
+        String token = gameBoard[tilePos].getObjectToken();
+
+        return (token.equals("GK") || token.equals("RK") || token.equals("YK")
+                || token.equals("BK")) && (gameBoard[tilePos] != null);
     }
 
 
@@ -289,30 +305,24 @@ public class Character {
 
 
     private void magicWall(int width) {
-        System.out.println("Moved");
         for (int i = 0; i < gameBoard.length; i++) {
-            System.out.println(gameBoard[i]);
-
 
             if (gameBoard[i].getObjectToken().equals("M")) {
-                int X = gameBoard[i].getX();
-                int Y = gameBoard[i].getY();
+                int x = gameBoard[i].getX();
+                int y = gameBoard[i].getY();
 
-                System.out.println(gameBoard[i]);
-                System.out.println(X);
-                System.out.println(Y);
-                Y--;
-                int tilePos = Y * width + X;
+                y--;
+                int tilePos = y * width + x;
                 if (checkBoulderTile(tilePos)) {
                     transformToPath(tilePos);
 
-                    int diamondPos = (Y + 2) * width + X;
-                    gameBoard[diamondPos] = new Diamond(x, y);
+                    int diamondPos = (y + 2) * width + x;
+                    gameBoard[diamondPos] = new Diamond(this.x, this.y);
                 }
                 if (checkDiamondTile(tilePos)) {
                     transformToPath(tilePos);
-                    int boulderPos = (Y + 2) * width + X;
-                    gameBoard[boulderPos] = new Boulder(x, y);
+                    int boulderPos = (y + 2) * width + x;
+                    gameBoard[boulderPos] = new Boulder(this.x, this.y);
                 }
             }
         }

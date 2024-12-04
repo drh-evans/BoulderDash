@@ -1,4 +1,7 @@
 package Game_Objects.Tiles;
+import Game_Logic.Character;
+import Game_Logic.Player;
+
 import java.util.HashMap;
 
 /**
@@ -6,6 +9,8 @@ import java.util.HashMap;
  * @author Adam Bartlett, Nathan Welby
  */
 public class Key extends Tile {
+
+    private boolean isCollected;
 
     // Hashmap to map key colours to their matching tile token
     private static final HashMap<Colours, String> KEY_COLOURS_MAP = new HashMap<>();
@@ -26,7 +31,7 @@ public class Key extends Tile {
      * @param y {@code int} y position of the key tile
      */
     public Key(int x, int y, Colours colour) {
-        super(x, y, false, true, true, "");
+        super(x, y, true, true, true, "");
         this.colour = colour;
 
         // Override the previous tile token initialisation in the superclass constructor
@@ -42,6 +47,11 @@ public class Key extends Tile {
 
         // Override the previous tile token initialisation in the superclass constructor
         objectToken = KEY_COLOURS_MAP.get(colour);
+    }
+
+    public void collectKey(Player player) {
+        isCollected = true;
+        player.addToInventory(this);
     }
 
     /**

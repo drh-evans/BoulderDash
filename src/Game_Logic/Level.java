@@ -3,13 +3,7 @@ package Game_Logic;
 import Game_Objects.Entities.Boulder;
 import Game_Objects.Entities.Diamond;
 import Game_Objects.GameObject;
-import Game_Objects.Tiles.Dirt;
-import Game_Objects.Tiles.Exit;
-import Game_Objects.Tiles.MagicWall;
-import Game_Objects.Tiles.Path;
-import Game_Objects.Tiles.Tile;
-import Game_Objects.Tiles.TitaniumWall;
-import Game_Objects.Tiles.Wall;
+import Game_Objects.Tiles.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -142,7 +136,11 @@ public class Level {
                             case "E" -> gameBoard[(y * width) + x] = new Exit(x, y);
                             case "*" -> gameBoard[(y * width) + x] = new Diamond(x, y);
                             case "B" -> gameBoard[(y * width) + x] = new Boulder(x, y);
-                            default -> System.out.println("No tile found");
+                            case "GK" -> gameBoard[(y * width) + x] = new Key(x, y, Colours.GREEN);
+                            case "RK" -> gameBoard[(y * width) + x] = new Key(x, y, Colours.RED);
+                            case "YK" -> gameBoard[(y * width) + x] = new Key(x, y, Colours.YELLOW);
+                            case "BK" -> gameBoard[(y * width) + x] = new Key(x, y, Colours.BLUE);
+                            default -> System.out.println("No tile found!");
                         }
                     }
                 }
@@ -183,6 +181,10 @@ public class Level {
                     case "T" -> gc.drawImage(TITANIUM_WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "*" -> gc.drawImage(DIAMOND, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "B" -> gc.drawImage(BOULDER, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "GK" -> gc.drawImage(GREEN_KEY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "RK" -> gc.drawImage(RED_KEY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "YK" -> gc.drawImage(YELLOW_KEY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "BK" -> gc.drawImage(BLUE_KEY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "FR", "FL" -> gc.drawImage(FIREFLY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "BR", "BL" -> gc.drawImage(BUTTERFLY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     default -> System.out.println("No valid tile found!");
