@@ -26,7 +26,7 @@ public class LockedDoor extends Tile {
      * @param y {@code int} y position of the locked door tile
      */
     public LockedDoor(int x, int y, Colours colour) {
-        super(x, y, false, true, true, "");
+        super(x, y, true, false, false, "");
         this.colour = colour;
 
         // Override the previous tile token initialisation in the superclass constructor
@@ -37,7 +37,7 @@ public class LockedDoor extends Tile {
      * Positionless constructor for use in the object token hashmap
      */
     public LockedDoor(Colours colour) {
-        super(false, true, true, "");
+        super(true, false, false, "");
         this.colour = colour;
 
         // Override the previous tile token initialisation in the superclass constructor

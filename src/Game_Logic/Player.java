@@ -1,5 +1,6 @@
 package Game_Logic;
 
+import Game_Objects.Tiles.Colours;
 import Game_Objects.Tiles.Key;
 
 import java.util.ArrayList;
@@ -47,6 +48,18 @@ public class Player {
             System.out.println(item.getObjectToken());
             System.out.println(item.getColour());
         }
+    }
+
+    /**
+     * Checks if a player has a key for a door.
+     * @param colour the colour of the door.
+     * @return true or false, whether the player has the key.
+     */
+    public Boolean checkInventory(Colours colour) {
+        for (Key key : inventory) {
+            return key.getColour() == colour;
+        }
+        return false;
     }
 
     /**

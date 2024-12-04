@@ -3,7 +3,9 @@ package Game_Logic;
 import Game_Objects.Entities.Boulder;
 import Game_Objects.Entities.Diamond;
 import Game_Objects.GameObject;
+import Game_Objects.Tiles.Colours;
 import Game_Objects.Tiles.Key;
+import Game_Objects.Tiles.LockedDoor;
 import Game_Objects.Tiles.Path;
 
 import java.io.FileNotFoundException;
@@ -47,54 +49,50 @@ public class Character {
             case "RIGHT":
                 // Right key was pressed. So move the player right by one cell.
                 x++;
-                //Checks if the tile is traversable and within the board
-                if (x == gridWidth || !checkTileIsTraversable(x, y, gridWidth)) {
-                    x--;
-                }
 
                 checkTile(x, y, gridWidth);
                 magicWall(gridWidth);
 
-
+                //Checks if the tile is traversable and within the board
+                if (x == gridWidth || !checkTileIsTraversable(x, y, gridWidth)) {
+                    x--;
+                }
                 break;
             case "LEFT":
                 // Left key was pressed. So move the player right by one cell.
                 x--;
 
+                checkTile(x, y, gridWidth);
+                magicWall(gridWidth);
+
                 //Checks if the tile is traversable and within the board
                 if (x < 0 || !checkTileIsTraversable(x, y, gridWidth)) {
                     x++;
                 }
-
-                checkTile(x, y, gridWidth);
-                magicWall(gridWidth);
-
                 break;
             case "DOWN":
                 // Down key was pressed. So move the player right by one cell.
                 y++;
 
+                checkTile(x, y, gridWidth);
+                magicWall(gridWidth);
+
                 //Checks if the tile is traversable and within the board
                 if (y == gridHeight || !checkTileIsTraversable(x, y, gridWidth)) {
                     y--;
                 }
-
-
-                checkTile(x, y, gridWidth);
-                magicWall(gridWidth);
-
                 break;
             case "UP":
                 // Up key was pressed. So move the player right by one cell.
                 y--;
 
+                checkTile(x, y, gridWidth);
+                magicWall(gridWidth);
+
                 //Checks if the tile is traversable and within the board
                 if (y < 0 || !checkTileIsTraversable(x, y, gridWidth)) {
                     y++;
                 }
-                // check if the tile is dirt
-                checkTile(x, y, gridWidth);
-                magicWall(gridWidth);
                 break;
             default:
                 // Do nothing for all other keys.
@@ -127,6 +125,17 @@ public class Character {
             Key key = (Key) gameBoard[tilePos];
             key.collectKey(currentPlayer);
             transformToPath(tilePos);
+        } else if (checkDoorTile(tilePos)) {
+            LockedDoor door = (LockedDoor) gameBoard[tilePos];
+            // Get the current doors colour.
+            Colours doorColour = door.getColour();
+            // Check if the player has the current doors key.
+            boolean hasKey = currentPlayer.checkInventory(doorColour);
+            // Open the door.
+            if (hasKey) {
+                door.setTraversable(true);
+                transformToPath(tilePos);
+            }
         }
     }
 
@@ -215,9 +224,19 @@ public class Character {
      */
     private boolean checkKeyTile(int tilePos) {
         String token = gameBoard[tilePos].getObjectToken();
-
         return (token.equals("GK") || token.equals("RK") || token.equals("YK")
                 || token.equals("BK")) && (gameBoard[tilePos] != null);
+    }
+
+    /**
+     * Checks if a tile is a door.
+     * @param tilePos the tiles position.
+     * @return doorStatus, whether it is a door.
+     */
+    private boolean checkDoorTile(int tilePos) {
+        String token = gameBoard[tilePos].getObjectToken();
+        return (token.equals("GD") || token.equals("RD") || token.equals("YD")
+                || token.equals("BD")) && (gameBoard[tilePos] != null);
     }
 
 

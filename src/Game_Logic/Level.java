@@ -33,7 +33,10 @@ public class Level {
     private static final Image BLUE_KEY = new Image("Images/bluekey.png");
     private static final Image YELLOW_KEY = new Image("Images/yellowkey.png");
     private static final Image RED_KEY = new Image("Images/redkey.png");
-
+    private static final Image GREEN_DOOR = new Image("Images/greendoor.png");
+    private static final Image BLUE_DOOR = new Image("Images/bluedoor.png");
+    private static final Image YELLOW_DOOR = new Image("Images/yellowdoor.png");
+    private static final Image RED_DOOR = new Image("Images/reddoor.png");
 
     // Size of each cell on a grid.
     private static final int GRID_CELL_WIDTH = 50;
@@ -140,6 +143,10 @@ public class Level {
                             case "RK" -> gameBoard[(y * width) + x] = new Key(x, y, Colours.RED);
                             case "YK" -> gameBoard[(y * width) + x] = new Key(x, y, Colours.YELLOW);
                             case "BK" -> gameBoard[(y * width) + x] = new Key(x, y, Colours.BLUE);
+                            case "GD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.GREEN);
+                            case "RD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.RED);
+                            case "YD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.YELLOW);
+                            case "BD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.BLUE);
                             default -> System.out.println("No tile found!");
                         }
                     }
@@ -185,6 +192,10 @@ public class Level {
                     case "RK" -> gc.drawImage(RED_KEY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "YK" -> gc.drawImage(YELLOW_KEY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "BK" -> gc.drawImage(BLUE_KEY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "GD" -> gc.drawImage(GREEN_DOOR, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "RD" -> gc.drawImage(RED_DOOR, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "YD" -> gc.drawImage(YELLOW_DOOR, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "BD" -> gc.drawImage(BLUE_DOOR, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "FR", "FL" -> gc.drawImage(FIREFLY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "BR", "BL" -> gc.drawImage(BUTTERFLY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     default -> System.out.println("No valid tile found!");
