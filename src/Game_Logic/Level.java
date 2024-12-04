@@ -29,7 +29,7 @@ public class Level {
     private static final Image PATH = new Image("Images/path.png");
     private static final Image WALL = new Image("Images/wall.png");
     private static final Image EXIT = new Image("Images/exit.png");
-    private static final Image MAGIC_WALL = new Image("Images/wall.png");
+    private static final Image MAGIC_WALL = new Image("Images/magicwall.png");
     private static final Image TITANIUM_WALL = new Image("Images/titaniumwall.png");
     private static final Image DIAMOND = new Image("Images/diamond.png");
     private static final Image BOULDER = new Image("Images/boulder.png");
