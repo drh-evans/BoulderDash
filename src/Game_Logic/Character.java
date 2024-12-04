@@ -304,13 +304,13 @@ public class Character {
                 Y--;
                 int tilePos = Y * width + X;
                 if (checkBoulderTile(tilePos)) {
-                    transformToPath(tilePos);
+                    gameBoard[tilePos] = new Path(X, Y);
 
                     int diamondPos = (Y + 2) * width + X;
                     gameBoard[diamondPos] = new Diamond(x, y);
                 }
                 if (checkDiamondTile(tilePos)) {
-                    transformToPath(tilePos);
+                    gameBoard[tilePos] = new Path(X, Y);
 
                     int boulderPos = (Y + 2) * width + X;
                     gameBoard[boulderPos] = new Boulder(x, y);
