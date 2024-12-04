@@ -129,9 +129,11 @@ public class Character {
             LockedDoor door = (LockedDoor) gameBoard[tilePos];
             // Get the current doors colour.
             Colours doorColour = door.getColour();
+            System.out.println(door.getColour());
             // Check if the player has the current doors key.
             boolean hasKey = currentPlayer.checkInventory(doorColour);
             // Open the door.
+            System.out.println(hasKey);
             if (hasKey) {
                 door.setTraversable(true);
                 transformToPath(tilePos);

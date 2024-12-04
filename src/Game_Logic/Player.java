@@ -46,7 +46,6 @@ public class Player {
         inventory.add(key);
         for (Key item : inventory) {
             System.out.println(item.getObjectToken());
-            System.out.println(item.getColour());
         }
     }
 
@@ -55,11 +54,14 @@ public class Player {
      * @param colour the colour of the door.
      * @return true or false, whether the player has the key.
      */
-    public Boolean checkInventory(Colours colour) {
+    public boolean checkInventory(Colours colour) {
+        boolean hasKey = false;
         for (Key key : inventory) {
-            return key.getColour() == colour;
+            if (key.getColour() == colour) {
+                hasKey = true;
+            }
         }
-        return false;
+        return hasKey;
     }
 
     /**

@@ -1,16 +1,16 @@
 8 14
-P D W W W W W W W W W W W W
-D P P P P P P P P P P P P W
-W P P P P P P P P P P P P W
-W W W W D D W W W W W W W W
-D D W W W D W W W W W W W W
-D P P P P P P P P P P P P W
-W P P P P P P P P P P P P W
-W W W W W W W W W W W W W W
+P D * * YK P P P P P P P P P
+W YD W W W W W W W W W W W W
+P D P P BK P P P P P P P P P
+W W W BD W W W W W W W W W W
+P GK P P P RK P P P P P P P P
+W W W GD W W W W W W W W W W
+W W W RD W W W W W W W W W W
+P P P P P P P * D D P E P P
 
 --LEVELDATA (highscores, timeToComplete, diamondsToWin, amoebaSpreadRate, amoebaMaxSize)
 1,2,3,4,5,6,7,8,9,10
 120
-5
+3
 3
 15
