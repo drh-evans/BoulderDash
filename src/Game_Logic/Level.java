@@ -1,10 +1,18 @@
 package Game_Logic;
 
+import Game_Objects.Entities.Boulder;
+import Game_Objects.Entities.Diamond;
 import Game_Objects.GameObject;
+import Game_Objects.Tiles.Dirt;
+import Game_Objects.Tiles.Exit;
+import Game_Objects.Tiles.MagicWall;
 import Game_Objects.Tiles.Path;
 import Game_Objects.Tiles.Tile;
+import Game_Objects.Tiles.TitaniumWall;
+import Game_Objects.Tiles.Wall;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -12,6 +20,7 @@ import java.util.Scanner;
 
 /**
  * Level class to load and initialise a level file.
+ *
  * @author Nathan Welby, Rhys Evans
  */
 public class Level {
@@ -36,13 +45,11 @@ public class Level {
 
     // Top ten highest scores of this level
     private final int[] highscores = new int[10];
-
-    // Auxiliary level attributes (not currently in use)
-    private int timeToComplete;
     private final int diamondsToWin;
     private final int amoebaSpreadRate;
     private final int amoebaMaxSize;
-
+    // Auxiliary level attributes (not currently in use)
+    private int timeToComplete;
     // Width and height of level in tiles
     private int width;
     private int height;
@@ -52,6 +59,7 @@ public class Level {
 
     /**
      * Initialises auxiliary attributes of the level
+     *
      * @param levelPath levelPath, a file path to a level.txt file.
      * @throws FileNotFoundException
      */
@@ -91,6 +99,7 @@ public class Level {
 
     /**
      * Loads a level's tile data.
+     *
      * @param path path, the file path of the level file.
      * @throws FileNotFoundException
      */
@@ -118,11 +127,28 @@ public class Level {
                 for (int x = 0; x < width; x++) {
                     if (levelScanner.hasNext()) {
                         currentObject = objectTokenMap.get(levelScanner.next());
+                        if (currentObject.getObjectToken().equals("D")) {
+                            gameBoard[(y * width) + x] = new Dirt(x, y);
+                        } else if (currentObject.getObjectToken().equals("P")) {
+                            gameBoard[(y * width) + x] = new Path(x, y);
+                        } else if (currentObject.getObjectToken().equals("*")) {
+                            gameBoard[(y * width) + x] = new Diamond(x, y);
+                        } else if (currentObject.getObjectToken().equals("B")) {
+                            gameBoard[(y * width) + x] = new Boulder(x, y);
+                        } else if (currentObject.getObjectToken().equals("M")) {
+                            gameBoard[(y * width) + x] = new MagicWall(x, y);
+                        } else if (currentObject.getObjectToken().equals("E")) {
+                            gameBoard[(y * width) + x] = new Exit(x, y);
+                        } else if (currentObject.getObjectToken().equals("W")) {
+                            gameBoard[(y * width) + x] = new Wall(x, y);
+                        } else if (currentObject.getObjectToken().equals("T")) {
+                            gameBoard[(y * width) + x] = new TitaniumWall(x, y);
+                        }
                         // set the X and Y coordinates of the new tile.
-                        currentObject.setX(x);
-                        currentObject.setY(y);
+                        //currentObject.setX(x);
+                        //currentObject.setY(y);
                         // add the new tile to its position in the array.
-                        gameBoard[(y * width) + x] = currentObject;
+                        //gameBoard[(y * width) + x] = currentObject;
                     }
                 }
             }
@@ -130,7 +156,7 @@ public class Level {
 
         // Print the array contents and size for testing
         for (GameObject object : gameBoard) {
-            System.out.print(object.getObjectToken() + " ");
+            System.out.print(object.getObjectToken() + "(" + object.getX() + "," + object.getY() + ")" + " ");
         }
         System.out.println("Tile array size: " + gameBoard.length);
         levelScanner.close();
@@ -138,6 +164,7 @@ public class Level {
 
     /**
      * Method to initialise the visualisation of the level.
+     *
      * @param gc the graphics context of the canvas
      */
     public void initialiseLevel(GraphicsContext gc) {
@@ -157,7 +184,7 @@ public class Level {
                     case "P" -> gc.drawImage(PATH, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "E" -> gc.drawImage(EXIT, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "W" -> gc.drawImage(WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
-                    case "M"-> gc.drawImage(MAGIC_WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "M" -> gc.drawImage(MAGIC_WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "T" -> gc.drawImage(TITANIUM_WALL, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "*" -> gc.drawImage(DIAMOND, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "B" -> gc.drawImage(BOULDER, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
@@ -181,6 +208,7 @@ public class Level {
 
     /**
      * Destroys the tile at the players position if it is destructible
+     *
      * @param player
      */
     public void destroyTile(Player player) {
@@ -201,11 +229,12 @@ public class Level {
 
     /**
      * Track and rank the top 10 score of level
+     *
      * @param newHighScore
      */
     public void newHighScore(int newHighScore) {
-        for (int i = 0;i < highscores.length; i++) {
-            if(newHighScore > highscores[i]) {
+        for (int i = 0; i < highscores.length; i++) {
+            if (newHighScore > highscores[i]) {
                 for (int j = highscores.length - 1; j > i; j--) {
                     highscores[j] = highscores[j - 1];
                 }
@@ -216,9 +245,9 @@ public class Level {
     }
 
 
-
     /**
      * Gets the array of game objects
+     *
      * @return {@code GameObject[]} the array of game objects
      */
     public GameObject[] getGameBoard() {
@@ -227,6 +256,7 @@ public class Level {
 
     /**
      * Returns the width of the level in tiles
+     *
      * @return {@code int} the width of the level in tiles
      */
     public int getWidth() {
@@ -235,6 +265,7 @@ public class Level {
 
     /**
      * Returns the height of the level in tiles
+     *
      * @return {@code int} the height of the level in tiles
      */
     public int getHeight() {
@@ -243,6 +274,7 @@ public class Level {
 
     /**
      * Returns the amount of time given to complete the level
+     *
      * @return {@code int} the amount of time to complete the level
      */
     public int getTimeToComplete() {
@@ -251,6 +283,7 @@ public class Level {
 
     /**
      * Returns the amount of diamonds required to complete the level
+     *
      * @return {@code int} the amount of diamonds required to beat the level
      */
     public int getDiamondsToWin() {
@@ -259,6 +292,7 @@ public class Level {
 
     /**
      * Returns the spread rate of amoeba in the level
+     *
      * @return {@code int} the spread rate of amoeba in the level
      */
     public int getAmoebaSpreadRate() {
@@ -267,6 +301,7 @@ public class Level {
 
     /**
      * Returns the maximum size of amoeba in the level
+     *
      * @return {@code int} the maximum size of amoeba in the level
      */
     public int getAmoebaMaxSize() {
@@ -275,6 +310,7 @@ public class Level {
 
     /**
      * Gets the array of the top ten scores of the level
+     *
      * @return {@code int[]} top ten scores of the level
      */
     public int[] getHighscores() {
