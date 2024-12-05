@@ -48,21 +48,21 @@ public class Character {
     public void moveCharacter(String keyPressed, int gridWidth, int gridHeight) {
         switch (keyPressed) {
             case "RIGHT":
-                // Right key was pressed. So move the player right by one cell.
-                x++;
 
-                checkTile(x, y, gridWidth);
+                    x++;
+                    checkTile(x, y, gridWidth, 1);
                 magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
                 if (x == gridWidth || !checkTileIsTraversable(x, y, gridWidth)) {
                     x--;
                 }
-                break;
+
+            break;
             case "LEFT":
                 // Left key was pressed. So move the player right by one cell.
                 x--;
 
-                checkTile(x, y, gridWidth);
+                checkTile(x, y, gridWidth, 2);
                 magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
                 if (x < 0 || !checkTileIsTraversable(x, y, gridWidth)) {
@@ -73,7 +73,7 @@ public class Character {
                 // Down key was pressed. So move the player right by one cell.
                 y++;
 
-                checkTile(x, y, gridWidth);
+                checkTile(x, y, gridWidth, 3);
                 magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
                 if (y == gridHeight || !checkTileIsTraversable(x, y, gridWidth)) {
@@ -84,7 +84,7 @@ public class Character {
                 // Up key was pressed. So move the player right by one cell.
                 y--;
 
-                checkTile(x, y, gridWidth);
+                checkTile(x, y, gridWidth, 4);
                 magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
                 if (y < 0 || !checkTileIsTraversable(x, y, gridWidth)) {
@@ -97,6 +97,7 @@ public class Character {
         }
     }
 
+
     private void doorToPath() {
     }
 
@@ -107,7 +108,7 @@ public class Character {
      * @param y     the prospective y coordinate.
      * @param width the grid's width.
      */
-    private void checkTile(int x, int y, int width) {
+    private void checkTile(int x, int y, int width, int direction) {
         // The position of the tile.
         int tilePos = y * width + x;
         // If the tile is a dirt tile.
@@ -120,6 +121,10 @@ public class Character {
         } else if (checkDiamondTile(tilePos)) {
             Diamond diamond = (Diamond) gameBoard[tilePos];
             diamond.collectDiamond(this);
+            transformToPath(tilePos);
+        } else if (checkBoulderTile(tilePos)) {
+            Boulder boulder = (Boulder) gameBoard[tilePos];
+            boulder.push(gameBoard, tilePos, direction);
             transformToPath(tilePos);
         } else if (checkKeyTile(tilePos)) {
             Key key = (Key) gameBoard[tilePos];
@@ -162,6 +167,8 @@ public class Character {
             System.out.println("No level found");
         }
     }
+
+
 
 
     // TODO ADD TILE CHECK BEFORE INSTANTIATION

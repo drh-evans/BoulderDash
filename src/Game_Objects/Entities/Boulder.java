@@ -9,14 +9,14 @@ import Game_Objects.Tiles.Path;
  */
 public class Boulder extends Entity {
   private boolean isPushable;
-  private String pushDirection;
+  private static String pushDirection;
 
   /**
    * Constructor for instanstienising a boulder.
    */
   public Boulder() {
     super(true, true, 10, "B");
-    isPushable = false;
+    isPushable = true;
   }
 
   /**
@@ -33,16 +33,17 @@ public class Boulder extends Entity {
   /**
    * Method to push a boulder if it is pushable.
    */
-  public void push(GameObject[] gameObjects, int tilePos) {
-    if (gameObjects[tilePos + 1].getObjectToken().equals("P")) {
-        switch (pushDirection) {
-            case "LEFT" -> x--;
-            case "RIGHT" -> x++;
-            default -> x = x;
-        }
-        gameObjects[tilePos-1] = (Path) new Path(x--, y);
+  public void push(GameObject[] gameObjects, int tilePos, int direction) {
+    int newPos;
+    if (direction == 1) {
+      newPos = tilePos + 1;
+      gameObjects[newPos] = this;
+    } if (direction == 2) {
+      newPos = tilePos - 1;
+      gameObjects[newPos] = this;
     }
   }
+
 
   protected void isColliding (MagicWall magicWall) {
   }
