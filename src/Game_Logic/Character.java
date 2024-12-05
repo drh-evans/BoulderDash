@@ -158,8 +158,8 @@ public class Character {
                 // Loads the next level
                 currentLevel.loadLevel("src/LevelFiles/Level2.txt");
                 // Resets the characters position for next level
-                x = 0;
-                y = 0;
+                x = 1;
+                y = 1;
                 currentPlayer.progressLevel();
                 System.out.println("Loading next Level");
             }
@@ -167,9 +167,6 @@ public class Character {
             System.out.println("No level found");
         }
     }
-
-
-
 
     // TODO ADD TILE CHECK BEFORE INSTANTIATION
 
