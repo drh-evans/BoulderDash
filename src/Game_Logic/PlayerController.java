@@ -37,9 +37,13 @@ public class PlayerController {
         names = new ArrayList<>();
         readArray();
         name = myTextField.getText();
-        names.add(name);
-        writeNames();
-        returnToMenu(event);
+        if (names.contains(name)) {
+            myLabel.setText("The name has already been entered. Try again!");
+        } else {
+            names.add(name);
+            writeNames();
+            returnToMenu(event);
+        }
     }
 
     /**

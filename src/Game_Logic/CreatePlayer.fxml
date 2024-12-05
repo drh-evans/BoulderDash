@@ -15,12 +15,17 @@
             <Image url="@../Images/MenuBackground.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="myTextField" layoutX="91.0" layoutY="187.0" prefHeight="57.0" prefWidth="243.0" />
+      <TextField fx:id="myTextField" layoutX="91.0" layoutY="187.0" prefHeight="57.0" prefWidth="243.0" promptText="Enter a username!" />
       <Button fx:id="myButton" layoutX="164.0" layoutY="307.0" mnemonicParsing="false" onAction="#submit" prefHeight="46.0" prefWidth="98.0" text="Submit" />
-      <Button layoutX="140.0" layoutY="390.0" minWidth="140.0" mnemonicParsing="false" text="Back" onAction="#returnToMenu" />
-      <Label fx:id="myLabel" layoutX="78.0" layoutY="37.0" text="Create Player" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="140.0" layoutY="390.0" minWidth="140.0" mnemonicParsing="false" onAction="#returnToMenu" text="Back" />
+      <Label layoutX="78.0" layoutY="37.0" text="Create Player" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="48.0" />
+         </font>
+      </Label>
+      <Label fx:id="myLabel" layoutX="95.0" layoutY="261.0" prefHeight="17.0" prefWidth="243.0" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
          </font>
       </Label>
    </children>
