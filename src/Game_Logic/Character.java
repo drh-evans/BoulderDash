@@ -221,6 +221,7 @@ public class Character {
 
     /**
      * Checks if the tile is a key.
+     *
      * @param tilePos the tiles position.
      * @return keyStatus, a boolean whether it is a key or not.
      */
@@ -232,6 +233,7 @@ public class Character {
 
     /**
      * Checks if a tile is a door.
+     *
      * @param tilePos the tiles position.
      * @return doorStatus, whether it is a door.
      */
@@ -324,26 +326,40 @@ public class Character {
         diamondsCollected++;
     }
 
+    /**
+     * Magic wall logic
+     * @param width the width of the game board
+     */
 
     private void magicWall(int width) {
         for (int i = 0; i < gameBoard.length; i++) {
-
+            // Loops though the game board finding magic walls
             if (gameBoard[i].getObjectToken().equals("M")) {
-                int x = gameBoard[i].getX();
-                int y = gameBoard[i].getY();
+                int X = gameBoard[i].getX();
+                int Y = gameBoard[i].getY();
 
-                y--;
-                int tilePos = y * width + x;
+                Y--;
+                int tilePos = Y * width + X;
+                //Checks if a boulder is above
                 if (checkBoulderTile(tilePos)) {
-                    transformToPath(tilePos);
+                    if (((Y + 2) * width + X) < gameBoard.length) {
+                        if (gameBoard[(Y + 2) * width + X].getObjectToken().equals("P")) {
+                            transformToPath(tilePos);
 
-                    int diamondPos = (y + 2) * width + x;
-                    gameBoard[diamondPos] = new Diamond(this.x, this.y);
+                            int diamondPos = (Y + 2) * width + X;
+                            gameBoard[diamondPos] = new Diamond(x, y);
+                        }
+                    }
                 }
+                //Checks if a diamond is above
                 if (checkDiamondTile(tilePos)) {
-                    transformToPath(tilePos);
-                    int boulderPos = (y + 2) * width + x;
-                    gameBoard[boulderPos] = new Boulder(this.x, this.y);
+                    if (((Y + 2) * width + X) < gameBoard.length) {
+                        if (gameBoard[(Y + 2) * width + X].getObjectToken().equals("P")) {
+                            transformToPath(tilePos);
+                            int boulderPos = (Y + 2) * width + X;
+                            gameBoard[boulderPos] = new Boulder(x, y);
+                        }
+                    }
                 }
             }
         }
