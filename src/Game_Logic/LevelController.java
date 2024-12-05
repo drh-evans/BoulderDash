@@ -39,8 +39,8 @@ import java.io.IOException;
  */
 public class LevelController {
     // The dimensions of the window
-    private static final int WINDOW_WIDTH = 800;
-    private static final int WINDOW_HEIGHT = 500;
+    private static int WINDOW_WIDTH;
+    private static int WINDOW_HEIGHT;
 
     // The width and height (in pixels) of each cell that makes up the game.
     private static final int GRID_CELL_WIDTH = 50;
@@ -105,6 +105,8 @@ public class LevelController {
 
         canvasHeight = gridHeight * GRID_CELL_HEIGHT;
         canvasWidth = gridWidth * GRID_CELL_WIDTH;
+        WINDOW_WIDTH =  canvasWidth;
+        WINDOW_HEIGHT = canvasHeight + 45;
     }
 
 
