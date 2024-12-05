@@ -21,6 +21,7 @@ public class Character {
     private int x;
     private int y;
     private int score;
+    private int tilePos = 0;
     private int diamondsCollected = 0;
     private Level currentLevel;
     private Player currentPlayer;
@@ -29,8 +30,8 @@ public class Character {
      * Creates a character to be spawned on the map.
      */
     public Character(Level level, Player player) {
-        this.x = 0;
-        this.y = 0;
+        this.x = 1;
+        this.y = 1;
         this.currentLevel = level;
         this.gameBoard = currentLevel.getGameBoard();
         this.currentPlayer = player;
@@ -52,7 +53,6 @@ public class Character {
 
                 checkTile(x, y, gridWidth);
                 magicWall(gridWidth);
-
                 //Checks if the tile is traversable and within the board
                 if (x == gridWidth || !checkTileIsTraversable(x, y, gridWidth)) {
                     x--;
@@ -64,7 +64,6 @@ public class Character {
 
                 checkTile(x, y, gridWidth);
                 magicWall(gridWidth);
-
                 //Checks if the tile is traversable and within the board
                 if (x < 0 || !checkTileIsTraversable(x, y, gridWidth)) {
                     x++;
@@ -76,7 +75,6 @@ public class Character {
 
                 checkTile(x, y, gridWidth);
                 magicWall(gridWidth);
-
                 //Checks if the tile is traversable and within the board
                 if (y == gridHeight || !checkTileIsTraversable(x, y, gridWidth)) {
                     y--;
@@ -88,7 +86,6 @@ public class Character {
 
                 checkTile(x, y, gridWidth);
                 magicWall(gridWidth);
-
                 //Checks if the tile is traversable and within the board
                 if (y < 0 || !checkTileIsTraversable(x, y, gridWidth)) {
                     y++;
@@ -98,6 +95,9 @@ public class Character {
                 // Do nothing for all other keys.
                 break;
         }
+    }
+
+    private void doorToPath() {
     }
 
     /**
@@ -132,6 +132,7 @@ public class Character {
             System.out.println(door.getColour());
             // Check if the player has the current doors key.
             boolean hasKey = currentPlayer.checkInventory(doorColour);
+            System.out.println(hasKey);
             // Open the door.
             if (hasKey) {
                 door.setTraversable(true);
@@ -188,7 +189,8 @@ public class Character {
      * @return a boolean as to the status of the tile.
      */
     private boolean checkDirtTile(int tilePos) {
-        return gameBoard[tilePos].getObjectToken().equals("D") && (gameBoard[tilePos] != null);
+        return gameBoard[tilePos].getObjectToken().equals("D")
+                && (gameBoard[tilePos] != null);
     }
 
     /**
@@ -198,7 +200,8 @@ public class Character {
      * @return a boolean as to the status of the tile.
      */
     private boolean checkExitTile(int tilePos) {
-        return gameBoard[tilePos].getObjectToken().equals("E") && (gameBoard[tilePos] != null);
+        return gameBoard[tilePos].getObjectToken().equals("E")
+                && (gameBoard[tilePos] != null);
     }
 
     /**
@@ -208,15 +211,18 @@ public class Character {
      * @return a boolean as to the status of the tile.
      */
     private boolean checkDiamondTile(int tilePos) {
-        return gameBoard[tilePos].getObjectToken().equals("*") && (gameBoard[tilePos] != null);
+        return gameBoard[tilePos].getObjectToken().equals("*")
+                && (gameBoard[tilePos] != null);
     }
 
     private boolean checkBoulderTile(int tilePos) {
-        return gameBoard[tilePos].getObjectToken().equals("B") && (gameBoard[tilePos] != null);
+        return gameBoard[tilePos].getObjectToken().equals("B")
+                && (gameBoard[tilePos] != null);
     }
 
     private boolean checkMagicWallTile(int tilePos) {
-        return gameBoard[tilePos].getObjectToken().equals("M") && (gameBoard[tilePos] != null);
+        return gameBoard[tilePos].getObjectToken().equals("M")
+                && (gameBoard[tilePos] != null);
     }
 
     /**
@@ -334,6 +340,7 @@ public class Character {
     private void magicWall(int width) {
         for (int i = 0; i < gameBoard.length; i++) {
             // Loops though the game board finding magic walls
+
             if (gameBoard[i].getObjectToken().equals("M")) {
                 int X = gameBoard[i].getX();
                 int Y = gameBoard[i].getY();

@@ -76,8 +76,8 @@ public class LevelController {
     // X and Y coordinate of player on the grid.
     private Character character;
     private Player player;
-    private int playerX;
-    private int playerY;
+    private int playerX = 1;
+    private int playerY = 1;
     // String to represent the key pressed.
     private String keyPressed = " ";
 

@@ -1,5 +1,7 @@
 package Game_Objects.Entities;
+import Game_Objects.GameObject;
 import Game_Objects.Tiles.MagicWall;
+import Game_Objects.Tiles.Path;
 
 /**
  * Class to represent Boulder entities.
@@ -31,11 +33,14 @@ public class Boulder extends Entity {
   /**
    * Method to push a boulder if it is pushable.
    */
-  public void push() {
-    switch (pushDirection) {
-      case "LEFT" -> x--;
-      case "RIGHT" -> x++;
-      default -> x = x;
+  public void push(GameObject[] gameObjects, int tilePos) {
+    if (gameObjects[tilePos + 1].getObjectToken().equals("P")) {
+        switch (pushDirection) {
+            case "LEFT" -> x--;
+            case "RIGHT" -> x++;
+            default -> x = x;
+        }
+        gameObjects[tilePos-1] = (Path) new Path(x--, y);
     }
   }
 
