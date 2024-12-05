@@ -30,4 +30,16 @@ public class MenuController {
         stage.show();
 
     }
+
+    @FXML
+    public void openCreatePlayer(ActionEvent event) throws IOException {
+        //Loads new fxml
+        Parent root = FXMLLoader.load(getClass().getResource("CreatePlayer.fxml"));
+        //Removes old and creates a new scene
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
 }

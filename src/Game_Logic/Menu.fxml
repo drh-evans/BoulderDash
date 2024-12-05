@@ -20,7 +20,7 @@
             <Image url="@../Images/MenuHeader.png" />
          </image>
       </ImageView>
-      <Button layoutX="110.0" layoutY="231.0" minWidth="200.0" mnemonicParsing="false" text="Create Profile" textAlignment="CENTER">
+      <Button layoutX="110.0" layoutY="231.0" minWidth="200.0" mnemonicParsing="false" onAction="#openCreatePlayer" text="Create Profile" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
