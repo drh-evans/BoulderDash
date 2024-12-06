@@ -13,7 +13,7 @@ public class Player {
     private static final int MAX_LEVEL = 10;
     private final String name;
     private final Character playerCharacter;
-    private int highScore;
+    private int levelScore;
     private int levelUnlocked = 1;
     private ArrayList<Key> inventory = new ArrayList<>();
     /**
@@ -98,16 +98,16 @@ public class Player {
      * Getter for the players highest score.
      * @return the players highest score.
      */
-    public int getHighScore() {
-        return highScore;
+    public int getLevelScore() {
+        return levelScore;
     }
 
     /**
      * Set the players highscore.
-     * @param highScore the new highscore achieved.
+     * @param levelScore the new highscore achieved.
      */
-    public void setHighScore(int highScore) {
-        this.highScore = highScore;
+    public void setLevelScore(int levelScore) {
+        this.levelScore = levelScore;
     }
 
     /**

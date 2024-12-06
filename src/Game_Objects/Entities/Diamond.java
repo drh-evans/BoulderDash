@@ -58,10 +58,11 @@ public class Diamond extends Entity {
      * @param character the player profile.
      */
     public void collectDiamond(Character character) {
-        int oldScore = character.getScore();
+        Player currentPlayer = character.getCurrentPlayer();
+        int oldScore = currentPlayer.getLevelScore();
         int newScore = oldScore + 10;
         character.setDiamondsCollected();
-        character.setScore(newScore);
+        currentPlayer.setLevelScore(newScore);
         pickedUp = true;
     }
 }

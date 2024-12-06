@@ -10,9 +10,10 @@ public class Amoeba extends Entity {
     // Basic attributes for amoebas
     private int growthRate;
     private int maxSize;
-    private static int currentSize = 0;
+    private static int currentSize = 1;
     private boolean isMaximum;
     private ArrayList<GameObject> neighbours = new ArrayList<>();
+    private ArrayList<Amoeba> activeAmoeba = new ArrayList<>();
 
 
     public Amoeba(int x, int y, int growthRate, int maxSize) {
@@ -51,10 +52,12 @@ public class Amoeba extends Entity {
                 int newTileY = tile.getY();
                 int nextPosition = (newTileY * width) + newTileX;
                 tiles[nextPosition] = new Amoeba(newTileX, newTileY, growthRate, maxSize);
-                currentSize++;
+                activeAmoeba.add((Amoeba) tiles[nextPosition]);
+                updateCount(width);
             }
         }
     }
+
     public void getNeighbours(GameObject[] tiles, int width) {
         // Calculate the neighbouring tiles in each direction.
         int currentTilePosition = (y * width) + x;
@@ -71,20 +74,20 @@ public class Amoeba extends Entity {
         boolean lowerDiscovered = false;
 
         //  Add any valid paths to a neighbours array.
-            // check the tiles in 4 cardinal directions.
-            if (validateNeighbour(tiles, rightNeighbourPosition) && !rightDiscovered) {
-                neighbours.add(tiles[rightNeighbourPosition]);
-                rightDiscovered = true;
-            } else if (validateNeighbour(tiles, leftNeighbourPosition) && !leftDiscovered) {
-                neighbours.add(tiles[leftNeighbourPosition]);
-                leftDiscovered = true;
-            } else if (validateNeighbour(tiles, upperNeighbourPosition) && !upperDiscovered) {
-                neighbours.add(tiles[upperNeighbourPosition]);
-                upperDiscovered = true;
-            } else if (validateNeighbour(tiles, lowerNeighbourPosition) && !lowerDiscovered) {
-                neighbours.add(tiles[lowerNeighbourPosition]);
-                lowerDiscovered = true;
-            }
+        // check the tiles in 4 cardinal directions.
+        if (validateNeighbour(tiles, rightNeighbourPosition) && !rightDiscovered) {
+            neighbours.add(tiles[rightNeighbourPosition]);
+            rightDiscovered = true;
+        } else if (validateNeighbour(tiles, leftNeighbourPosition) && !leftDiscovered) {
+            neighbours.add(tiles[leftNeighbourPosition]);
+            leftDiscovered = true;
+        } else if (validateNeighbour(tiles, upperNeighbourPosition) && !upperDiscovered) {
+            neighbours.add(tiles[upperNeighbourPosition]);
+            upperDiscovered = true;
+        } else if (validateNeighbour(tiles, lowerNeighbourPosition) && !lowerDiscovered) {
+            neighbours.add(tiles[lowerNeighbourPosition]);
+            lowerDiscovered = true;
+        }
     }
 
     /**
@@ -102,6 +105,33 @@ public class Amoeba extends Entity {
         return false;
     }
 
+    public void updateCount(int width) {
+        int upperY = y - 1;
+        int lowerY = y + 1;
+        int rightX = x + 1;
+        int leftX = x - 1;
+
+        // Manage if the amoebas neighbours have been  discovered.
+        boolean rightLocated = false;
+        boolean leftLocated = false;
+        boolean upperLocated = false;
+        boolean lowerLocated = false;
+
+        if (leftX == x - 1 && !leftLocated) {
+            leftLocated = true;
+            currentSize++;
+        } else if (rightX == x + 1 && !rightLocated) {
+            rightLocated = true;
+            currentSize++;
+        } else if (upperY == y - 1 && !upperLocated) {
+            upperLocated = true;
+            currentSize++;
+        } else if (lowerY == y + 1 && !lowerLocated) {
+            lowerLocated = true;
+            currentSize++;
+        }
+        System.out.println(currentSize);
+    }
     /**
      *
      */

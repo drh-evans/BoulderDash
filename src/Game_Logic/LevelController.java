@@ -3,7 +3,6 @@ package Game_Logic;
 import Game_Objects.GameObject;
 import Game_Objects.Tiles.MagicWall;
 import Game_Objects.Entities.Amoeba;
-import Game_Objects.GameObject;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -138,7 +137,7 @@ public class LevelController {
      * @param openGame button was pressed.
      */
     public void createLevel2(ActionEvent openGame) {
-        createLevelTemplate(openGame, l2);
+            createLevelTemplate(openGame, l2);
     }
 
     /**
@@ -202,6 +201,7 @@ public class LevelController {
 
     public void returnToMenu(ActionEvent e){
         //If return to menu is called stop game ticks
+        // TODO FIX BACK BUTTON
         clockTimeline.stop();
         playerTickTimeline.stop();
         magicWallTickTimeline.stop();
@@ -222,8 +222,8 @@ public class LevelController {
 
     //Score checking everytime a player finish a level
     public void scoreChecking(Player player, Level currentLevel, int score) {
-        if (score > player.getHighScore()) {
-            player.setHighScore(score);
+        if (score > player.getLevelScore()) {
+            player.setLevelScore(score);
         }
         currentLevel.newHighScore(score);
     }
@@ -254,7 +254,7 @@ public class LevelController {
     public void drawGame(Level chosenLevel) {
         // Get the Graphic Context of the canvas. This is what we draw on.
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        scoreDisplay.setText("SCORE: " + Integer.toString(character.getScore()));
+        scoreDisplay.setText("SCORE: " + Integer.toString(player.getLevelScore()));
         timeDisplay.setText("TIME: " + Integer.toString(chosenLevel.getTimeToComplete()));
 
 
@@ -469,5 +469,4 @@ public class LevelController {
         System.out.println("Amoeba spread rate: " + main.testLevel.getAmoebaSpreadRate());
         System.out.println("Amoeba max size: " + main.testLevel.getAmoebaMaxSize());
     }
-
 }

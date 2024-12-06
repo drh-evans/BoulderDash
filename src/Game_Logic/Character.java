@@ -20,7 +20,6 @@ public class Character {
     private final GameObject[] gameBoard;
     private int characterX;
     private int characterY;
-    private int score;
     private int tilePos = 0;
     private int diamondsCollected = 0;
     private Level currentLevel;
@@ -315,24 +314,6 @@ public class Character {
     }
 
     /**
-     * Get the score obtained by the player.
-     *
-     * @return score, the score obtained by a player.
-     */
-    public int getScore() {
-        return score;
-    }
-
-    /**
-     * Set the score obtained by a player.
-     *
-     * @param newScore the new score obtained.
-     */
-    public void setScore(int newScore) {
-        score = newScore;
-    }
-
-    /**
      * Get the amount of diamonds collected by a player.
      *
      * @return diamonds collected - the amount of diamonds collected.
@@ -346,6 +327,10 @@ public class Character {
      */
     public void setDiamondsCollected() {
         diamondsCollected++;
+    }
+
+    public Player getCurrentPlayer(){
+        return currentPlayer;
     }
 }
 
