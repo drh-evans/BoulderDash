@@ -96,17 +96,23 @@ public class LevelController {
      * Creates a template for each level creation.
      * @param desiredLevel The level to be loaded.
      */
-    public void createLevelTemplate(Level desiredLevel){
+    public void createLevelTemplate(ActionEvent openGame,Level desiredLevel){
         //Sets attributes for the level
         setGridWidth(desiredLevel.getWidth());
         setGridHeight(desiredLevel.getHeight());
-        player = new Player("John", desiredLevel);
-        setCharacter(player.getPlayerCharacter());
-
         canvasHeight = gridHeight * GRID_CELL_HEIGHT;
         canvasWidth = gridWidth * GRID_CELL_WIDTH;
         WINDOW_WIDTH =  canvasWidth;
         WINDOW_HEIGHT = canvasHeight + 45;
+
+        //Creates a new player and character
+        player = new Player("John", desiredLevel);
+        setCharacter(player.getPlayerCharacter());
+        createGame(openGame, desiredLevel);
+
+        //Starts the clock and tick as level is loaded
+        tickTimeline.play();
+        clockTimeline.play();
     }
 
 
@@ -115,11 +121,7 @@ public class LevelController {
      * @param openGame button was pressed.
      */
     public void createLevel1(ActionEvent openGame) {
-        //Sets attributes for the level
-        createLevelTemplate(testLevel);
-
-        //Calls Liam's code to create the game display
-        createGame(openGame, testLevel);
+        createLevelTemplate(openGame ,testLevel);
     }
 
 
@@ -128,11 +130,7 @@ public class LevelController {
      * @param openGame button was pressed.
      */
     public void createLevel2(ActionEvent openGame) {
-        //Sets attributes for the level
-        createLevelTemplate(l2);
-
-        //Calls Liam's code to create the game display
-        createGame(openGame, l2);
+        createLevelTemplate(openGame, l2);
     }
 
     /**
@@ -140,14 +138,10 @@ public class LevelController {
      * @param openGame button was pressed.
      */
     public void createLevel3(ActionEvent openGame) {
-        //Sets attributes for the level
-        createLevelTemplate(l3);
-
-        //Calls Liam's code to create the game display
-        createGame(openGame, l3);
+        createLevelTemplate(openGame,l3);
     }
 
-    
+
     /**
      * Updates stage to display the game.
      * @param openGame button was pressed.
@@ -349,6 +343,7 @@ public class LevelController {
         returnToMenu.setOnAction(this::returnToMenu);
 
         // Tick Timeline buttons
+        /**
         Button startTickTimelineButton = new Button("Play");
         Button stopTickTimelineButton = new Button("Pause");
         // We add both buttons at the same time to the timeline (we could have done this in two steps).
@@ -372,6 +367,7 @@ public class LevelController {
             clockTimeline.stop();
             startTickTimelineButton.setDisable(false);
         });
+         */
 
         // Setup a draggable image.
         ImageView draggableImage = new ImageView();
