@@ -1,7 +1,6 @@
 package Game_Objects.Entities;
 import Game_Objects.GameObject;
 import Game_Objects.Tiles.MagicWall;
-import Game_Objects.Tiles.Path;
 
 /**
  * Class to represent Boulder entities.
@@ -30,32 +29,44 @@ public class Boulder extends Entity {
     this.isDestructible = true;
   }
 
+  public void pushableCheck(GameObject[] gameObjects, int newPos) {
+    // all the tiles you cant push against - need to add them all
+    // magic wall to diamond functionality can be added here
+    if (gameObjects[newPos].getObjectToken().equals("W") || gameObjects[newPos].getObjectToken().equals("YD")) {
+      this.isPushable = false;
+    } else this.isPushable = true;
+  }
+
   /**
    * Method to push a boulder if it is pushable.
+   *
+   * @return
    */
-  public void push(GameObject[] gameObjects, int tilePos, int direction) {
+  public boolean push(GameObject[] gameObjects, int tilePos, int direction) {
+    // ive tried to implement this as straight-forward and simply as possible, please refactor as seen fit
     int newPos;
     if (direction == 1) {
       newPos = tilePos + 1;
-      gameObjects[newPos] = this;
+      pushableCheck(gameObjects, newPos);
+      if (this.isPushable) {
+        gameObjects[newPos] = this;
+        return true;
+      }
+      return false;
     } if (direction == 2) {
       newPos = tilePos - 1;
-      gameObjects[newPos] = this;
+      if (this.isPushable) {
+        gameObjects[newPos] = this;
+        return true;
+      }
+      return false;
+    } if (direction == 3) {
+      return false;
+    } if (direction == 4) {
+      return false;
     }
+    return false;
   }
-
-
-  protected void isColliding (MagicWall magicWall) {
-  }
-
-
-  protected void isColliding (Character character) {
-  
-  }
-  public void removeTarget (Character character) {
-    character = null;
-  }
-
 
   /**
    *
@@ -81,13 +92,6 @@ public class Boulder extends Entity {
 
   }
 
-  public void setPushDirection(String direction) {
-    switch (direction) {
-      case "D", "RIGHT" -> pushDirection = "RIGHT";
-      case "A", "LEFT" -> pushDirection = "LEFT";
-      default -> pushDirection = "";
-    }
-  }
 
   public String getPushDirection() {
     return pushDirection;

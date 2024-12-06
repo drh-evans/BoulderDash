@@ -124,7 +124,9 @@ public class Character {
             transformToPath(tilePos);
         } else if (checkBoulderTile(tilePos)) {
             Boulder boulder = (Boulder) gameBoard[tilePos];
-            boulder.push(gameBoard, tilePos, direction);
+            if (!boulder.push(gameBoard, tilePos, direction)){
+                tilePos--;
+            }
             transformToPath(tilePos);
         } else if (checkKeyTile(tilePos)) {
             Key key = (Key) gameBoard[tilePos];
