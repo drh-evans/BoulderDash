@@ -32,8 +32,11 @@ public class Boulder extends Entity {
   public void pushableCheck(GameObject[] gameObjects, int newPos) {
     // all the tiles you cant push against - need to add them all
     // magic wall to diamond functionality can be added here
-    if (gameObjects[newPos].getObjectToken().equals("W") || gameObjects[newPos].getObjectToken().equals("YD")) {
+    if (!gameObjects[newPos].getObjectToken().equals("P")) {
       this.isPushable = false;
+    } else if (gameObjects[newPos].getObjectToken().equals("M")) {
+      // in the case of magic wall,
+      // convert to diamond
     } else this.isPushable = true;
   }
 

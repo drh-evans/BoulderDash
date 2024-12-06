@@ -49,8 +49,8 @@ public class Character {
         switch (keyPressed) {
             case "RIGHT":
 
-                    x++;
-                    checkTile(x, y, gridWidth, 1);
+                x++;
+                checkTile(x, y, gridWidth, 1);
                 magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
                 if (x == gridWidth || !checkTileIsTraversable(x, y, gridWidth)) {
