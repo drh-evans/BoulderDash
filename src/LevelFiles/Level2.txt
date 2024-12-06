@@ -1,7 +1,7 @@
 6 16
 T T T T T T T T T T T T T T T T
-T P D W W W W W W W W W P W W T
-T D P P P P P P P P P P A P W T
+T P D W W W W W W W W D P D D T
+T D P P P P P P P P P P A P D T
 T W P P P P P P * * * P P P W T
 T W W W W W W W W W W W W E W T
 T T T T T T T T T T T T T T T T

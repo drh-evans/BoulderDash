@@ -2,6 +2,8 @@ package Game_Logic;
 
 import Game_Objects.GameObject;
 import Game_Objects.Tiles.MagicWall;
+import Game_Objects.Entities.Amoeba;
+import Game_Objects.GameObject;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -87,6 +89,7 @@ public class LevelController {
     private Timeline playerTickTimeline;
     private Timeline magicWallTickTimeline;
     private Timeline clockTimeline;
+    private Timeline amoebaTickTimeline;
 
     // Boolean to decide game status.
     private boolean gameOver = false;
@@ -117,6 +120,7 @@ public class LevelController {
         magicWallTickTimeline.play();
         playerTickTimeline.play();
         clockTimeline.play();
+        amoebaTickTimeline.play();
     }
 
 
@@ -180,6 +184,10 @@ public class LevelController {
         magicWallTickTimeline = new Timeline(new KeyFrame(Duration.millis(500), event -> magicWallTick(desiredLevel)));
         // Loop the timeline forever
         magicWallTickTimeline.setCycleCount(Animation.INDEFINITE);
+
+        // Amoeba tick rate
+        amoebaTickTimeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> amoebaTick(desiredLevel)));
+        amoebaTickTimeline.setCycleCount(Animation.INDEFINITE);
 
         // Tick timeline for the timer, set to 1s.
         clockTimeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> clockTick(desiredLevel)));
@@ -287,6 +295,17 @@ public class LevelController {
 
         // Redraw the game
         drawGame(currentLevel);
+    }
+
+    public void amoebaTick(Level currentLevel) {
+        GameObject[] gameBoard = currentLevel.getGameBoard();
+        for (GameObject object : gameBoard) {
+            if (object.getObjectToken().equals("A")) {
+                int tilePosition = object.getY() * gridWidth + object.getX();
+                Amoeba a = (Amoeba) gameBoard[tilePosition];
+                a.spread(gameBoard, gridWidth);
+            }
+        }
     }
 
     /**
