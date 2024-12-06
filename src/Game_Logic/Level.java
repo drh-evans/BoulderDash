@@ -1,5 +1,6 @@
 package Game_Logic;
 
+import Game_Objects.Entities.Amoeba;
 import Game_Objects.Entities.Boulder;
 import Game_Objects.Entities.Diamond;
 import Game_Objects.GameObject;
@@ -37,6 +38,7 @@ public class Level {
     private static final Image BLUE_DOOR = new Image("Images/bluedoor.png");
     private static final Image YELLOW_DOOR = new Image("Images/yellowdoor.png");
     private static final Image RED_DOOR = new Image("Images/reddoor.png");
+    private static final Image AMOEBA = new Image("Images/amoeba.png");
 
     // Size of each cell on a grid.
     private static final int GRID_CELL_WIDTH = 50;
@@ -147,6 +149,8 @@ public class Level {
                             case "RD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.RED);
                             case "YD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.YELLOW);
                             case "BD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.BLUE);
+                            //Temp values for amoeba so level can still load
+                            case "A" -> gameBoard[(y * width) + x] = new Amoeba(x,y, 2, 10);
                             default -> System.out.println("No tile found!");
                         }
                     }
@@ -198,6 +202,7 @@ public class Level {
                     case "BD" -> gc.drawImage(BLUE_DOOR, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "FR", "FL" -> gc.drawImage(FIREFLY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     case "BR", "BL" -> gc.drawImage(BUTTERFLY, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+                    case "A" -> gc.drawImage(AMOEBA, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
                     default -> System.out.println("No valid tile found!");
                 }
 
@@ -221,7 +226,7 @@ public class Level {
      */
     public void destroyTile(Player player) {
         // Retrieve the X and Y coordinates of the character
-        int tilePos = player.getPlayerCharacter().getY() * width + player.getPlayerCharacter().getX();
+        int tilePos = player.getPlayerCharacter().getCharacterY() * width + player.getPlayerCharacter().getCharacterX();
 
         // Only proceed if the object is a Tile subclass
         if (gameBoard[tilePos].getClass().isAssignableFrom(Tile.class)) {

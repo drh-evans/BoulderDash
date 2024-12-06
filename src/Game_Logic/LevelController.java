@@ -257,8 +257,8 @@ public class LevelController {
      * Reset the player's location and move them back to (0,0).
      */
     public void resetPlayerLocation(Level currentLevel) {
-        character.setX(0);
-        character.setY(0);
+        character.setCharacterX(0);
+        character.setCharacterY(0);
         drawGame(currentLevel);
     }
 
@@ -267,8 +267,8 @@ public class LevelController {
      */
     public void movePlayerToCenter(Level currentLevel) {
         // We just move the player to cell (5, 2)
-        character.setX(5);
-        character.setY(2);
+        character.setCharacterX(5);
+        character.setCharacterY(2);
         drawGame(currentLevel);
     }
 
@@ -284,8 +284,8 @@ public class LevelController {
 
         // Reset key pressed so that new movement is read or character doesn't move.
         keyPressed = " ";
-        playerX = character.getX();
-        playerY = character.getY();
+        playerX = character.getCharacterX();
+        playerY = character.getCharacterY();
 
         // Redraw the game with new X, Y.
         drawGame(currentLevel);
