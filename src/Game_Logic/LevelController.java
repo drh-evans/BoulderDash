@@ -201,6 +201,11 @@ public class LevelController {
     }
 
     public void returnToMenu(ActionEvent e){
+        //If return to menu is called stop game ticks
+        clockTimeline.stop();
+        playerTickTimeline.stop();
+        magicWallTickTimeline.stop();
+        amoebaTickTimeline.stop();
         Parent menu = null;
         try {
             // loads menu fxml file
@@ -337,6 +342,11 @@ public class LevelController {
 
         // check the time/game state validity.
         if (time == 0) {
+            //If time is zero stop game ticks
+            clockTimeline.stop();
+            playerTickTimeline.stop();
+            magicWallTickTimeline.stop();
+            amoebaTickTimeline.stop();
             gameOver = true;
         } else if (!gameOver){
             // decrease time to complete by 1.
