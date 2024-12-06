@@ -48,7 +48,7 @@ public class Character {
         switch (keyPressed) {
             case "RIGHT":
                 x++;
-                
+
                 checkTile(x, y, gridWidth, 1);
                 magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
@@ -124,9 +124,15 @@ public class Character {
         } else if (checkBoulderTile(tilePos)) {
             Boulder boulder = (Boulder) gameBoard[tilePos];
             if (!boulder.push(gameBoard, tilePos, direction)){
-                tilePos--;
+                if (direction == 1) {
+                    tilePos--;
+                } else if (direction == 2) {
+                    tilePos++;
+                }
             }
-            transformToPath(tilePos);
+            if (direction == 1 || direction == 2) {
+                transformToPath(tilePos);
+            }
         } else if (checkKeyTile(tilePos)) {
             Key key = (Key) gameBoard[tilePos];
             key.collectKey(currentPlayer);
