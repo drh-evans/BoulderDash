@@ -269,6 +269,14 @@ public class Character {
         }
     }
 
+    /**
+     * Resets the characters position to the starting position.
+     */
+    public void resetCharacterPosition() {
+        this.characterX = 1;
+        this.characterY = 1;
+    }
+
 
     /**
      * Getter for the characters X coordinate.
