@@ -1,5 +1,7 @@
 package Game_Logic;
 
+import Game_Objects.GameObject;
+import Game_Objects.Tiles.MagicWall;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -82,7 +84,8 @@ public class LevelController {
     private String keyPressed = " ";
 
     // Timeline which will cause tick method to be called periodically.
-    private Timeline tickTimeline;
+    private Timeline playerTickTimeline;
+    private Timeline magicWallTickTimeline;
     private Timeline clockTimeline;
 
     // Boolean to decide game status.
@@ -111,7 +114,8 @@ public class LevelController {
         createGame(openGame, desiredLevel);
 
         //Starts the clock and tick as level is loaded
-        tickTimeline.play();
+        magicWallTickTimeline.play();
+        playerTickTimeline.play();
         clockTimeline.play();
     }
 
@@ -168,9 +172,14 @@ public class LevelController {
 
         // Register a tick method to be called periodically.
         // Make a new timeline with one keyframe that triggers the tick method every half a second.
-        tickTimeline = new Timeline(new KeyFrame(Duration.millis(600), event -> tick(desiredLevel)));
+        playerTickTimeline = new Timeline(new KeyFrame(Duration.millis(600), event -> playerTick(desiredLevel)));
         // Loop the timeline forever
-        tickTimeline.setCycleCount(Animation.INDEFINITE);
+        playerTickTimeline.setCycleCount(Animation.INDEFINITE);
+
+        // Magic wall tick rate
+        magicWallTickTimeline = new Timeline(new KeyFrame(Duration.millis(500), event -> magicWallTick(desiredLevel)));
+        // Loop the timeline forever
+        magicWallTickTimeline.setCycleCount(Animation.INDEFINITE);
 
         // Tick timeline for the timer, set to 1s.
         clockTimeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> clockTick(desiredLevel)));
@@ -272,13 +281,21 @@ public class LevelController {
         drawGame(currentLevel);
     }
 
+    public void magicWallTick(Level currentLevel) {
+        GameObject[] gameBoard = currentLevel.getGameBoard();
+        MagicWall.magicWallLogic(gameBoard, gridWidth, character);
+
+        // Redraw the game
+        drawGame(currentLevel);
+    }
+
     /**
      * This method is called periodically by the tick timeline
      * and would for, example move, perform logic in the game,
      * this might cause the bad guys to move (by e.g., looping
      * over them all and calling their own tick method).
      */
-    public void tick(Level currentLevel) {
+    public void playerTick(Level currentLevel) {
         // Move the character.
         character.moveCharacter(keyPressed, gridWidth, gridHeight);
 

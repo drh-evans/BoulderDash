@@ -40,6 +40,7 @@ public class Character {
     /**
      * Controls the characters movement based off of keyboard input.
      * Checks if the players move is within the grid limits.
+     *
      * @param keyPressed key inputted by player.
      * @param gridWidth  the width of the game grid.
      * @param gridHeight the height of the game grid.
@@ -50,19 +51,17 @@ public class Character {
                 characterX++;
 
                 checkTile(characterX, characterY, gridWidth, 1);
-                magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
                 if (characterX == gridWidth || !checkTileIsTraversable(characterX, characterY, gridWidth)) {
                     characterX--;
                 }
 
-            break;
+                break;
             case "LEFT":
                 // Left key was pressed. So move the player right by one cell.
                 characterX--;
 
                 checkTile(characterX, characterY, gridWidth, 2);
-                magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
                 if (characterX < 0 || !checkTileIsTraversable(characterX, characterY, gridWidth)) {
                     characterX++;
@@ -73,7 +72,6 @@ public class Character {
                 characterY++;
 
                 checkTile(characterX, characterY, gridWidth, 3);
-                magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
                 if (characterY == gridHeight || !checkTileIsTraversable(characterX, characterY, gridWidth)) {
                     characterY--;
@@ -84,7 +82,6 @@ public class Character {
                 characterY--;
 
                 checkTile(characterX, characterY, gridWidth, 4);
-                magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
                 if (characterY < 0 || !checkTileIsTraversable(characterX, characterY, gridWidth)) {
                     characterY++;
@@ -123,7 +120,7 @@ public class Character {
             transformToPath(tilePos);
         } else if (checkBoulderTile(tilePos)) {
             Boulder boulder = (Boulder) gameBoard[tilePos];
-            if (!boulder.push(gameBoard, tilePos, direction)){
+            if (!boulder.push(gameBoard, tilePos, direction)) {
                 if (direction == 1) {
                     tilePos--;
                 } else if (direction == 2) {
@@ -341,45 +338,6 @@ public class Character {
      */
     public void setDiamondsCollected() {
         diamondsCollected++;
-    }
-
-    /**
-     * Magic wall logic
-     * @param width the width of the game board
-     */
-
-    private void magicWall(int width) {
-        for (int i = 0; i < gameBoard.length; i++) {
-            // Loops though the game board finding magic walls
-            if (gameBoard[i].getObjectToken().equals("M")) {
-                int x = gameBoard[i].getX();
-                int y = gameBoard[i].getY();
-
-                y--;
-                int tilePos = y * width + x;
-                int nextPosition = ((y + 2) * width + x);
-
-                // Get the (x, y) coordinates of the tile below.
-                int nextX = gameBoard[nextPosition].getX();
-                int nextY = gameBoard[nextPosition].getY();
-
-                // Check if the player occupies the tile below.
-                if (nextX != characterX && nextY != characterY) {
-                    //Checks if a boulder or diamond is above the wall.
-                    if (checkBoulderTile(tilePos)) {
-                        if (gameBoard[nextPosition].getObjectToken().equals("P")) {
-                            transformToPath(tilePos);
-                            gameBoard[nextPosition] = new Diamond(x, y);
-                        }
-                    } else if (checkDiamondTile(tilePos)) {
-                        if (gameBoard[nextPosition].getObjectToken().equals("P")) {
-                            transformToPath(tilePos);
-                            gameBoard[nextPosition] = new Boulder(x, y);
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
