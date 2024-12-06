@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,6 +18,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
 
 public class PlayerController {
     String name;
@@ -34,8 +37,8 @@ public class PlayerController {
     @FXML
     private Label statusLabel;
     private Player currentPlayer;
-
-
+    @FXML
+    private LevelController levelController;
 
     /**
      * Allows user to create a player
@@ -47,10 +50,16 @@ public class PlayerController {
         name = myTextField.getText();
         if (names.contains(name)) {
             myLabel.setText("The name has already been entered. Try again!");
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(5), myLabel);
+            fadeTransition.setFromValue(1.0);
+            fadeTransition.setToValue(0.0);
+            fadeTransition.setOnFinished(e -> myLabel.setText(""));
+            fadeTransition.play();
+
         } else {
             names.add(name);
             writeNames();
-            returnToMenu(event);
+            levelController.createLevel1(event);
         }
     }
 
@@ -118,6 +127,17 @@ public class PlayerController {
             readArray();
             playerList.getItems().addAll(names);
         }
+
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Levels.fxml"));
+            AnchorPane levelContent = loader.load();
+            levelController = loader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public void selectProfile(ActionEvent event) {
