@@ -40,7 +40,6 @@ public class Character {
     /**
      * Controls the characters movement based off of keyboard input.
      * Checks if the players move is within the grid limits.
-     *
      * @param keyPressed key inputted by player.
      * @param gridWidth  the width of the game grid.
      * @param gridHeight the height of the game grid.
@@ -48,8 +47,8 @@ public class Character {
     public void moveCharacter(String keyPressed, int gridWidth, int gridHeight) {
         switch (keyPressed) {
             case "RIGHT":
-
                 x++;
+                
                 checkTile(x, y, gridWidth, 1);
                 magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board

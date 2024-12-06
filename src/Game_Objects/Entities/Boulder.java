@@ -34,11 +34,11 @@ public class Boulder extends Entity {
     // magic wall to diamond functionality can be added here
     if (!gameObjects[newPos].getObjectToken().equals("P")) {
       this.isPushable = false;
-    } else if (gameObjects[newPos].getObjectToken().equals("M")) {
-      // in the case of magic wall,
-      // convert to diamond
-    } else this.isPushable = true;
+    } else {
+      this.isPushable = true;
+    }
   }
+
 
   /**
    * Method to push a boulder if it is pushable.
@@ -65,6 +65,7 @@ public class Boulder extends Entity {
       return false;
     } if (direction == 3) {
       return false;
+
     } if (direction == 4) {
       return false;
     }
