@@ -14,6 +14,7 @@ public class Player {
     private final String name;
     private final Character playerCharacter;
     private int levelScore;
+    private int finalLevelScore;
     private int levelUnlocked = 1;
     private ArrayList<Key> inventory = new ArrayList<>();
     /**
@@ -100,6 +101,10 @@ public class Player {
      */
     public int getLevelScore() {
         return levelScore;
+    }
+
+    public void setFinalScore(Level currentLevel) {
+        finalLevelScore = (int) ((levelScore * currentLevel.getTimeToComplete()) * 0.2);
     }
 
     /**
