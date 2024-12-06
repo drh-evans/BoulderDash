@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.File;
@@ -25,7 +26,14 @@ public class PlayerController {
     private TextField myTextField;
     @FXML
     private Button myButton;
-    private ArrayList<String> names;
+    private ArrayList<String> names = new ArrayList<>();
+    @FXML
+    private ListView<String> playerList;
+    @FXML
+    private Button selectButton;;
+    @FXML
+    private Label statusLabel;
+    private Player currentPlayer;
 
 
 
@@ -34,7 +42,7 @@ public class PlayerController {
      */
     @FXML
     public void submit(ActionEvent event) {
-        names = new ArrayList<>();
+        //names = new ArrayList<>();
         readArray();
         name = myTextField.getText();
         if (names.contains(name)) {
@@ -103,6 +111,23 @@ public class PlayerController {
         // set new stage
         stage.setScene(new Scene(menu));
         stage.show();
+    }
+
+    public void initialize() {
+        if (playerList != null) {
+            readArray();
+            playerList.getItems().addAll(names);
+        }
+    }
+
+    public void selectProfile(ActionEvent event) {
+        String selectedProfile = playerList.getSelectionModel().getSelectedItem();
+        if (selectedProfile != null) {
+           // currentPlayer = new Player(selectedProfile, );
+            returnToMenu(event);
+        } else {
+            statusLabel.setText("Please select a profile.");
+        }
     }
 
 }

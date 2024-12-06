@@ -25,15 +25,11 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <MenuButton alignment="CENTER" contentDisplay="RIGHT" layoutX="110.0" layoutY="293.0" minWidth="200.0" mnemonicParsing="false" text="Select Profile" textAlignment="CENTER">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
+      <Button alignment="CENTER" contentDisplay="RIGHT" layoutX="110.0" layoutY="293.0" minWidth="200.0" mnemonicParsing="false" onAction="#openSelectPlayer" text="Select Profile" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
-      </MenuButton>
+      </Button>
       <Button layoutX="110.0" layoutY="356.0" minWidth="200.0" mnemonicParsing="false" text="High Score Table" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
