@@ -8,6 +8,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -92,6 +93,8 @@ public class LevelController {
 
     // Boolean to decide game status.
     private boolean gameOver = false;
+    private Stage stage;
+    private Scene scene;
 
     public LevelController() throws FileNotFoundException {
     }
@@ -199,6 +202,20 @@ public class LevelController {
         stage.show();
     }
 
+    /**
+     * Go back to menu from levels
+     * @param event button is pressed
+     */
+    @FXML
+    public void backButton(ActionEvent event) throws IOException {
+        //Loads new fxml
+        Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+        //Removes old and creates a new scene
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     public void returnToMenu(ActionEvent e){
         //If return to menu is called stop game ticks
         // TODO FIX BACK BUTTON
