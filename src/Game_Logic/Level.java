@@ -150,7 +150,7 @@ public class Level {
                             case "YD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.YELLOW);
                             case "BD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.BLUE);
                             //Temp values for amoeba so level can still load
-                            case "A" -> gameBoard[(y * width) + x] = new Amoeba(x,y, 2, 10);
+                            case "A" -> gameBoard[(y * width) + x] = new Amoeba(x,y, amoebaSpreadRate, amoebaMaxSize);
                             default -> System.out.println("No tile found!");
                         }
                     }

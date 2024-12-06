@@ -10,7 +10,7 @@ public class Amoeba extends Entity {
     // Basic attributes for amoebas
     private int growthRate;
     private int maxSize;
-    private int currentSize;
+    private static int currentSize = 0;
     private boolean isMaximum;
     private ArrayList<GameObject> neighbours = new ArrayList<>();
 
@@ -19,12 +19,10 @@ public class Amoeba extends Entity {
         super(x, y, true, false, 10, "A");
         this.growthRate = growthRate;
         this.maxSize = maxSize;
-        this.currentSize = 1;
     }
 
     public Amoeba() {
         super(true, false, 10, "A");
-        currentSize = 1;
     }
     
     private boolean isMaximum() {
@@ -38,7 +36,7 @@ public class Amoeba extends Entity {
         getNeighbours(tiles, width);
 
         if (!neighbours.isEmpty()) {
-            if (!isMaximum()) {
+            if (currentSize <= maxSize) {
                 System.out.println(maxSize);
                 System.out.println(currentSize);
                 int currentTilePosition = (y * width) + x;
