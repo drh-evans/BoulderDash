@@ -18,8 +18,8 @@ import java.io.FileNotFoundException;
  */
 public class Character {
     private final GameObject[] gameBoard;
-    private int x;
-    private int y;
+    private int characterX;
+    private int characterY;
     private int score;
     private int tilePos = 0;
     private int diamondsCollected = 0;
@@ -30,8 +30,8 @@ public class Character {
      * Creates a character to be spawned on the map.
      */
     public Character(Level level, Player player) {
-        this.x = 1;
-        this.y = 1;
+        this.characterX = 1;
+        this.characterY = 1;
         this.currentLevel = level;
         this.gameBoard = currentLevel.getGameBoard();
         this.currentPlayer = player;
@@ -47,47 +47,47 @@ public class Character {
     public void moveCharacter(String keyPressed, int gridWidth, int gridHeight) {
         switch (keyPressed) {
             case "RIGHT":
-                x++;
+                characterX++;
 
-                checkTile(x, y, gridWidth, 1);
+                checkTile(characterX, characterY, gridWidth, 1);
                 magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
-                if (x == gridWidth || !checkTileIsTraversable(x, y, gridWidth)) {
-                    x--;
+                if (characterX == gridWidth || !checkTileIsTraversable(characterX, characterY, gridWidth)) {
+                    characterX--;
                 }
 
             break;
             case "LEFT":
                 // Left key was pressed. So move the player right by one cell.
-                x--;
+                characterX--;
 
-                checkTile(x, y, gridWidth, 2);
+                checkTile(characterX, characterY, gridWidth, 2);
                 magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
-                if (x < 0 || !checkTileIsTraversable(x, y, gridWidth)) {
-                    x++;
+                if (characterX < 0 || !checkTileIsTraversable(characterX, characterY, gridWidth)) {
+                    characterX++;
                 }
                 break;
             case "DOWN":
                 // Down key was pressed. So move the player right by one cell.
-                y++;
+                characterY++;
 
-                checkTile(x, y, gridWidth, 3);
+                checkTile(characterX, characterY, gridWidth, 3);
                 magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
-                if (y == gridHeight || !checkTileIsTraversable(x, y, gridWidth)) {
-                    y--;
+                if (characterY == gridHeight || !checkTileIsTraversable(characterX, characterY, gridWidth)) {
+                    characterY--;
                 }
                 break;
             case "UP":
                 // Up key was pressed. So move the player right by one cell.
-                y--;
+                characterY--;
 
-                checkTile(x, y, gridWidth, 4);
+                checkTile(characterX, characterY, gridWidth, 4);
                 magicWall(gridWidth);
                 //Checks if the tile is traversable and within the board
-                if (y < 0 || !checkTileIsTraversable(x, y, gridWidth)) {
-                    y++;
+                if (characterY < 0 || !checkTileIsTraversable(characterX, characterY, gridWidth)) {
+                    characterY++;
                 }
                 break;
             default:
@@ -165,8 +165,8 @@ public class Character {
                 // Loads the next level
                 currentLevel.loadLevel("src/LevelFiles/Level2.txt");
                 // Resets the characters position for next level
-                x = 1;
-                y = 1;
+                characterX = 1;
+                characterY = 1;
                 currentPlayer.progressLevel();
                 System.out.println("Loading next Level");
             }
@@ -268,7 +268,7 @@ public class Character {
         // check if the tile is destructible.
         if (tile.isDestructible()) {
             // turn the tile to path.
-            gameBoard[tilePos] = new Path(x, y);
+            gameBoard[tilePos] = new Path(characterX, characterY);
         }
     }
 
@@ -278,17 +278,17 @@ public class Character {
      *
      * @return X the characters X coordinate.
      */
-    public int getX() {
-        return x;
+    public int getCharacterX() {
+        return characterX;
     }
 
     /**
      * Setter for the characters X coordinate.
      *
-     * @param x the characters new X coordinate.
+     * @param characterX the characters new X coordinate.
      */
-    public void setX(int x) {
-        this.x = x;
+    public void setCharacterX(int characterX) {
+        this.characterX = characterX;
     }
 
     /**
@@ -296,17 +296,17 @@ public class Character {
      *
      * @return Y the characters Y coordinate.
      */
-    public int getY() {
-        return y;
+    public int getCharacterY() {
+        return characterY;
     }
 
     /**
      * Setter for the characters Y coordinate.
      *
-     * @param y the characters new Y coordinate.
+     * @param characterY the characters new Y coordinate.
      */
-    public void setY(int y) {
-        this.y = y;
+    public void setCharacterY(int characterY) {
+        this.characterY = characterY;
     }
 
     /**
@@ -351,31 +351,30 @@ public class Character {
     private void magicWall(int width) {
         for (int i = 0; i < gameBoard.length; i++) {
             // Loops though the game board finding magic walls
-
             if (gameBoard[i].getObjectToken().equals("M")) {
-                int X = gameBoard[i].getX();
-                int Y = gameBoard[i].getY();
+                int x = gameBoard[i].getX();
+                int y = gameBoard[i].getY();
 
-                Y--;
-                int tilePos = Y * width + X;
-                //Checks if a boulder is above
-                if (checkBoulderTile(tilePos)) {
-                    if (((Y + 2) * width + X) < gameBoard.length) {
-                        if (gameBoard[(Y + 2) * width + X].getObjectToken().equals("P")) {
+                y--;
+                int tilePos = y * width + x;
+                int nextPosition = ((y + 2) * width + x);
+
+                // Get the (x, y) coordinates of the tile below.
+                int nextX = gameBoard[nextPosition].getX();
+                int nextY = gameBoard[nextPosition].getY();
+
+                // Check if the player occupies the tile below.
+                if (nextX != characterX && nextY != characterY) {
+                    //Checks if a boulder or diamond is above the wall.
+                    if (checkBoulderTile(tilePos)) {
+                        if (gameBoard[nextPosition].getObjectToken().equals("P")) {
                             transformToPath(tilePos);
-
-                            int diamondPos = (Y + 2) * width + X;
-                            gameBoard[diamondPos] = new Diamond(x, y);
+                            gameBoard[nextPosition] = new Diamond(x, y);
                         }
-                    }
-                }
-                //Checks if a diamond is above
-                if (checkDiamondTile(tilePos)) {
-                    if (((Y + 2) * width + X) < gameBoard.length) {
-                        if (gameBoard[(Y + 2) * width + X].getObjectToken().equals("P")) {
+                    } else if (checkDiamondTile(tilePos)) {
+                        if (gameBoard[nextPosition].getObjectToken().equals("P")) {
                             transformToPath(tilePos);
-                            int boulderPos = (Y + 2) * width + X;
-                            gameBoard[boulderPos] = new Boulder(x, y);
+                            gameBoard[nextPosition] = new Boulder(x, y);
                         }
                     }
                 }

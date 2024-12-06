@@ -2,8 +2,8 @@
 T T T T T T T T T T T T T T
 T P P YK D W P W P * D B * T
 T * * B D YD D W D M * D D T
-T M P M P W P W P P * P D T
-T P P D W P D P D D D D E T
+T * P M P W P W P P * P D T
+T M P D W P D P D D D D E T
 T T T T T T T T T T T T T T
 
 
