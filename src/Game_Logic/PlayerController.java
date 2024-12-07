@@ -12,16 +12,19 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 
 public class PlayerController {
+    private static Player currentPlayer;
     String name;
     @FXML
     private Label myLabel;
@@ -32,23 +35,27 @@ public class PlayerController {
     private ArrayList<String> names = new ArrayList<>();
     @FXML
     private ListView<String> playerList;
+    ;
     @FXML
-    private Button selectButton;;
+    private Button selectButton;
     @FXML
     private Label statusLabel;
-    private static Player currentPlayer;
     @FXML
     private LevelController levelController;
+
+    public static Player getCurrentPlayer() {
+        return currentPlayer;
+    }
 
     /**
      * Allows user to create a player
      */
     @FXML
     public void submit(ActionEvent event) {
-        //names = new ArrayList<>();
-        readArray();
+
         name = myTextField.getText();
-        if (names.contains(name)) {
+
+        if (nameFound(name)) {
             myLabel.setText("The name has already been entered. Try again!");
             FadeTransition fadeTransition = new FadeTransition(Duration.seconds(5), myLabel);
             fadeTransition.setFromValue(1.0);
@@ -63,7 +70,19 @@ public class PlayerController {
         }
     }
 
-    public void loadLevels(ActionEvent e){
+    public Boolean nameFound(String userInput) {
+        readArray();
+        for (String name : names) {
+            String playerName = name.split(" ")[0];
+
+            if (playerName.equals(userInput)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void loadLevels(ActionEvent e) {
         Parent menu = null;
         try {
             // loads menu fxml file
@@ -77,7 +96,6 @@ public class PlayerController {
         stage.setScene(new Scene(menu));
         stage.show();
     }
-
 
     /**
      * Reads the players that have already been created
@@ -97,8 +115,6 @@ public class PlayerController {
             e.printStackTrace();
         }
     }
-
-
 
     /**
      * Adds names from player array to a txt file containing their names
@@ -121,9 +137,10 @@ public class PlayerController {
 
     /**
      * Returns user back to main menu
+     *
      * @param e If an event occurs
      */
-    public void returnToMenu(ActionEvent e){
+    public void returnToMenu(ActionEvent e) {
         Parent menu = null;
         try {
             // loads menu fxml file
@@ -162,18 +179,12 @@ public class PlayerController {
             String[] playerDetails = selectedProfile.split(" ");
             String name = playerDetails[0];
             int levelUnlocked = Integer.parseInt(playerDetails[1]);
-            currentPlayer = new Player(name,levelUnlocked);
+            currentPlayer = new Player(name, levelUnlocked);
             levelController.setPlayer(currentPlayer);
             loadLevels(event);
         } else {
             statusLabel.setText("Please select a profile.");
         }
-    }
-
-
-
-    public static Player getCurrentPlayer() {
-        return currentPlayer;
     }
 }
 
