@@ -8,8 +8,6 @@ import Game_Objects.Tiles.Key;
 import Game_Objects.Tiles.LockedDoor;
 import Game_Objects.Tiles.Path;
 
-import java.io.FileNotFoundException;
-
 /**
  * Character class to control the movement and representation of
  * a player's character in-game.
@@ -112,6 +110,8 @@ public class Character {
             transformToPath(tilePos);
         } else if (checkExitTile(tilePos)) {
             System.out.println("GAME OVER");
+            currentPlayer.setFinalLevelScore(currentLevel);
+            System.out.println("FINAL SCORE: " + currentPlayer.getFinalLevelScore());
         } else if (checkDiamondTile(tilePos)) {
             Diamond diamond = (Diamond) gameBoard[tilePos];
             diamond.collectDiamond(this);

@@ -103,8 +103,12 @@ public class Player {
         return levelScore;
     }
 
-    public void setFinalScore(Level currentLevel) {
+    public void setFinalLevelScore(Level currentLevel) {
         finalLevelScore = (int) ((levelScore * currentLevel.getTimeToComplete()) * 0.2);
+    }
+
+    public int getFinalLevelScore() {
+        return finalLevelScore;
     }
 
     /**
