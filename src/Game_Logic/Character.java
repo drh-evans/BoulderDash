@@ -11,7 +11,6 @@ import Game_Objects.Tiles.Path;
 /**
  * Character class to control the movement and representation of
  * a player's character in-game.
- *
  * @author Rhys Evans
  */
 public class Character {
@@ -43,6 +42,7 @@ public class Character {
      * @param gridHeight the height of the game grid.
      */
     public void moveCharacter(String keyPressed, int gridWidth, int gridHeight) {
+        System.out.println("Current Key Pressed:" + keyPressed);
         switch (keyPressed) {
             case "RIGHT":
                 characterX++;
@@ -90,15 +90,10 @@ public class Character {
         }
     }
 
-
-    private void doorToPath() {
-    }
-
     /**
      * Checks if the new tile is a dirt tile, if so changes to path.
-     *
-     * @param x     the prospective x coordinate.
-     * @param y     the prospective y coordinate.
+     * @param x the prospective x coordinate.
+     * @param y the prospective y coordinate.
      * @param width the grid's width.
      */
     private void checkTile(int x, int y, int width, int direction) {
@@ -307,6 +302,10 @@ public class Character {
         diamondsCollected++;
     }
 
+    /**
+     * Get the active player.
+     * @return a Player, the current player.
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
