@@ -20,7 +20,7 @@
             <Image url="@../Images/MenuHeader.png" />
          </image>
       </ImageView>
-      <Button layoutX="110.0" layoutY="231.0" minWidth="200.0" mnemonicParsing="false" onAction="#openCreatePlayer" text="Create Profile" textAlignment="CENTER">
+      <Button layoutX="110.0" layoutY="356.0" minWidth="200.0" mnemonicParsing="false" onAction="#openCreatePlayer" text="Create Profile" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
@@ -30,11 +30,11 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button layoutX="110.0" layoutY="356.0" minWidth="200.0" mnemonicParsing="false" text="High Score Table" textAlignment="CENTER">
+      <Button layoutX="110.0" layoutY="418.0" minWidth="200.0" mnemonicParsing="false" text="High Score Table" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font></Button>
-      <Button layoutX="110.0" layoutY="418.0" minWidth="200.0" mnemonicParsing="false" onAction="#openLevels" text="Load Levels" textAlignment="CENTER">
+      <Button layoutX="110.0" layoutY="231.0" minWidth="200.0" mnemonicParsing="false" onAction="#openLevels" text="Play!" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
