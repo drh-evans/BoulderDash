@@ -61,7 +61,6 @@ public class Boulder extends Entity {
                 gameObjects[tilePos] = new Path(x, y);
                 return true;
             }
-            return false;
         }
         if (direction == 2) {
             newPos = tilePos - 1;
@@ -71,14 +70,6 @@ public class Boulder extends Entity {
                 gameObjects[tilePos] = new Path(x, y);
                 return true;
             }
-            return false;
-        }
-        if (direction == 3) {
-            return false;
-
-        }
-        if (direction == 4) {
-            return false;
         }
         return false;
     }
