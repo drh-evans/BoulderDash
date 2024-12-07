@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="521.0" fitWidth="776.0" layoutX="-345.0" layoutY="-13.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Images/MenuBackground.jpg" />
+            <Image url="@../Images/MenuBackground.png" />
          </image>
       </ImageView>
       <TextField fx:id="myTextField" layoutX="91.0" layoutY="187.0" prefHeight="57.0" prefWidth="243.0" promptText="Enter a username!" />

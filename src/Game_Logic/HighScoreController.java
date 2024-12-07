@@ -45,7 +45,6 @@ public class HighScoreController {
             for (int i = 0;i < highScores.length;i++) {
                 highScoresList.getItems().add((i + 1) + ": " + highScores[i]);
             }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
