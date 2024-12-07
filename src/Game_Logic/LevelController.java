@@ -95,6 +95,7 @@ public class LevelController {
     private Stage stage;
     private Scene scene;
     private boolean playerDied = false;
+    private int currentLevelNumber;
 
     /**
      * Instantiates the level controller.
@@ -154,6 +155,7 @@ public class LevelController {
      */
     public void createLevel1(ActionEvent openGame) {
         player = PlayerController.getCurrentPlayer();
+        currentLevelNumber = 1;
         if (player.getLevelUnlocked() >= 1) {
             createLevelTemplate(openGame, level1);
         }
@@ -167,6 +169,7 @@ public class LevelController {
      */
     public void createLevel2(ActionEvent openGame) {
         player = PlayerController.getCurrentPlayer();
+        currentLevelNumber = 2;
         if (player.getLevelUnlocked() >= 2) {
             createLevelTemplate(openGame, level2);
         }
@@ -180,6 +183,7 @@ public class LevelController {
      */
     public void createLevel3(ActionEvent openGame) {
         player = PlayerController.getCurrentPlayer();
+        currentLevelNumber = 3;
         if (player.getLevelUnlocked() >= 3) {
             createLevelTemplate(openGame, level3);
         }
@@ -372,6 +376,16 @@ public class LevelController {
         stage.show();
     }
 
+    @FXML
+    public void menu() throws IOException {
+        //Loads new fxml
+        Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     /**
      * Controls the magic wall's transformation of objects.
      * @param currentLevel The current level being played.
@@ -417,10 +431,13 @@ public class LevelController {
 
         // Check if the exit tile has been contacted.
         if (Exit.exitTileLogic(currentLevel, character, gridWidth)) {
-            increaseLevel();
+            if(player.getLevelUnlocked() == currentLevelNumber) {
+                increaseLevel();
+            }
             scoreChecking(player, currentLevel, player.getLevelScore());
             gameRunning(false);
-            openLevels();
+            //TODO should be load levels but not working TEMP
+            menu();
         } else if (playerDied) {
             gameRunning(false);
             System.out.println("You DIED!!!");
