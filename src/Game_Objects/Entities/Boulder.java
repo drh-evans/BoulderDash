@@ -1,6 +1,7 @@
 package Game_Objects.Entities;
 import Game_Objects.GameObject;
 import Game_Objects.Tiles.MagicWall;
+import Game_Logic.Character;
 import Game_Objects.Tiles.Path;
 
 /**
@@ -46,6 +47,8 @@ public class Boulder extends Entity {
    * @return
    */
   public boolean push(GameObject[] gameObjects, int tilePos, int direction) {
+    int x = gameObjects[tilePos].getX();
+    int y = gameObjects[tilePos].getY();
     // ive tried to implement this as straight-forward and simply as possible, please refactor as seen fit
     int newPos;
     if (direction == 1) {
@@ -53,6 +56,7 @@ public class Boulder extends Entity {
       pushableCheck(gameObjects, newPos);
       if (this.isPushable) {
         gameObjects[newPos] = this;
+        gameObjects[tilePos] = new Path(x, y);
         return true;
       }
       return false;
@@ -61,6 +65,7 @@ public class Boulder extends Entity {
       pushableCheck(gameObjects, newPos);
       if (this.isPushable) {
         gameObjects[newPos] = this;
+        gameObjects[tilePos] = new Path(x, y);
         return true;
       }
       return false;
@@ -92,14 +97,16 @@ public class Boulder extends Entity {
   /**
    *
    */
-  public void dropBoulder(GameObject[] gameBoard, int levelWidth, int index) {
+  public void dropBoulder(GameObject[] gameBoard, int levelWidth, int index, Character character) {
+    int characterY = character.getCharacterY();
+
     int belowPos = index + levelWidth;
-    boolean lastRow = gameBoard[belowPos].getObjectToken().equals("T");
-    if (!lastRow && gameBoard[belowPos].getObjectToken().equals("P")) {
+    if (gameBoard[belowPos].getObjectToken().equals("P")
+            && gameBoard[belowPos].getY() != characterY) {
       setFalling(true);
       gameBoard[belowPos] = this;
       gameBoard[belowPos].setX(index % levelWidth);
-      gameBoard[belowPos].setY(index / levelWidth);
+      gameBoard[belowPos].setY((index / levelWidth) + 1);
       gameBoard[index] = new Path(x, y);
     }
   }

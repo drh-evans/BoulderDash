@@ -75,15 +75,19 @@ public class Diamond extends Entity {
     /**
      *
      */
-    public void dropDiamond(GameObject[] gameBoard, int levelWidth, int index) {
+    public void dropDiamond(GameObject[] gameBoard, int levelWidth, int index, Character character) {
+        int characterY = character.getCharacterY();
+
         int belowPos = index + levelWidth;
         boolean lastRow = gameBoard[belowPos].getObjectToken().equals("T");
-        if (!lastRow && gameBoard[belowPos].getObjectToken().equals("P")) {
+        if (!lastRow && gameBoard[belowPos].getObjectToken().equals("P")
+                && gameBoard[belowPos].getY() != characterY) {
+
             setFalling(true);
             gameBoard[belowPos] = this;
             gameBoard[belowPos].setX(index % levelWidth);
-            gameBoard[belowPos].setY(index / levelWidth);
-            gameBoard[(y * levelWidth) + x] = new Path(x, y);
+            gameBoard[belowPos].setY((index / levelWidth) + 1);
+            gameBoard[index] = new Path(x, y);
         }
     }
 

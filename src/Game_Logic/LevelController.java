@@ -83,7 +83,6 @@ public class LevelController {
     private Timeline clockTimeline;
     private Timeline amoebaTickTimeline;
     private Timeline gravityTickTimeline;
-    private Timeline rollTickTimeline;
 
     // Boolean to decide game status.
     private boolean gameOver = false;
@@ -213,10 +212,6 @@ public class LevelController {
         // Gravity tick rate
         gravityTickTimeline = new Timeline(new KeyFrame(Duration.millis(500), event -> gravityTick(desiredLevel)));
         gravityTickTimeline.setCycleCount(Animation.INDEFINITE);
-
-        // Roll tick rate
-        rollTickTimeline = new Timeline(new KeyFrame(Duration.millis(500), event -> rollTick(desiredLevel)));
-        rollTickTimeline.setCycleCount(Animation.INDEFINITE);
 
         // Tick timeline for the timer, set to 1s.
         clockTimeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
@@ -391,6 +386,8 @@ public class LevelController {
         // Reset key pressed so that new movement is read or character doesn't move.
         keyPressed = " ";
 
+        gravityTick(currentLevel);
+
         // Redraw the game with new X, Y.
         drawGame(currentLevel);
 
@@ -435,12 +432,12 @@ public class LevelController {
                 // if the object is a diamond run drop diamond
                 if (gameBoard[i].getObjectToken().equals("*")) {
                     Diamond diamond = new Diamond();
-                    diamond.dropDiamond(gameBoard, levelWidth, i);
+                    diamond.dropDiamond(gameBoard, levelWidth, i, character);
                 }
                 // if it is a boulder run drop boulder
                 if (gameBoard[i].getObjectToken().equals("B")) {
                     Boulder boulder = new Boulder();
-                    boulder.dropBoulder(gameBoard, levelWidth, i);
+                    boulder.dropBoulder(gameBoard, levelWidth, i, character);
                 }
             }
         }
@@ -452,7 +449,7 @@ public class LevelController {
             }
         }
 
-        drawGame(currentLevel);
+        rollTick(currentLevel);
     }
 
     public void rollTick(Level currentLevel) {
@@ -466,11 +463,13 @@ public class LevelController {
                 if (gameBoard[i].getObjectToken().equals("*")) {
                     Diamond diamond = new Diamond();
                     diamond.roll(gameBoard, levelWidth, i);
+                    killCheck(diamond);
                 }
                 // if it is a boulder run drop boulder
                 if (gameBoard[i].getObjectToken().equals("B")) {
                     Boulder boulder = new Boulder();
                     boulder.roll(gameBoard, levelWidth, i);
+                    killCheck(boulder);
                 }
             }
         }
@@ -482,6 +481,20 @@ public class LevelController {
             }
         }
     }
+
+    private void killCheck(GameObject object) {
+        if (object.isFalling()) {
+            int x = object.getX();
+            int y = object.getY();
+
+            if (character.getCharacterX() == x &&
+                    character.getCharacterY() == y + 1) {
+                character.resetCharacterPosition();
+            }
+        }
+    }
+
+
 
     /**
      * Create the games GUI.
@@ -529,14 +542,12 @@ public class LevelController {
             clockTimeline.play();
             amoebaTickTimeline.play();
             gravityTickTimeline.play();
-            rollTickTimeline.play();
         } else {
             clockTimeline.stop();
             playerTickTimeline.stop();
             magicWallTickTimeline.stop();
             amoebaTickTimeline.stop();
             gravityTickTimeline.stop();
-            rollTickTimeline.stop();
         }
     }
 
