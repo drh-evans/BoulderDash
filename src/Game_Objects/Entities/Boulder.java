@@ -7,8 +7,7 @@ import Game_Objects.Tiles.Path;
 
 /**
  * Class to represent Boulder entities.
- *
- * @author Elbu Cheung, Rhys Evans
+ * @author Rhys Evans, Ahsan Mian, Nathan Welby
  */
 public class Boulder extends Entity {
     private boolean isPushable;

@@ -8,8 +8,7 @@ import Game_Objects.Tiles.Path;
 /**
  * This class represents the Diamond collectable.
  * Also handles the collection of Diamonds.
- *
- * @author Rhys Evans, Elbu Cheung.
+ * @author Rhys Evans, Nathan Welby
  */
 public class Diamond extends Entity {
 
