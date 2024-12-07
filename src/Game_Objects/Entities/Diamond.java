@@ -8,6 +8,7 @@ import Game_Objects.Tiles.Path;
 /**
  * This class represents the Diamond collectable.
  * Also handles the collection of Diamonds.
+ *
  * @author Rhys Evans, Elbu Cheung.
  */
 public class Diamond extends Entity {
@@ -18,6 +19,7 @@ public class Diamond extends Entity {
 
     /**
      * Create a Diamond at the coordinates (x, y).
+     *
      * @param x The x coordinate.
      * @param y The y coordinate.
      */
@@ -37,6 +39,7 @@ public class Diamond extends Entity {
 
     /**
      * Collects a diamond.
+     *
      * @param character The players' character.
      */
     public void collectDiamond(Character character) {
@@ -77,11 +80,12 @@ public class Diamond extends Entity {
      */
     public void dropDiamond(GameObject[] gameBoard, int levelWidth, int index, Character character) {
         int characterY = character.getCharacterY();
+        int characterX = character.getCharacterX();
 
         int belowPos = index + levelWidth;
-        boolean lastRow = gameBoard[belowPos].getObjectToken().equals("T");
-        if (!lastRow && gameBoard[belowPos].getObjectToken().equals("P")
-                && gameBoard[belowPos].getY() != characterY) {
+        int characterPos = (characterY * levelWidth) + characterX;
+        if (gameBoard[belowPos].getObjectToken().equals("P")
+                && belowPos != characterPos) {
 
             setFalling(true);
             gameBoard[belowPos] = this;
@@ -91,7 +95,7 @@ public class Diamond extends Entity {
         }
     }
 
-    public void roll(GameObject[] gameBoard, int levelWidth, int index) {
+    public void roll(GameObject[] gameBoard, int levelWidth, int index, Character character) {
         int belowPos = index + levelWidth;
         boolean lastRow = gameBoard[belowPos].getObjectToken().equals("T");
 
@@ -100,29 +104,30 @@ public class Diamond extends Entity {
         int lowerLeft = belowPos - 1;
         int lowerRight = belowPos + 1;
 
-        if (!gameBoard[upperLeft].getObjectToken().equals("T") ||
-                !gameBoard[upperRight].getObjectToken().equals("T")) {
+        int characterY = character.getCharacterY();
+        int characterX = character.getCharacterX();
+        int characterPos = (characterY * levelWidth) + characterX;
 
-            boolean rollableLeft = gameBoard[upperLeft].getObjectToken().equals("P") &&
-                    gameBoard[lowerLeft].getObjectToken().equals("P");
-            boolean rollableRight = gameBoard[upperRight].getObjectToken().equals("P") &&
-                    gameBoard[lowerRight].getObjectToken().equals("P");
+        boolean rollableLeft = gameBoard[upperLeft].getObjectToken().equals("P") &&
+                gameBoard[lowerLeft].getObjectToken().equals("P") && lowerLeft != characterPos
+                && upperLeft != characterPos;
+        boolean rollableRight = gameBoard[upperRight].getObjectToken().equals("P") &&
+                gameBoard[lowerRight].getObjectToken().equals("P") && lowerRight != characterPos
+                && upperRight != characterPos;
 
-            if (!lastRow && !gameBoard[belowPos].getObjectToken().equals("P")) {
-
-                if (rollableLeft) {
-                    setFalling(true);
-                    gameBoard[lowerLeft] = this;
-                    gameBoard[lowerLeft].setX(lowerLeft % levelWidth);
-                    gameBoard[lowerLeft].setY(lowerLeft / levelWidth);
-                    gameBoard[index] = new Path(x, y);
-                } else if (rollableRight) {
-                    setFalling(true);
-                    gameBoard[lowerRight] = this;
-                    gameBoard[lowerRight].setX(lowerLeft % levelWidth);
-                    gameBoard[lowerRight].setY(lowerLeft / levelWidth);
-                    gameBoard[index] = new Path(x, y);
-                }
+        if (!lastRow && !gameBoard[belowPos].getObjectToken().equals("P")) {
+            if (rollableLeft) {
+                setFalling(true);
+                gameBoard[lowerLeft] = this;
+                gameBoard[lowerLeft].setX(lowerLeft % levelWidth);
+                gameBoard[lowerLeft].setY(lowerLeft / levelWidth);
+                gameBoard[index] = new Path(x, y);
+            } else if (rollableRight) {
+                setFalling(true);
+                gameBoard[lowerRight] = this;
+                gameBoard[lowerRight].setX(lowerLeft % levelWidth);
+                gameBoard[lowerRight].setY(lowerLeft / levelWidth);
+                gameBoard[index] = new Path(x, y);
             }
         }
     }
