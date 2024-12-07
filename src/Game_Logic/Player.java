@@ -46,7 +46,7 @@ public class Player {
     public void addToInventory(Key key) {
         inventory.add(key);
         for (Key item : inventory) {
-            System.out.println(item.getObjectToken());
+            System.out.println("KEY COLLECTED: " + item.getObjectToken());
         }
     }
 
