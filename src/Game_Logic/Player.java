@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class Player {
     private static final int MAX_LEVEL = 10;
-    private String name;
-    private Character playerCharacter;
+    private final String name;
+    private final Character playerCharacter;
     private int levelScore;
     private int finalLevelScore;
     private int levelUnlocked = 1;
@@ -21,15 +21,9 @@ public class Player {
      *
      * @param name
      */
-    public Player(String name, int levelUnlocked) {
+    public Player(String name, Level desiredLevel) {
         this.name = name;
-        this.levelUnlocked = levelUnlocked;
-    }
-
-    public Player(Player player, Level desiredLevel) {
-        name = player.getName();
-        levelUnlocked = player.getLevelUnlocked();
-        this.playerCharacter = new Character(desiredLevel, player);
+        this.playerCharacter = new Character(desiredLevel, this);
     }
 
     /**

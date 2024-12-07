@@ -132,11 +132,8 @@ public class LevelController {
         WINDOW_HEIGHT = canvasHeight + 45;
 
         //Creates a new player and character
-        player = new Player("John", 1);
-        player = new Player(player, desiredLevel);
+        player = new Player("John", desiredLevel);
         setCharacter(player.getPlayerCharacter());
-        System.out.println(player.getName());
-        System.out.println(player.getLevelUnlocked());
         createGame(openGame, desiredLevel);
 
         //Starts the clock and tick as level is loaded
