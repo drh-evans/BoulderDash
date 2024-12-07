@@ -462,13 +462,13 @@ public class LevelController {
                 // if the object is a diamond run drop diamond
                 if (gameBoard[i].getObjectToken().equals("*")) {
                     Diamond diamond = new Diamond();
-                    diamond.roll(gameBoard, levelWidth, i);
+                    diamond.roll(gameBoard, levelWidth, i, character);
                     killCheck(diamond);
                 }
                 // if it is a boulder run drop boulder
                 if (gameBoard[i].getObjectToken().equals("B")) {
                     Boulder boulder = new Boulder();
-                    boulder.roll(gameBoard, levelWidth, i);
+                    boulder.roll(gameBoard, levelWidth, i, character);
                     killCheck(boulder);
                 }
             }
