@@ -72,8 +72,7 @@ public class LevelController {
     // X and Y coordinate of player on the grid.
     private Character character;
     private Player player;
-    private int playerX = 1;
-    private int playerY = 1;
+
     // String to represent the key pressed.
     private String keyPressed = " ";
 
@@ -265,8 +264,7 @@ public class LevelController {
     }
 
     /**
-     * Process a key event due to a key being pressed, e.g., to move the player.
-     *
+     * Process a key event due to a key being pressed, subsequently moves the player.
      * @param event The key event that was pressed.
      */
     public void processKeyEvent(KeyEvent event, Level currentLevel) {
@@ -278,21 +276,21 @@ public class LevelController {
             case LEFT, A -> keyPressed = "LEFT";
             default -> keyPressed = " ";
         }
-        // Redraw game as the player may have moved.
+        // Redraw the game as the player may have moved.
         drawGame(currentLevel);
-        // Consume the event. This means we mark it as dealt with. This stops other GUI nodes (buttons etc) responding to it.
+        // Consume the event.
         event.consume();
     }
 
     /**
      * Draw the game on the canvas.
+     * @param chosenLevel the selected level by the player.
      */
     public void drawGame(Level chosenLevel) {
         // Get the Graphic Context of the canvas. This is what we draw on.
         GraphicsContext gc = canvas.getGraphicsContext2D();
         scoreDisplay.setText("SCORE: " + Integer.toString(player.getLevelScore()));
         timeDisplay.setText("TIME: " + Integer.toString(chosenLevel.getTimeToComplete()));
-
 
         // Clear canvas
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -301,14 +299,11 @@ public class LevelController {
         gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        // Draw row of dirt images
-        // We multiply by the cell width and height to turn a coordinate in our grid into a pixel coordinate.
-        // We draw the row at y value 2.
-
+        // Initialise the level and its graphics.
         chosenLevel.initialiseLevel(gc);
 
-        // Draw player at current location
-        gc.drawImage(playerImage, playerX * GRID_CELL_WIDTH, playerY * GRID_CELL_HEIGHT);
+        // Draw player at the current position.
+        gc.drawImage(playerImage, character.getCharacterX() * GRID_CELL_WIDTH, character.getCharacterY() * GRID_CELL_HEIGHT);
     }
 
     /**
@@ -375,13 +370,11 @@ public class LevelController {
 
         // Reset key pressed so that new movement is read or character doesn't move.
         keyPressed = " ";
-        playerX = character.getCharacterX();
-        playerY = character.getCharacterY();
 
         // Redraw the game with new X, Y.
         drawGame(currentLevel);
 
-        //Exit tile
+        // Check if the exit tile has been contacted.
         if (Exit.exitTileLogic(currentLevel, character, gridWidth)) {
             player.progressLevel();
             gameRunning(false);
@@ -412,8 +405,7 @@ public class LevelController {
     }
 
     /**
-     * Create the GUI.
-     *
+     * Create the games GUI.
      * @return The panel that contains the created GUI.
      */
     private Pane buildGUI(Level currentLevel) {
@@ -424,34 +416,32 @@ public class LevelController {
         canvas = new Canvas(canvasWidth, canvasHeight);
         root.setCenter(canvas);
 
-        // Create a toolbar with some nice padding and spacing
+        // Create a toolbar.
         HBox toolbar = new HBox();
         toolbar.setSpacing(10);
         toolbar.setPadding(new Insets(10, 10, 10, 10));
         root.setTop(toolbar);
 
+        // Add the current score text.
         scoreDisplay.setFont(Font.font("Impact", 18));
         toolbar.getChildren().add(scoreDisplay);
 
+        // Add the current time left text.
         timeDisplay.setFont(Font.font("Impact", 18));
         toolbar.getChildren().add(timeDisplay);
 
-
-        // Create the toolbar content
-        // Return to main menu
+        // Add the option to return to the main menu.
         Button returnToMenu = new Button("Return to main menu");
         toolbar.getChildren().add(returnToMenu);
-
         returnToMenu.setOnAction(this::returnToMenu);
 
-        // Finally, return the border pane we built up.
+        // Return the border pane that has been built.
         return root;
     }
 
     /**
-     * Starts clock and game ticks if true and stops them if false
-     *
-     * @param gameRunning controls whether game is running or not
+     * Starts the game ticks if the game is running, otherwise ends them.
+     * @param gameRunning a boolean, whether game is running or not.
      */
     private void gameRunning(boolean gameRunning) {
         if (gameRunning) {
