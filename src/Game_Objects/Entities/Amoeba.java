@@ -155,12 +155,4 @@ public class Amoeba extends Entity {
     public void isColliding() {
 
     }
-
-    /**
-     *
-     */
-    @Override
-    public void dropDiamond() {
-
-    }
 }

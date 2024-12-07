@@ -39,9 +39,4 @@ public class Frog extends Entity {
   protected void isColliding() {
 
   }
-
-  @Override
-  protected void dropDiamond() {
-
-  }
 }

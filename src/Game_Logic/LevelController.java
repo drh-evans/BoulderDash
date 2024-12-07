@@ -1,5 +1,7 @@
 package Game_Logic;
 
+import Game_Objects.Entities.Boulder;
+import Game_Objects.Entities.Diamond;
 import Game_Objects.GameObject;
 import Game_Objects.Tiles.Exit;
 import Game_Objects.Tiles.MagicWall;
@@ -80,6 +82,8 @@ public class LevelController {
     private Timeline magicWallTickTimeline;
     private Timeline clockTimeline;
     private Timeline amoebaTickTimeline;
+    private Timeline gravityTickTimeline;
+    private Timeline rollTickTimeline;
 
     // Boolean to decide game status.
     private boolean gameOver = false;
@@ -205,6 +209,14 @@ public class LevelController {
         // Amoeba tick rate
         amoebaTickTimeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> amoebaTick(desiredLevel)));
         amoebaTickTimeline.setCycleCount(Animation.INDEFINITE);
+
+        // Gravity tick rate
+        gravityTickTimeline = new Timeline(new KeyFrame(Duration.millis(500), event -> gravityTick(desiredLevel)));
+        gravityTickTimeline.setCycleCount(Animation.INDEFINITE);
+
+        // Roll tick rate
+        rollTickTimeline = new Timeline(new KeyFrame(Duration.millis(500), event -> rollTick(desiredLevel)));
+        rollTickTimeline.setCycleCount(Animation.INDEFINITE);
 
         // Tick timeline for the timer, set to 1s.
         clockTimeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
@@ -413,6 +425,64 @@ public class LevelController {
         drawGame(currentLevel);
     }
 
+    public void gravityTick(Level currentLevel) {
+        GameObject[] gameBoard = currentLevel.getGameBoard();
+        int levelWidth = currentLevel.getWidth();
+
+        for (int i = 0; i < gameBoard.length; i++) {
+            // Loops though the game board finding boulders or diamonds
+            if (!gameBoard[i].isFalling()) {
+                // if the object is a diamond run drop diamond
+                if (gameBoard[i].getObjectToken().equals("*")) {
+                    Diamond diamond = new Diamond();
+                    diamond.dropDiamond(gameBoard, levelWidth, i);
+                }
+                // if it is a boulder run drop boulder
+                if (gameBoard[i].getObjectToken().equals("B")) {
+                    Boulder boulder = new Boulder();
+                    boulder.dropBoulder(gameBoard, levelWidth, i);
+                }
+            }
+        }
+
+        // Reset any falling objects for next method call
+        for (int i = 0; i < gameBoard.length; i++) {
+            if (gameBoard[i].isFalling()) {
+                gameBoard[i].setFalling(false);
+            }
+        }
+
+        drawGame(currentLevel);
+    }
+
+    public void rollTick(Level currentLevel) {
+        GameObject[] gameBoard = currentLevel.getGameBoard();
+        int levelWidth = currentLevel.getWidth();
+
+        for (int i = 0; i < gameBoard.length; i++) {
+            // Loops though the game board finding boulders or diamonds
+            if (!gameBoard[i].isFalling()) {
+                // if the object is a diamond run drop diamond
+                if (gameBoard[i].getObjectToken().equals("*")) {
+                    Diamond diamond = new Diamond();
+                    diamond.roll(gameBoard, levelWidth, i);
+                }
+                // if it is a boulder run drop boulder
+                if (gameBoard[i].getObjectToken().equals("B")) {
+                    Boulder boulder = new Boulder();
+                    boulder.roll(gameBoard, levelWidth, i);
+                }
+            }
+        }
+
+        // Reset any falling objects for next method call
+        for (int i = 0; i < gameBoard.length; i++) {
+            if (gameBoard[i].isFalling()) {
+                gameBoard[i].setFalling(false);
+            }
+        }
+    }
+
     /**
      * Create the games GUI.
      * @return The panel that contains the created GUI.
@@ -458,11 +528,15 @@ public class LevelController {
             playerTickTimeline.play();
             clockTimeline.play();
             amoebaTickTimeline.play();
+            gravityTickTimeline.play();
+            rollTickTimeline.play();
         } else {
             clockTimeline.stop();
             playerTickTimeline.stop();
             magicWallTickTimeline.stop();
             amoebaTickTimeline.stop();
+            gravityTickTimeline.stop();
+            rollTickTimeline.stop();
         }
     }
 

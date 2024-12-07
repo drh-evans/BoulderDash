@@ -7,7 +7,7 @@ public abstract class GameObject {
 
     protected boolean isTraversable;
     protected boolean isDestructible;
-
+    private boolean isFalling;
 
     // Hashmap to map tile tokens to their respective tile subclass
     // NOTE: called OBJECT_TOKEN_MAP since it may be used with entities as well
@@ -130,5 +130,13 @@ public abstract class GameObject {
      */
     public void setDestructible(boolean destructible) {
         isDestructible = destructible;
+    }
+
+    public boolean isFalling() {
+        return isFalling;
+    }
+
+    public void setFalling(boolean falling) {
+        isFalling = falling;
     }
 }

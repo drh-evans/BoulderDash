@@ -1,6 +1,7 @@
 package Game_Objects.Entities;
 import Game_Objects.GameObject;
 import Game_Objects.Tiles.MagicWall;
+import Game_Objects.Tiles.Path;
 
 /**
  * Class to represent Boulder entities.
@@ -91,11 +92,53 @@ public class Boulder extends Entity {
   /**
    *
    */
-  @Override
-  protected void dropDiamond() {
-
+  public void dropBoulder(GameObject[] gameBoard, int levelWidth, int index) {
+    int belowPos = index + levelWidth;
+    boolean lastRow = gameBoard[belowPos].getObjectToken().equals("T");
+    if (!lastRow && gameBoard[belowPos].getObjectToken().equals("P")) {
+      setFalling(true);
+      gameBoard[belowPos] = this;
+      gameBoard[belowPos].setX(index % levelWidth);
+      gameBoard[belowPos].setY(index / levelWidth);
+      gameBoard[index] = new Path(x, y);
+    }
   }
 
+  public void roll(GameObject[] gameBoard, int levelWidth, int index) {
+    int belowPos = index + levelWidth;
+    boolean lastRow = gameBoard[belowPos].getObjectToken().equals("T");
+
+    int upperLeft = index - 1;
+    int upperRight = index + 1;
+    int lowerLeft = belowPos - 1;
+    int lowerRight = belowPos + 1;
+
+    if (!gameBoard[upperLeft].getObjectToken().equals("T") ||
+            !gameBoard[upperRight].getObjectToken().equals("T")) {
+
+      boolean rollableLeft = gameBoard[upperLeft].getObjectToken().equals("P") &&
+              gameBoard[lowerLeft].getObjectToken().equals("P");
+      boolean rollableRight = gameBoard[upperRight].getObjectToken().equals("P") &&
+              gameBoard[lowerRight].getObjectToken().equals("P");
+
+      if (!lastRow && !gameBoard[belowPos].getObjectToken().equals("P")) {
+
+        if (rollableLeft) {
+          setFalling(true);
+          gameBoard[lowerLeft] = this;
+          gameBoard[lowerLeft].setX(lowerLeft % levelWidth);
+          gameBoard[lowerLeft].setY(lowerLeft / levelWidth);
+          gameBoard[index] = new Path(x, y);
+        } else if (rollableRight) {
+          setFalling(true);
+          gameBoard[lowerRight] = this;
+          gameBoard[lowerRight].setX(lowerLeft % levelWidth);
+          gameBoard[lowerRight].setY(lowerLeft / levelWidth);
+          gameBoard[index] = new Path(x, y);
+        }
+      }
+    }
+  }
 
   public String getPushDirection() {
     return pushDirection;

@@ -34,14 +34,6 @@ public class Butterfly extends FlyingEnemy {
 
     }
 
-    /**
-     *
-     */
-    @Override
-    public void dropDiamond() {
-
-    }
-
     @Override
     public String getObjectToken() {
         return objectToken;

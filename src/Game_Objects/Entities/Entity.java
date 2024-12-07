@@ -22,6 +22,5 @@ public abstract class Entity extends GameObject {
   }
 
   protected abstract void removeTarget();
-  protected abstract void isColliding(); 
-  protected abstract void dropDiamond();
+  protected abstract void isColliding();
 }
