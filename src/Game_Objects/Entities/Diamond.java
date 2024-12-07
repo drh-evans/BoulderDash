@@ -11,8 +11,6 @@ import Game_Objects.Tiles.Path;
  * @author Rhys Evans, Nathan Welby
  */
 public class Diamond extends Entity {
-
-
     private boolean pickedUp;
     private boolean isFalling = false;
 
