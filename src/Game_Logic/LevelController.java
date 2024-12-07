@@ -87,6 +87,10 @@ public class LevelController {
     private Stage stage;
     private Scene scene;
 
+    /**
+     * Instantiates the level controller.
+     * @throws FileNotFoundException if a level is not found.
+     */
     public LevelController() throws FileNotFoundException {
     }
 
@@ -111,7 +115,6 @@ public class LevelController {
 
     /**
      * Creates a template for each level creation.
-     *
      * @param desiredLevel The level to be loaded.
      */
     public void createLevelTemplate(ActionEvent openGame, Level desiredLevel) {
@@ -134,8 +137,7 @@ public class LevelController {
 
     /**
      * Creates level ones display.
-     *
-     * @param openGame button was pressed.
+     * @param openGame The button was pressed.
      */
     public void createLevel1(ActionEvent openGame) {
         createLevelTemplate(openGame, level1);
@@ -143,8 +145,7 @@ public class LevelController {
 
     /**
      * Creates level twos display.
-     *
-     * @param openGame button was pressed.
+     * @param openGame The button was pressed.
      */
     public void createLevel2(ActionEvent openGame) {
         createLevelTemplate(openGame, level2);
@@ -153,7 +154,7 @@ public class LevelController {
     /**
      * Creates level threes display.
      *
-     * @param openGame button was pressed.
+     * @param openGame The button was pressed.
      */
     public void createLevel3(ActionEvent openGame) {
         createLevelTemplate(openGame, level3);
@@ -237,20 +238,26 @@ public class LevelController {
         stage.show();
     }
 
+    /**
+     * Return a user to the main menu.
+     * @param e The button was pressed.
+     */
     public void returnToMenu(ActionEvent e) {
-        //If return to menu is called stop game ticks
-        // TODO FIX BACK BUTTON
+        //If return to menu is called stop game ticks.
         gameRunning(false);
+
+        // Current menu is null.
         Parent menu = null;
+
         try {
-            // loads menu fxml file
+            // Loads the menu.fxml file
             menu = FXMLLoader.load(getClass().getResource("Menu.fxml"));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        // get present stage
+        // Get the present stage
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        // set new stage
+        // Set the new stage
         stage.setScene(new Scene(menu));
         stage.show();
     }
@@ -284,7 +291,7 @@ public class LevelController {
 
     /**
      * Draw the game on the canvas.
-     * @param chosenLevel the selected level by the player.
+     * @param chosenLevel The selected level by the player.
      */
     public void drawGame(Level chosenLevel) {
         // Get the Graphic Context of the canvas. This is what we draw on.
@@ -308,7 +315,7 @@ public class LevelController {
 
     /**
      * Reset the player's location and move them back to (1,1).
-     * @param currentLevel the current level being played.
+     * @param currentLevel The current level being played.
      */
     public void resetPlayerLocation(Level currentLevel) {
         character.setCharacterX(1);
@@ -318,8 +325,8 @@ public class LevelController {
 
 
     /**
-     * Returns the user to the levels menu.
-     * @throws IOException if there isn't a valid fxml file.
+     * Returns the user to the level's menu.
+     * @throws IOException If there isn't a valid fxml file.
      */
     @FXML
     public void openLevels() throws IOException {
@@ -333,7 +340,7 @@ public class LevelController {
 
     /**
      * Controls the magic wall's transformation of objects.
-     * @param currentLevel the current level being played.
+     * @param currentLevel The current level being played.
      */
     public void magicWallTick(Level currentLevel) {
         GameObject[] gameBoard = currentLevel.getGameBoard();
@@ -345,7 +352,7 @@ public class LevelController {
 
     /**
      * Controls the amoebas spreading.
-     * @param currentLevel the current level being played.
+     * @param currentLevel The current level being played.
      */
     public void amoebaTick(Level currentLevel) {
         GameObject[] gameBoard = currentLevel.getGameBoard();
@@ -384,7 +391,7 @@ public class LevelController {
 
     /**
      * Control the clock component of the game.
-     * @param currentLevel the current level.
+     * @param currentLevel The current level.
      */
     private void clockTick(Level currentLevel) throws IOException {
         // Get the current time to complete.
@@ -397,10 +404,10 @@ public class LevelController {
             openLevels();
             gameOver = true;
         } else if (!gameOver) {
-            // decrease time to complete by 1.
+            // Decrease time to complete by 1.
             currentLevel.setTimeToComplete();
         }
-        // redraw the graphics in current state.
+        // Redraw the graphics in current state.
         drawGame(currentLevel);
     }
 
@@ -411,8 +418,8 @@ public class LevelController {
     private Pane buildGUI(Level currentLevel) {
         // Create top-level panel that will hold all GUI nodes.
         BorderPane root = new BorderPane();
-        // Create the canvas that we will draw on.
-        // We store this as a gloabl variable so other methods can access it.
+
+        // Create the canvas will be drawn on.
         canvas = new Canvas(canvasWidth, canvasHeight);
         root.setCenter(canvas);
 
@@ -457,15 +464,101 @@ public class LevelController {
         }
     }
 
+    // Getters and setters for all attributes.
+
+    /**
+     * Get the grid width.
+     * @return the grid width.
+     */
+    public int getGridWidth() {
+        return gridWidth;
+    }
+
+    /**
+     * Set the grid width.
+     * @param gridWidth an int, the new grid width.
+     */
     public void setGridWidth(int gridWidth) {
         this.gridWidth = gridWidth;
     }
 
+    /**
+     * Get the grid height.
+     * @return the grid height.
+     */
+    public int getGridHeight() {
+        return gridHeight;
+    }
+
+    /**
+     * Set the grid height.
+     * @param gridHeight an int, the new grid height.
+     */
     public void setGridHeight(int gridHeight) {
         this.gridHeight = gridHeight;
     }
 
+    /**
+     * Get the canvas width.
+     * @return the canvas width.
+     */
+    public int getCanvasWidth() {
+        return canvasWidth;
+    }
+
+    /**
+     * Set the canvas width.
+     * @param canvasWidth The canvas' width.
+     */
+    public void setCanvasWidth(int canvasWidth) {
+        this.canvasWidth = canvasWidth;
+    }
+
+    /**
+     * Get the canvas height.
+     * @return The canvas' height.
+     */
+    public int getCanvasHeight() {
+        return canvasHeight;
+    }
+
+    /**
+     * Set the canvas height.
+     * @param canvasHeight The canvas height.
+     */
+    public void setCanvasHeight(int canvasHeight) {
+        this.canvasHeight = canvasHeight;
+    }
+
+    /**
+     * Get the current character.
+     * @return The current player character.
+     */
+    public Character getCharacter() {
+        return character;
+    }
+
+    /**
+     * Set the character.
+     * @param character The new character.
+     */
     public void setCharacter(Character character) {
         this.character = character;
+    }
+
+    /**
+     * Get the current player.
+     * @return The current player.
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
+    /**
+     * Set the current player.
+     * @param player The current player.
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
