@@ -33,9 +33,8 @@ import java.io.IOException;
 
 
 /**
- * A class which holds the methods that control Levels. It contains loading different levels and
- * creating the game.
- *
+ * A class which holds the methods that control Levels and their visualisation.
+ * It contains loading different levels and creating the game.
  * @author Liam O'Reilly, Adam Bartlett, Rhys Evans
  */
 public class LevelController {
@@ -45,12 +44,8 @@ public class LevelController {
     // The dimensions of the window
     private static int WINDOW_WIDTH;
     private static int WINDOW_HEIGHT;
-    // The width of the grid in number of cells.
-    private final Level level1 = new Level("src/LevelFiles/Level1.txt");
-    private final Level level2 = new Level("src/LevelFiles/Level2.txt");
-    private final Level level3 = new Level("src/LevelFiles/Level3.txt");
 
-    // update the grid width and height to match level width and height
+    // The dimensions of the grid.
     private int gridWidth;
     private int gridHeight;
 
@@ -58,20 +53,24 @@ public class LevelController {
     private int canvasWidth;
     private int canvasHeight;
 
-    // The canvas in the GUI. This needs to be a global variable
-    // (in this setup) as we need to access it in different methods.
-    // We could use FXML to place code in the controller instead.
+    // The levels that exist in the game.
+    private final Level level1 = new Level("src/LevelFiles/Level1.txt");
+    private final Level level2 = new Level("src/LevelFiles/Level2.txt");
+    private final Level level3 = new Level("src/LevelFiles/Level3.txt");
+
+    // The canvas that the game will be drawn on.
     private Canvas canvas;
 
+    // Buttons to display the current score and time.
     private Text scoreDisplay = new Text();
     private Text timeDisplay = new Text();
 
-    // Loaded images
+    // The image for the character.
     private Image playerImage;
 
-    // X and Y coordinate of player on the grid.
-    private Character character;
+    // The player and character representing the current player.
     private Player player;
+    private Character character;
 
     // String to represent the key pressed.
     private String keyPressed = " ";
@@ -84,6 +83,8 @@ public class LevelController {
 
     // Boolean to decide game status.
     private boolean gameOver = false;
+
+    // The stage and scene for the game to be placed on.
     private Stage stage;
     private Scene scene;
 
