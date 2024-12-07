@@ -385,6 +385,7 @@ public class LevelController {
         // Check if the exit tile has been contacted.
         if (Exit.exitTileLogic(currentLevel, character, gridWidth)) {
             player.progressLevel();
+            scoreChecking(player, currentLevel, player.getLevelScore());
             gameRunning(false);
             openLevels();
         }
