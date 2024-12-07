@@ -133,27 +133,31 @@ public class Boulder extends Entity {
         int characterX = character.getCharacterX();
         int characterPos = (characterY * levelWidth) + characterX;
 
-        boolean rollableLeft = gameBoard[upperLeft].getObjectToken().equals("P") &&
-                gameBoard[lowerLeft].getObjectToken().equals("P") && lowerLeft != characterPos
-                && upperLeft != characterPos;
-        boolean rollableRight = gameBoard[upperRight].getObjectToken().equals("P") &&
-                gameBoard[lowerRight].getObjectToken().equals("P") && lowerRight != characterPos
-                && upperRight != characterPos;
+        if (gameBoard[belowPos].getObjectToken().equals("B")
+                || gameBoard[belowPos].getObjectToken().equals("*")
+                || gameBoard[belowPos].getObjectToken().equals("W")) {
+            boolean rollableLeft = gameBoard[upperLeft].getObjectToken().equals("P") &&
+                    gameBoard[lowerLeft].getObjectToken().equals("P") && lowerLeft != characterPos
+                    && upperLeft != characterPos;
+            boolean rollableRight = gameBoard[upperRight].getObjectToken().equals("P") &&
+                    gameBoard[lowerRight].getObjectToken().equals("P") && lowerRight != characterPos
+                    && upperRight != characterPos;
 
-        if (!lastRow && !gameBoard[belowPos].getObjectToken().equals("P")) {
+            if (!lastRow && !gameBoard[belowPos].getObjectToken().equals("P")) {
 
-            if (rollableLeft) {
-                setFalling(true);
-                gameBoard[lowerLeft] = this;
-                gameBoard[lowerLeft].setX(lowerLeft % levelWidth);
-                gameBoard[lowerLeft].setY(lowerLeft / levelWidth);
-                gameBoard[index] = new Path(x, y);
-            } else if (rollableRight) {
-                setFalling(true);
-                gameBoard[lowerRight] = this;
-                gameBoard[lowerRight].setX(lowerLeft % levelWidth);
-                gameBoard[lowerRight].setY(lowerLeft / levelWidth);
-                gameBoard[index] = new Path(x, y);
+                if (rollableLeft) {
+                    setFalling(true);
+                    gameBoard[lowerLeft] = this;
+                    gameBoard[lowerLeft].setX(lowerLeft % levelWidth);
+                    gameBoard[lowerLeft].setY(lowerLeft / levelWidth);
+                    gameBoard[index] = new Path(x, y);
+                } else if (rollableRight) {
+                    setFalling(true);
+                    gameBoard[lowerRight] = this;
+                    gameBoard[lowerRight].setX(lowerLeft % levelWidth);
+                    gameBoard[lowerRight].setY(lowerLeft / levelWidth);
+                    gameBoard[index] = new Path(x, y);
+                }
             }
         }
     }
