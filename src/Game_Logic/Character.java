@@ -11,6 +11,7 @@ import Game_Objects.Tiles.Path;
 /**
  * Character class to control the movement and representation of
  * a player's character in-game.
+ *
  * @author Rhys Evans
  */
 public class Character {
@@ -34,12 +35,11 @@ public class Character {
     }
 
     /**
-     * Controls the characters movement based off of keyboard input.
-     * Checks if the players move is within the grid limits.
+     * Controls the characters movement.
      *
-     * @param keyPressed key inputted by player.
-     * @param gridWidth  the width of the game grid.
-     * @param gridHeight the height of the game grid.
+     * @param keyPressed The key inputted by player.
+     * @param gridWidth  The width of the game grid.
+     * @param gridHeight The height of the game grid.
      */
     public void moveCharacter(String keyPressed, int gridWidth, int gridHeight) {
         System.out.println("Current Key Pressed:" + keyPressed);
@@ -48,17 +48,18 @@ public class Character {
                 characterX++;
 
                 checkTile(characterX, characterY, gridWidth, 1);
+
                 //Checks if the tile is traversable and within the board
                 if (characterX == gridWidth || !checkTileIsTraversable(characterX, characterY, gridWidth)) {
                     characterX--;
                 }
-
                 break;
             case "LEFT":
                 // Left key was pressed. So move the player right by one cell.
                 characterX--;
 
                 checkTile(characterX, characterY, gridWidth, 2);
+
                 //Checks if the tile is traversable and within the board
                 if (characterX < 0 || !checkTileIsTraversable(characterX, characterY, gridWidth)) {
                     characterX++;
@@ -92,8 +93,9 @@ public class Character {
 
     /**
      * Checks if the new tile is a dirt tile, if so changes to path.
-     * @param x the prospective x coordinate.
-     * @param y the prospective y coordinate.
+     *
+     * @param x     the prospective x coordinate.
+     * @param y     the prospective y coordinate.
      * @param width the grid's width.
      */
     private void checkTile(int x, int y, int width, int direction) {
@@ -104,9 +106,11 @@ public class Character {
             // Convert the tile to a path.
             transformToPath(tilePos);
         } else if (checkExitTile(tilePos)) {
-            System.out.println("GAME OVER");
-            currentPlayer.setFinalLevelScore(currentLevel);
-            System.out.println("FINAL SCORE: " + currentPlayer.getFinalLevelScore());
+            if (diamondsCollected > currentLevel.getDiamondsToWin()) {
+                System.out.println("LEVEL COMPLETE!");
+                currentPlayer.setFinalLevelScore(currentLevel);
+                System.out.println("FINAL SCORE: " + currentPlayer.getFinalLevelScore());
+            }
         } else if (checkDiamondTile(tilePos)) {
             Diamond diamond = (Diamond) gameBoard[tilePos];
             diamond.collectDiamond(this);
@@ -304,6 +308,7 @@ public class Character {
 
     /**
      * Get the active player.
+     *
      * @return a Player, the current player.
      */
     public Player getCurrentPlayer() {

@@ -157,12 +157,6 @@ public class Level {
                 }
             }
         }
-
-        // Print the array contents and size for testing
-        for (GameObject object : gameBoard) {
-            System.out.print(object.getObjectToken() + "(" + object.getX() + "," + object.getY() + ")" + " ");
-        }
-        System.out.println("Tile array size: " + gameBoard.length);
         levelScanner.close();
     }
 
