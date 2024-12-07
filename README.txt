@@ -21,14 +21,14 @@ version 23, no additional libraries are required.
 
 Compile with the following command:
 
-```
+
 javac --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml include-all-classes-here.java
-```
+
 
 Run with the following command:
 
-```
+
 java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -cp . Main
-```
+
 
 Enjoy!
