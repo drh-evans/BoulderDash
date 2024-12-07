@@ -94,6 +94,7 @@ public class LevelController {
     // The stage and scene for the game to be placed on.
     private Stage stage;
     private Scene scene;
+    private boolean playerDied = false;
 
     /**
      * Instantiates the level controller.
@@ -231,11 +232,11 @@ public class LevelController {
         amoebaTickTimeline.setCycleCount(Animation.INDEFINITE);
 
         // Gravity tick rate
-        gravityTickTimeline = new Timeline(new KeyFrame(Duration.millis(500), event -> gravityTick(desiredLevel)));
+        gravityTickTimeline = new Timeline(new KeyFrame(Duration.millis(400), event -> gravityTick(desiredLevel)));
         gravityTickTimeline.setCycleCount(Animation.INDEFINITE);
 
         // Gravity tick rate
-        rollTickTimeline = new Timeline(new KeyFrame(Duration.millis(500), event -> rollTick(desiredLevel)));
+        rollTickTimeline = new Timeline(new KeyFrame(Duration.millis(400), event -> rollTick(desiredLevel)));
         rollTickTimeline.setCycleCount(Animation.INDEFINITE);
 
         // Tick timeline for the timer, set to 1s.
@@ -420,6 +421,10 @@ public class LevelController {
             scoreChecking(player, currentLevel, player.getLevelScore());
             gameRunning(false);
             openLevels();
+        } else if (playerDied) {
+            gameRunning(false);
+            System.out.println("You DIED!!!");
+            openLevels();
         }
     }
 
@@ -543,6 +548,7 @@ public class LevelController {
             if (character.getCharacterX() == x &&
                     character.getCharacterY() == y + 1) {
                 character.resetCharacterPosition();
+                playerDied = true;
             }
         }
     }
