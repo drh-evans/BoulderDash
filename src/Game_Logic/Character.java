@@ -112,7 +112,6 @@ public class Character {
             transformToPath(tilePos);
         } else if (checkExitTile(tilePos)) {
             System.out.println("GAME OVER");
-            loadNextLevel();
         } else if (checkDiamondTile(tilePos)) {
             Diamond diamond = (Diamond) gameBoard[tilePos];
             diamond.collectDiamond(this);
@@ -147,27 +146,6 @@ public class Character {
                 transformToPath(tilePos);
                 currentPlayer.removeKey(doorColour);
             }
-        }
-    }
-
-    // TODO FIX BUG WITH LEVEL LOAD
-
-    /**
-     * Load the next level upon contact with an exit tile.
-     */
-    private void loadNextLevel() {
-        try {
-            if (diamondsCollected >= currentLevel.getDiamondsToWin()) {
-                // Loads the next level
-                currentLevel.loadLevel("src/LevelFiles/Level2.txt");
-                // Resets the characters position for next level
-                characterX = 1;
-                characterY = 1;
-                currentPlayer.progressLevel();
-                System.out.println("Loading next Level");
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("No level found");
         }
     }
 
@@ -329,7 +307,7 @@ public class Character {
         diamondsCollected++;
     }
 
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() {
         return currentPlayer;
     }
 }

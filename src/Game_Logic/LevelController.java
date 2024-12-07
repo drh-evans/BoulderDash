@@ -1,6 +1,7 @@
 package Game_Logic;
 
 import Game_Objects.GameObject;
+import Game_Objects.Tiles.Exit;
 import Game_Objects.Tiles.MagicWall;
 import Game_Objects.Entities.Amoeba;
 import javafx.animation.Animation;
@@ -30,26 +31,24 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
 /**
- *
  * A class which holds the methods that control Levels. It contains loading different levels and
  * creating the game.
  *
  * @author Liam O'Reilly, Adam Bartlett, Rhys Evans
  */
 public class LevelController {
-    // The dimensions of the window
-    private static int WINDOW_WIDTH;
-    private static int WINDOW_HEIGHT;
-
     // The width and height (in pixels) of each cell that makes up the game.
     private static final int GRID_CELL_WIDTH = 50;
     private static final int GRID_CELL_HEIGHT = 50;
-
+    // The dimensions of the window
+    private static int WINDOW_WIDTH;
+    private static int WINDOW_HEIGHT;
     // The width of the grid in number of cells.
     private final Level testLevel = new Level("src/LevelFiles/Level1.txt");
     private final Level l2 = new Level("src/LevelFiles/Level2.txt");
@@ -99,18 +98,37 @@ public class LevelController {
     public LevelController() throws FileNotFoundException {
     }
 
+    public static void main(String[] args) throws FileNotFoundException {
+        LevelController main = new LevelController();
+
+        System.out.println("Actual height and width: ");
+        System.out.println(main.gridHeight);
+        System.out.println(main.gridWidth);
+
+        System.out.println("Auxiliary level attributes: ");
+        System.out.print("Highscores: ");
+        for (int score : main.testLevel.getHighscores()) {
+            System.out.print(score + " ");
+        }
+        System.out.println();
+        System.out.println("Time to complete: " + main.testLevel.getTimeToComplete());
+        System.out.println("Diamonds to win: " + main.testLevel.getDiamondsToWin());
+        System.out.println("Amoeba spread rate: " + main.testLevel.getAmoebaSpreadRate());
+        System.out.println("Amoeba max size: " + main.testLevel.getAmoebaMaxSize());
+    }
 
     /**
      * Creates a template for each level creation.
+     *
      * @param desiredLevel The level to be loaded.
      */
-    public void createLevelTemplate(ActionEvent openGame,Level desiredLevel){
+    public void createLevelTemplate(ActionEvent openGame, Level desiredLevel) {
         //Sets attributes for the level
         setGridWidth(desiredLevel.getWidth());
         setGridHeight(desiredLevel.getHeight());
         canvasHeight = gridHeight * GRID_CELL_HEIGHT;
         canvasWidth = gridWidth * GRID_CELL_WIDTH;
-        WINDOW_WIDTH =  canvasWidth;
+        WINDOW_WIDTH = canvasWidth;
         WINDOW_HEIGHT = canvasHeight + 45;
 
         //Creates a new player and character
@@ -119,47 +137,45 @@ public class LevelController {
         createGame(openGame, desiredLevel);
 
         //Starts the clock and tick as level is loaded
-        magicWallTickTimeline.play();
-        playerTickTimeline.play();
-        clockTimeline.play();
-        amoebaTickTimeline.play();
+        gameRunning(true);
     }
-
 
     /**
      * Creates level ones display.
+     *
      * @param openGame button was pressed.
      */
     public void createLevel1(ActionEvent openGame) {
-        createLevelTemplate(openGame ,testLevel);
+        createLevelTemplate(openGame, testLevel);
     }
-
 
     /**
      * Creates level twos display.
+     *
      * @param openGame button was pressed.
      */
     public void createLevel2(ActionEvent openGame) {
-            createLevelTemplate(openGame, l2);
+        createLevelTemplate(openGame, l2);
     }
 
     /**
      * Creates level threes display.
+     *
      * @param openGame button was pressed.
      */
     public void createLevel3(ActionEvent openGame) {
-        createLevelTemplate(openGame,l3);
+        createLevelTemplate(openGame, l3);
     }
-
 
     /**
      * Updates stage to display the game.
-     * @param openGame button was pressed.
+     *
+     * @param openGame     button was pressed.
      * @param desiredLevel The level to be displayed
      */
     public void createGame(ActionEvent openGame, Level desiredLevel) {
         //Removes previous scene
-        Stage stage = (Stage) ((Node) openGame.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) openGame.getSource()).getScene().getWindow();
 
         // Load images. Note we use png images with a transparent background.
         playerImage = new Image("Images/player.png");
@@ -178,7 +194,13 @@ public class LevelController {
 
         // Register a tick method to be called periodically.
         // Make a new timeline with one keyframe that triggers the tick method every half a second.
-        playerTickTimeline = new Timeline(new KeyFrame(Duration.millis(600), event -> playerTick(desiredLevel)));
+        playerTickTimeline = new Timeline(new KeyFrame(Duration.millis(600), event -> {
+            try {
+                playerTick(desiredLevel);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }));
         // Loop the timeline forever
         playerTickTimeline.setCycleCount(Animation.INDEFINITE);
 
@@ -204,6 +226,7 @@ public class LevelController {
 
     /**
      * Go back to menu from levels
+     *
      * @param event button is pressed
      */
     @FXML
@@ -216,13 +239,11 @@ public class LevelController {
         stage.setScene(scene);
         stage.show();
     }
-    public void returnToMenu(ActionEvent e){
+
+    public void returnToMenu(ActionEvent e) {
         //If return to menu is called stop game ticks
         // TODO FIX BACK BUTTON
-        clockTimeline.stop();
-        playerTickTimeline.stop();
-        magicWallTickTimeline.stop();
-        amoebaTickTimeline.stop();
+        gameRunning(false);
         Parent menu = null;
         try {
             // loads menu fxml file
@@ -245,9 +266,9 @@ public class LevelController {
         currentLevel.newHighScore(score);
     }
 
-
     /**
      * Process a key event due to a key being pressed, e.g., to move the player.
+     *
      * @param event The key event that was pressed.
      */
     public void processKeyEvent(KeyEvent event, Level currentLevel) {
@@ -302,6 +323,19 @@ public class LevelController {
     }
 
     /**
+     * Returns user to level menu if called
+     */
+    @FXML
+    public void openLevels() throws IOException {
+        //Loads new fxml
+        Parent root = FXMLLoader.load(getClass().getResource("Levels.fxml"));
+
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
      * Move the player to roughly the center of the grid.
      */
     public void movePlayerToCenter(Level currentLevel) {
@@ -336,7 +370,7 @@ public class LevelController {
      * this might cause the bad guys to move (by e.g., looping
      * over them all and calling their own tick method).
      */
-    public void playerTick(Level currentLevel) {
+    public void playerTick(Level currentLevel) throws IOException {
         // Move the character.
         character.moveCharacter(keyPressed, gridWidth, gridHeight);
 
@@ -347,10 +381,18 @@ public class LevelController {
 
         // Redraw the game with new X, Y.
         drawGame(currentLevel);
+
+        //Exit tile
+        if (Exit.exitTileLogic(currentLevel, character, gridWidth)) {
+            player.progressLevel();
+            gameRunning(false);
+            openLevels();
+        }
     }
 
     /**
      * Method to tick the clock down per second.
+     *
      * @param currentLevel the current level.
      */
     private void clockTick(Level currentLevel) {
@@ -360,12 +402,9 @@ public class LevelController {
         // check the time/game state validity.
         if (time == 0) {
             //If time is zero stop game ticks
-            clockTimeline.stop();
-            playerTickTimeline.stop();
-            magicWallTickTimeline.stop();
-            amoebaTickTimeline.stop();
+            gameRunning(false);
             gameOver = true;
-        } else if (!gameOver){
+        } else if (!gameOver) {
             // decrease time to complete by 1.
             currentLevel.setTimeToComplete();
         }
@@ -375,6 +414,7 @@ public class LevelController {
 
     /**
      * Create the GUI.
+     *
      * @return The panel that contains the created GUI.
      */
     private Pane buildGUI(Level currentLevel) {
@@ -407,29 +447,29 @@ public class LevelController {
 
         // Tick Timeline buttons
         /**
-        Button startTickTimelineButton = new Button("Play");
-        Button stopTickTimelineButton = new Button("Pause");
-        // We add both buttons at the same time to the timeline (we could have done this in two steps).
-        toolbar.getChildren().addAll(startTickTimelineButton, stopTickTimelineButton);
-        // Stop button is disabled by default
-        stopTickTimelineButton.setDisable(true);
+         Button startTickTimelineButton = new Button("Play");
+         Button stopTickTimelineButton = new Button("Pause");
+         // We add both buttons at the same time to the timeline (we could have done this in two steps).
+         toolbar.getChildren().addAll(startTickTimelineButton, stopTickTimelineButton);
+         // Stop button is disabled by default
+         stopTickTimelineButton.setDisable(true);
 
-        // Setup the behaviour of the buttons.
-        startTickTimelineButton.setOnAction(e -> {
-            // Start the tick timeline and enable/disable buttons as appropriate.
-            startTickTimelineButton.setDisable(true);
-            tickTimeline.play();
-            clockTimeline.play();
-            stopTickTimelineButton.setDisable(false);
-        });
+         // Setup the behaviour of the buttons.
+         startTickTimelineButton.setOnAction(e -> {
+         // Start the tick timeline and enable/disable buttons as appropriate.
+         startTickTimelineButton.setDisable(true);
+         tickTimeline.play();
+         clockTimeline.play();
+         stopTickTimelineButton.setDisable(false);
+         });
 
-        stopTickTimelineButton.setOnAction(e -> {
-            // Stop the tick timeline and enable/disable buttons as appropriate.
-            stopTickTimelineButton.setDisable(true);
-            tickTimeline.stop();
-            clockTimeline.stop();
-            startTickTimelineButton.setDisable(false);
-        });
+         stopTickTimelineButton.setOnAction(e -> {
+         // Stop the tick timeline and enable/disable buttons as appropriate.
+         stopTickTimelineButton.setDisable(true);
+         tickTimeline.stop();
+         clockTimeline.stop();
+         startTickTimelineButton.setDisable(false);
+         });
          */
 
         // Setup a draggable image.
@@ -456,6 +496,25 @@ public class LevelController {
         return root;
     }
 
+    /**
+     * Starts clock and game ticks if true and stops them if false
+     *
+     * @param gameRunning controls whether game is running or not
+     */
+    private void gameRunning(boolean gameRunning) {
+        if (gameRunning) {
+            magicWallTickTimeline.play();
+            playerTickTimeline.play();
+            clockTimeline.play();
+            amoebaTickTimeline.play();
+        } else {
+            clockTimeline.stop();
+            playerTickTimeline.stop();
+            magicWallTickTimeline.stop();
+            amoebaTickTimeline.stop();
+        }
+    }
+
     public void setGridWidth(int gridWidth) {
         this.gridWidth = gridWidth;
     }
@@ -466,24 +525,5 @@ public class LevelController {
 
     public void setCharacter(Character character) {
         this.character = character;
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        LevelController main = new LevelController();
-
-        System.out.println("Actual height and width: ");
-        System.out.println(main.gridHeight);
-        System.out.println(main.gridWidth);
-
-        System.out.println("Auxiliary level attributes: ");
-        System.out.print("Highscores: ");
-        for (int score : main.testLevel.getHighscores()) {
-            System.out.print(score + " ");
-        }
-        System.out.println();
-        System.out.println("Time to complete: " + main.testLevel.getTimeToComplete());
-        System.out.println("Diamonds to win: " + main.testLevel.getDiamondsToWin());
-        System.out.println("Amoeba spread rate: " + main.testLevel.getAmoebaSpreadRate());
-        System.out.println("Amoeba max size: " + main.testLevel.getAmoebaMaxSize());
     }
 }
