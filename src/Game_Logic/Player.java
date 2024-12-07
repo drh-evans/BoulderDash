@@ -51,9 +51,9 @@ public class Player {
     }
 
     /**
-     * Checks if a player has a key for a door.
-     * @param colour the colour of the door.
-     * @return true or false, whether the player has the key.
+     * Checks the inventory for matching key.
+     * @param colour The colour of the door.
+     * @return hasKey, whether they have a key or not.
      */
     public boolean checkInventory(Colours colour) {
         boolean hasKey = false;
@@ -66,27 +66,14 @@ public class Player {
     }
 
     /**
-     * Remove a key once used.
-     * @param colour the keys colour.
+     * Remove a key.
+     * @param colour The doors colour.
      */
     public void removeKey(Colours colour) {
-        // if the key is the same colour as the door used, remove it.
+        // Search for the key.
         inventory.removeIf(key -> key.getColour() == colour);
     }
 
-    /**
-     * Checks the inventory for a specific key.
-     * @param token the keys object token.
-     * @return boolean false (doesn't have), true (has the key).
-     */
-    public boolean checkInventory(String token) {
-        for (Key key : inventory) {
-            if (key.getObjectToken().equals(token)) {
-                return true;
-            }
-        }
-        return false;
-    }
     /**
      * Getter for the Players name.
      * @return the username of the player.
