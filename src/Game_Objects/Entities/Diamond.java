@@ -131,5 +131,4 @@ public class Diamond extends Entity {
             }
         }
     }
-
 }
