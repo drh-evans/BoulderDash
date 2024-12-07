@@ -36,7 +36,7 @@ public class PlayerController {
     private Button selectButton;;
     @FXML
     private Label statusLabel;
-    private Player currentPlayer;
+    private static Player currentPlayer;
     @FXML
     private LevelController levelController;
 
@@ -57,11 +57,27 @@ public class PlayerController {
             fadeTransition.play();
 
         } else {
-            names.add(name);
+            names.add(name + " 1");
             writeNames();
-            levelController.createLevel1(event);
+            returnToMenu(event);
         }
     }
+
+    public void loadLevels(ActionEvent e){
+        Parent menu = null;
+        try {
+            // loads menu fxml file
+            menu = FXMLLoader.load(getClass().getResource("Levels.fxml"));
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        // get present stage
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        // set new stage
+        stage.setScene(new Scene(menu));
+        stage.show();
+    }
+
 
     /**
      * Reads the players that have already been created
@@ -143,11 +159,21 @@ public class PlayerController {
     public void selectProfile(ActionEvent event) {
         String selectedProfile = playerList.getSelectionModel().getSelectedItem();
         if (selectedProfile != null) {
-           // currentPlayer = new Player(selectedProfile, );
-            returnToMenu(event);
+            String[] playerDetails = selectedProfile.split(" ");
+            String name = playerDetails[0];
+            int levelUnlocked = Integer.parseInt(playerDetails[1]);
+            currentPlayer = new Player(name,levelUnlocked);
+            levelController.setPlayer(currentPlayer);
+            loadLevels(event);
         } else {
             statusLabel.setText("Please select a profile.");
         }
     }
 
+
+
+    public static Player getCurrentPlayer() {
+        return currentPlayer;
+    }
 }
+

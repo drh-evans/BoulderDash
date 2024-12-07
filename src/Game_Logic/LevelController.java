@@ -30,8 +30,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 
 /**
@@ -132,7 +135,10 @@ public class LevelController {
         WINDOW_HEIGHT = canvasHeight + 45;
 
         //Creates a new player and character
-        player = new Player("John", desiredLevel);
+        player = new Player(player.getName(), player.getLevelUnlocked(), desiredLevel);
+        System.out.println(player.getName());
+        System.out.println(player.getLevelUnlocked());
+
         setCharacter(player.getPlayerCharacter());
         createGame(openGame, desiredLevel);
 
@@ -142,18 +148,28 @@ public class LevelController {
 
     /**
      * Creates level ones display.
+     *
      * @param openGame The button was pressed.
      */
     public void createLevel1(ActionEvent openGame) {
-        createLevelTemplate(openGame, level1);
+        player = PlayerController.getCurrentPlayer();
+        if (player.getLevelUnlocked() >= 1) {
+            createLevelTemplate(openGame, level1);
+        }
+        System.out.println("not unlocked");
     }
 
     /**
      * Creates level twos display.
+     *
      * @param openGame The button was pressed.
      */
     public void createLevel2(ActionEvent openGame) {
-        createLevelTemplate(openGame, level2);
+        player = PlayerController.getCurrentPlayer();
+        if (player.getLevelUnlocked() >= 2) {
+            createLevelTemplate(openGame, level2);
+        }
+        System.out.println("not unlocked");
     }
 
     /**
@@ -162,7 +178,11 @@ public class LevelController {
      * @param openGame The button was pressed.
      */
     public void createLevel3(ActionEvent openGame) {
-        createLevelTemplate(openGame, level3);
+        player = PlayerController.getCurrentPlayer();
+        if (player.getLevelUnlocked() >= 3) {
+            createLevelTemplate(openGame, level3);
+        }
+        System.out.println("not unlocked");
     }
 
     /**
@@ -396,11 +416,38 @@ public class LevelController {
 
         // Check if the exit tile has been contacted.
         if (Exit.exitTileLogic(currentLevel, character, gridWidth)) {
-            player.progressLevel();
+            increaseLevel();
             scoreChecking(player, currentLevel, player.getLevelScore());
             gameRunning(false);
             openLevels();
         }
+    }
+
+    public void increaseLevel() throws IOException {
+        File Players = new File("src/LevelFiles/Players.txt");
+        Scanner in = new Scanner(Players);
+
+        // Current player string
+        String currentPlayer = player.getName() + " " + player.getLevelUnlocked();
+
+        // Updating players level
+        player.progressLevel();
+        String newPlayer = player.getName() + " " + player.getLevelUnlocked();
+
+        //Getting current file
+        StringBuilder fileContent = new StringBuilder();
+        if (in.hasNextLine()) {
+            fileContent.append(in.nextLine());
+        }
+
+        // Replaces old player with new player
+        String newPlayerList = fileContent.toString().replaceAll(currentPlayer, newPlayer);
+        FileWriter fw = new FileWriter(Players);
+
+        fw.write(newPlayerList);
+        in.close();
+        fw.close();
+
     }
 
     /**

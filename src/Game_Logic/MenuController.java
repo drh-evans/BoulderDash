@@ -20,18 +20,6 @@ public class MenuController {
     private Parent root;
 
     @FXML
-    public void openLevels(ActionEvent event) throws IOException {
-        //Loads new fxml
-        Parent root = FXMLLoader.load(getClass().getResource("Levels.fxml"));
-        //Removes old and creates a new scene
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    @FXML
     public void openCreatePlayer(ActionEvent event) throws IOException {
         //Loads new fxml
         Parent root = FXMLLoader.load(getClass().getResource("CreatePlayer.fxml"));
