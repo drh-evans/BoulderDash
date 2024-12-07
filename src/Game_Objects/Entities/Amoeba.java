@@ -5,17 +5,35 @@ import Game_Objects.GameObject;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * This class represents the Amoeba entity.
+ * This class also controls the spreading of an Amoeba,
+ * and the behaviour of a group of Amoebae.
+ * @author Rhys Evans
+ */
 public class Amoeba extends Entity {
 
-    // Basic attributes for amoebas
+    // The maxmimum size and growth rate of Amoeba.
     private int growthRate;
     private int maxSize;
-    private static int currentSize = 1;
     private boolean isMaximum;
+
+    // The current size of a group of Amoebae.
+    private static int currentSize = 1;
+
+    // The neighbouring tiles to an Amoeba.
     private ArrayList<GameObject> neighbours = new ArrayList<>();
+    // The active Amoebae.
     private ArrayList<Amoeba> activeAmoeba = new ArrayList<>();
 
 
+    /**
+     * Create a new Amoeba at the specified (x, y) coordinates.
+     * @param x The x position.
+     * @param y The y position.
+     * @param growthRate The growth rate of the Amoeba.
+     * @param maxSize The maximum size of Amoebae.
+     */
     public Amoeba(int x, int y, int growthRate, int maxSize) {
         super(x, y, true, false, 10, "A");
         this.growthRate = growthRate;
@@ -25,7 +43,7 @@ public class Amoeba extends Entity {
     public Amoeba() {
         super(true, false, 10, "A");
     }
-    
+
     private boolean isMaximum() {
         if (currentSize == maxSize) {
             return isMaximum = true;
@@ -33,35 +51,51 @@ public class Amoeba extends Entity {
         return isMaximum;
     }
 
+    /**
+     * Spreads the amoeba.
+     * @param tiles The current game tiles.
+     * @param width The current game width.
+     */
     public void spread(GameObject[] tiles, int width) {
         getNeighbours(tiles, width);
 
         if (!neighbours.isEmpty()) {
-            if (currentSize <= maxSize) {
-                System.out.println(maxSize);
-                System.out.println(currentSize);
+            if (currentSize < maxSize) {
                 int currentTilePosition = (y * width) + x;
-                int random = new Random().nextInt(neighbours.size() + 1);
+
+                // Get a random number to select a random neighbour.
+                int random = new Random().nextInt(neighbours.size());
                 GameObject tile;
+
+                // Select a random neighbour.
                 if (random >= neighbours.size()) {
                     tile = neighbours.get(0);
                 } else {
                     tile = neighbours.get(random);
                 }
-                int newTileX = tile.getX();
-                int newTileY = tile.getY();
-                int nextPosition = (newTileY * width) + newTileX;
-                tiles[nextPosition] = new Amoeba(newTileX, newTileY, growthRate, maxSize);
-                activeAmoeba.add((Amoeba) tiles[nextPosition]);
-                updateCount(width);
+                if (tile.getObjectToken().equals("P") || tile.getObjectToken().equals("D")) {
+                    int newTileX = tile.getX();
+                    int newTileY = tile.getY();
+                    int nextPosition = (newTileY * width) + newTileX;
+
+                    // Generate a new Amoeba at the position.
+                    tiles[nextPosition] = new Amoeba(newTileX, newTileY, growthRate, maxSize);
+                    activeAmoeba.add((Amoeba) tiles[nextPosition]);
+                    currentSize++;
+                }
             }
         }
     }
 
+    /**
+     * Get the neighbours of an active amoeba.
+     * @param tiles The current tiles.
+     * @param width The game width.
+     */
     public void getNeighbours(GameObject[] tiles, int width) {
         // Calculate the neighbouring tiles in each direction.
         int currentTilePosition = (y * width) + x;
-        int rightNeighbourPosition = ((y * width) + (x+1));
+        int rightNeighbourPosition = ((y * width) + (x + 1));
         int leftNeighbourPosition = ((y * width) + (x - 1));
 
         int upperNeighbourPosition = (((y-1) * width) + x);
@@ -74,7 +108,7 @@ public class Amoeba extends Entity {
         boolean lowerDiscovered = false;
 
         //  Add any valid paths to a neighbours array.
-        // check the tiles in 4 cardinal directions.
+        // Check the tiles in 4 cardinal directions.
         if (validateNeighbour(tiles, rightNeighbourPosition) && !rightDiscovered) {
             neighbours.add(tiles[rightNeighbourPosition]);
             rightDiscovered = true;
@@ -91,47 +125,21 @@ public class Amoeba extends Entity {
     }
 
     /**
-     * Validate if the neighbour is dirt or a path.
-     * @param tiles the array of game tiles.
-     * @param position the neighbouring position.
-     * @return true or false, depending on if the tile is a dirt or path or not.
+     * Validate the neighbours type.
+     * @param tiles The array of game tiles.
+     * @param position The neighbouring position.
+     * @return If the neighbour is spreadable.
      */
     public boolean validateNeighbour(GameObject[] tiles, int position) {
         if (tiles[position].getObjectToken().equals("P")) {
             return true;
         } else if (tiles[position].getObjectToken().equals("D")) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
-    public void updateCount(int width) {
-        int upperY = y - 1;
-        int lowerY = y + 1;
-        int rightX = x + 1;
-        int leftX = x - 1;
-
-        // Manage if the amoebas neighbours have been  discovered.
-        boolean rightLocated = false;
-        boolean leftLocated = false;
-        boolean upperLocated = false;
-        boolean lowerLocated = false;
-
-        if (leftX == x - 1 && !leftLocated) {
-            leftLocated = true;
-            currentSize++;
-        } else if (rightX == x + 1 && !rightLocated) {
-            rightLocated = true;
-            currentSize++;
-        } else if (upperY == y - 1 && !upperLocated) {
-            upperLocated = true;
-            currentSize++;
-        } else if (lowerY == y + 1 && !lowerLocated) {
-            lowerLocated = true;
-            currentSize++;
-        }
-        System.out.println(currentSize);
-    }
     /**
      *
      */
