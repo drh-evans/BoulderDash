@@ -39,4 +39,5 @@ public class Frog extends Entity {
   protected void isColliding() {
 
   }
+
 }

@@ -35,6 +35,7 @@ public class Firefly extends FlyingEnemy {
 
     }
 
+
     @Override
     public String getObjectToken() {
         return objectToken;

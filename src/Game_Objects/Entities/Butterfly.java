@@ -34,6 +34,7 @@ public class Butterfly extends FlyingEnemy {
 
     }
 
+
     @Override
     public String getObjectToken() {
         return objectToken;
