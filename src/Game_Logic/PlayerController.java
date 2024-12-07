@@ -143,7 +143,7 @@ public class PlayerController {
     public void selectProfile(ActionEvent event) {
         String selectedProfile = playerList.getSelectionModel().getSelectedItem();
         if (selectedProfile != null) {
-           // currentPlayer = new Player(selectedProfile, );
+            currentPlayer = new Player("adam",1 );
             returnToMenu(event);
         } else {
             statusLabel.setText("Please select a profile.");
