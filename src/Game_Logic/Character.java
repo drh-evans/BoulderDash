@@ -42,7 +42,7 @@ public class Character {
      * @param gridHeight The height of the game grid.
      */
     public void moveCharacter(String keyPressed, int gridWidth, int gridHeight) {
-        System.out.println("Current Key Pressed:" + keyPressed);
+        System.out.println("CURRENT KEY PRESSED: " + keyPressed);
         switch (keyPressed) {
             case "RIGHT":
                 characterX++;
@@ -135,10 +135,10 @@ public class Character {
             LockedDoor door = (LockedDoor) gameBoard[tilePos];
             // Get the current doors colour.
             Colours doorColour = door.getColour();
-            System.out.println(door.getColour());
+
             // Check if the player has the current doors key.
             boolean hasKey = currentPlayer.checkInventory(doorColour);
-            System.out.println(hasKey);
+            System.out.println("OPEN: " + hasKey);
             // Open the door.
             if (hasKey) {
                 door.setTraversable(true);
