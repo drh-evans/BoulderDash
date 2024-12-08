@@ -592,7 +592,7 @@ public class LevelController {
             lines.add(line);
         }
         //process data
-        for (int i = 0; i < lines.size() - 1; i++) {
+        for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
             //check the current level with file level is the same or not
             if (line.startsWith(current.getLevelFile().getName().replace("src/LevelFiles/", "").replace(".txt", "").toLowerCase() + ";")) {
@@ -600,7 +600,7 @@ public class LevelController {
                 String[] data = level[1].split(",");
                 playerScoreList.clear();
                 playerScoreList.addAll(List.of(data));
-                for (int j = 0 ;j < playerScoreList.size(); j++) {
+                for (int j = 0 ; j < playerScoreList.size(); j++) {
                     playerAndScore = playerScoreList.get(j).split(":");
                     //check is the player record exist
                     if (playerAndScore[0].equals(player.getName())) {
