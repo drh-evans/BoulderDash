@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<AnchorPane prefHeight="504.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Game_Logic.LevelController">
+    <children>
+        <ImageView fitHeight="703.0" fitWidth="760.0" layoutX="-200.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Images/MenuBackground.png" />
+            </image>
+        </ImageView>
+
+            <Text wrappingWidth="400" textAlignment="JUSTIFY" style="-fx-font-size: 16px; -fx-fill: white;" layoutX="80" layoutY="100">
+                The goal of Boulder Dash is to collect as many diamonds as possible, while fighting evil enemies and the clock!
+            </Text>
+
+            <Text wrappingWidth="400" textAlignment="JUSTIFY" style="-fx-font-size: 16px; -fx-fill: white;" layoutX="80" layoutY="150">
+                Use W A S D to move your character. Walk over dirt to turn it to a path; boulders can only be pushed over paths.
+            </Text>
+
+            <Text wrappingWidth="400" textAlignment="JUSTIFY" style="-fx-font-size: 16px; -fx-fill: white;" layoutX="80" layoutY="200">
+                When diamonds fall, they kill you! Falling boulders stay on your characters strong head - manipulate these boulders
+                to defeat enemies.
+
+                Good luck!
+            </Text>
+    </children>
+</AnchorPane>
