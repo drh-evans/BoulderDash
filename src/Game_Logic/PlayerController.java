@@ -20,6 +20,12 @@ import java.util.Scanner;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 
+/**
+ * This class controls the creation,selection and deletion of a player profile.
+ *
+ * @Author Adam Bartlett, Elbu Cheung, Mohsin Lebdah
+ */
+
 public class PlayerController {
     private static Player currentPlayer;
     String name;
@@ -45,41 +51,58 @@ public class PlayerController {
     }
 
     /**
-     * Allows user to create a player
+     * A button a user presses to create a profile.
+     *
+     * @param event When the button is pushed.
      */
     @FXML
     public void submit(ActionEvent event) {
-
         name = myTextField.getText();
 
         if (nameFound(name)) {
+            // Stop player creating a profile with the same name
             myLabel.setText("The name has already been entered. Try again!");
-            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(5), myLabel);
+            // Fade animation for warning text
+            FadeTransition fadeTransition =
+                    new FadeTransition(Duration.seconds(5), myLabel);
             fadeTransition.setFromValue(1.0);
             fadeTransition.setToValue(0.0);
             fadeTransition.setOnFinished(e -> myLabel.setText(""));
             fadeTransition.play();
 
         } else {
+            // Adds player name
             names.add(name + " 1");
             writeNames();
             returnToMenu(event);
         }
     }
 
-    public Boolean nameFound(String userInput) {
+    /**
+     * Find if a players name has already been created.
+     *
+     * @param usersName The users inputted name.
+     * @return If users name has already been created.
+     */
+    public Boolean nameFound(String usersName) {
         readArray();
         for (String name : names) {
             String playerName = name.split(" ")[0];
 
-            if (playerName.equals(userInput)) {
+            if (playerName.equals(usersName)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void loadLevels(ActionEvent e) {
+
+    /**
+     * Stage to display all levels.
+     *
+     * @param event A button is pressed by a user.
+     */
+    public void loadLevels(ActionEvent event) {
         Parent menu = null;
         try {
             // loads menu fxml file
@@ -88,14 +111,14 @@ public class PlayerController {
             throw new RuntimeException(ex);
         }
         // get present stage
-        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         // set new stage
         stage.setScene(new Scene(menu));
         stage.show();
     }
 
     /**
-     * Reads the players that have already been created
+     * Reads the players that have already been created.
      */
     public void readArray() {
         try {
@@ -114,7 +137,7 @@ public class PlayerController {
     }
 
     /**
-     * Adds names from player array to a txt file containing their names
+     * Adds players information to a txt file.
      */
     public void writeNames() {
         try {
@@ -133,38 +156,45 @@ public class PlayerController {
     }
 
     /**
-     * Returns user back to main menu
+     * Returns user back to main menu.
      *
-     * @param e If an event occurs
+     * @param event If an event occurs.
      */
-    public void returnToMenu(ActionEvent e) {
+    public void returnToMenu(ActionEvent event) {
         Parent menu = null;
         try {
             // loads menu fxml file
-            menu = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+            menu = FXMLLoader.load(getClass()
+                    .getResource("Menu.fxml"));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
         // get present stage
-        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene()
+                .getWindow();
         // set new stage
         stage.setScene(new Scene(menu));
         stage.show();
     }
 
+    /**
+     * Initializes the playerList.
+     */
     public void initialize() {
-        // initializes the player list by clearing data and reading the profiles from Players.txt and populates the names list and playerList
+        // Clearing data from Players.txt
         if (playerList != null) {
             names.clear();
             playerList.getItems().clear();
-
+            //reading the profiles from Players.txt
             readArray();
+            //populates the names list and playerList
             playerList.getItems().addAll(names);
         }
 
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Levels.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass()
+                    .getResource("Levels.fxml"));
             AnchorPane levelContent = loader.load();
             levelController = loader.getController();
         } catch (IOException e) {
@@ -174,12 +204,20 @@ public class PlayerController {
 
     }
 
+    /**
+     * Allows a user to select their desired profile.
+     * @param event A button is pressed.
+     */
     public void selectProfile(ActionEvent event) {
-        String selectedProfile = playerList.getSelectionModel().getSelectedItem();
+        //Players selection
+        String selectedProfile = playerList.getSelectionModel()
+                .getSelectedItem();
         if (selectedProfile != null) {
+            //Splits players information into name and level unlocked
             String[] playerDetails = selectedProfile.split(" ");
             String name = playerDetails[0];
             int levelUnlocked = Integer.parseInt(playerDetails[1]);
+            //Creates a new player
             currentPlayer = new Player(name, levelUnlocked);
             levelController.setPlayer(currentPlayer);
             loadLevels(event);
@@ -189,12 +227,14 @@ public class PlayerController {
     }
 
     /**
-     * Allows the User to delete a profile
-     * @param event If an event occurs
+     * Allows the User to delete a profile.
+     *
+     * @param event If an event occurs.
      */
     @FXML
     public void deleteProfile(ActionEvent event) {
-        String selectedProfile = playerList.getSelectionModel().getSelectedItem();
+        String selectedProfile = playerList.getSelectionModel()
+                .getSelectedItem();
         if (selectedProfile != null) {
             names.removeIf(name -> name.equals(selectedProfile));
 
