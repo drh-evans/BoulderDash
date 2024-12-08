@@ -16,7 +16,7 @@ import java.io.IOException;
  * A class containing the functionality of opening different options
  * in the menu.
  *
- * @author Adam Bartlett
+ * @author Adam Bartlett, Ashan Mian
  */
 public class MenuController {
     private Stage stage;
@@ -33,7 +33,8 @@ public class MenuController {
     @FXML
     public void openCreatePlayer(ActionEvent event) throws IOException {
         //Loads new fxml
-        Parent root = FXMLLoader.load(getClass().getResource("CreatePlayer.fxml"));
+        Parent root = FXMLLoader.load(getClass()
+                .getResource("CreatePlayer.fxml"));
         //Removes old and creates a new scene
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -50,7 +51,8 @@ public class MenuController {
      */
     @FXML
     public void openSelectPlayer(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("SelectPlayer.fxml"));
+        Parent root = FXMLLoader.load(getClass()
+                .getResource("SelectPlayer.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -65,7 +67,8 @@ public class MenuController {
      */
     @FXML
     public void openHighScoreTable(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("HighScoreTable.fxml"));
+        Parent root = FXMLLoader.load(getClass()
+                .getResource("HighScoreTable.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
