@@ -161,7 +161,6 @@ public class LevelController {
 
     /**
      * Creates level ones display.
-     *
      * @param openGame The button was pressed.
      */
     public void createLevel1(ActionEvent openGame) {
@@ -175,7 +174,6 @@ public class LevelController {
 
     /**
      * Creates level twos display.
-     *
      * @param openGame The button was pressed.
      */
     public void createLevel2(ActionEvent openGame) {
@@ -189,7 +187,6 @@ public class LevelController {
 
     /**
      * Creates level threes display.
-     *
      * @param openGame The button was pressed.
      */
     public void createLevel3(ActionEvent openGame) {
@@ -202,7 +199,6 @@ public class LevelController {
     }
     /**
      * Creates level fours display.
-     *
      * @param openGame The button was pressed.
      */
     public void createLevel4(ActionEvent openGame) {
@@ -216,7 +212,6 @@ public class LevelController {
 
     /**
      * Creates level fives display.
-     *
      * @param openGame The button was pressed.
      */
     public void createLevel5(ActionEvent openGame) {
@@ -230,7 +225,6 @@ public class LevelController {
 
     /**
      * Creates level sixes display.
-     *
      * @param openGame The button was pressed.
      */
     public void createLevel6(ActionEvent openGame) {
@@ -244,7 +238,6 @@ public class LevelController {
 
     /**
      * Creates level sevens display.
-     *
      * @param openGame The button was pressed.
      */
     public void createLevel7(ActionEvent openGame) {
@@ -258,7 +251,6 @@ public class LevelController {
 
     /**
      * Creates level eights display.
-     *
      * @param openGame The button was pressed.
      */
     public void createLevel8(ActionEvent openGame) {
@@ -273,7 +265,6 @@ public class LevelController {
 
     /**
      * Updates stage to display the game.
-     *
      * @param openGame     button was pressed.
      * @param desiredLevel The level to be displayed
      */
@@ -348,7 +339,6 @@ public class LevelController {
 
     /**
      * Go back to menu from levels
-     *
      * @param event button is pressed
      */
     @FXML
@@ -386,6 +376,10 @@ public class LevelController {
         stage.show();
     }
 
+    /**
+     * Open the help menu.
+     * @param event The help button is clicked.
+     */
     @FXML
     public void openHelp(ActionEvent event) {
         try {
@@ -402,19 +396,6 @@ public class LevelController {
             System.out.println("Error loading Help.fxml");
         }
     }
-
-
-
-    //Score checking everytime a player finish a level
-    /*
-    public void scoreChecking(Player player, Level currentLevel, int finalScore) {
-        if (finalScore > player.getLevelScore(currentLevel)) {
-            player.setLevelScore(finalScore);
-        }
-        currentLevel.newHighScore(currentLevel, finalScore);
-    }
-
-     */
 
     /**
      * Process a key event due to a key being pressed, subsequently moves the player.
@@ -525,6 +506,10 @@ public class LevelController {
         }
     }
 
+    /**
+     * Controls the frogs timed movement.
+     * @param currentLevel The current level in play.
+     */
     public void frogTick(Level currentLevel) {
         GameObject[] gameBoard = currentLevel.getGameBoard();
 
@@ -541,10 +526,9 @@ public class LevelController {
     }
 
     /**
-     * This method is called periodically by the tick timeline
-     * and would for, example move, perform logic in the game,
-     * this might cause the bad guys to move (by e.g., looping
-     * over them all and calling their own tick method).
+     * Controls the Players movement timing.
+     * @param currentLevel The current level in play.
+     * @throws IOException If there is no current level.
      */
     public void playerTick(Level currentLevel) throws IOException {
         // Move the character.
@@ -643,6 +627,10 @@ public class LevelController {
         fw.close();
     }
 
+    /**
+     * Increases the level being played.
+     * @throws IOException The file is not available.
+     */
     public void increaseLevel() throws IOException {
         File Players = new File("src/LevelFiles/Players.txt");
         Scanner in = new Scanner(Players);
@@ -671,7 +659,7 @@ public class LevelController {
     }
 
     /**
-     * Control the clock component of the game.
+     * Controls the clock component of the game.
      * @param currentLevel The current level.
      */
     private void clockTick(Level currentLevel) throws IOException {
@@ -692,6 +680,10 @@ public class LevelController {
         drawGame(currentLevel);
     }
 
+    /**
+     * Controls the gravity movement of Boulders and Diamonds.
+     * @param currentLevel The current level being played.
+     */
     public void gravityTick(Level currentLevel) {
         GameObject[] gameBoard = currentLevel.getGameBoard();
         int levelWidth = currentLevel.getWidth();
@@ -723,6 +715,10 @@ public class LevelController {
         drawGame(currentLevel);
     }
 
+    /**
+     * Controls the rolling of Boulders and Diamonds.
+     * @param currentLevel The current level being played.
+     */
     public void rollTick(Level currentLevel) {
         GameObject[] gameBoard = currentLevel.getGameBoard();
         int levelWidth = currentLevel.getWidth();
@@ -755,6 +751,10 @@ public class LevelController {
         drawGame(currentLevel);
     }
 
+    /**
+     * Checks if the character can be killed.
+     * @param object The current falling object.
+     */
     private void killCheck(GameObject object) {
         if (object.isFalling()) {
             int x = object.getX();
@@ -767,8 +767,6 @@ public class LevelController {
             }
         }
     }
-
-
 
     /**
      * Create the games GUI.
@@ -832,8 +830,6 @@ public class LevelController {
             frogTickTimeLine.stop();
         }
     }
-
-    // Getters and setters for all attributes.
 
     /**
      * Get the grid width.
