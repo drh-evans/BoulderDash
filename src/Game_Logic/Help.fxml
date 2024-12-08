@@ -26,7 +26,8 @@
             </Text>
 
             <Text wrappingWidth="400" textAlignment="JUSTIFY" style="-fx-font-size: 16px; -fx-fill: white;" layoutX="80" layoutY="200">
-                When diamonds fall, they kill you! Falling boulders stay on your characters strong head - manipulate these boulders
+                Beware of falling boulders and diamonds! They'll kill you! Initially you can hold bolders and diamonds
+                on your head... but you're not that strong; after you move, they're dangerous! Push these boulders
                 to defeat enemies.
 
                 Good luck!
