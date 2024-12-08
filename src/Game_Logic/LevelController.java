@@ -500,7 +500,7 @@ public class LevelController {
         for (int i = 0; i < lines.size();i++) {
             String line = lines.get(i);
             //check the current level with file level is the same or not
-            if (line.startsWith(current.toString() + ";")) {
+            if (line.startsWith(current.getLevelFile().getName().replace("src/LevelFiles/", "").replace(".txt", "").toLowerCase() + ";")) {
                 String[] level = line.split(";");
                 String[] data = level[1].split(",");
                 playerScoreList.clear();
@@ -524,8 +524,8 @@ public class LevelController {
                     playerScoreList = playerScoreList.subList(0, 10);
                 }
                 //replace that level's top 10 ranking
-                lines.set(i, current.toString() + ";" + String.join("," + playerScoreList));
-
+                lines.set(i, current.getLevelFile().toString().replace("src/LevelFiles/", "").replace(".txt", "").toLowerCase() + ";" + String.join(",", playerScoreList));
+                System.out.println();
             }
             //
         }
@@ -534,6 +534,8 @@ public class LevelController {
         for (String newLine : lines) {
             fw.write(newLine + "\n");
         }
+        System.out.println(playerScoreList);
+        System.out.println(lines);
         in.close();
         fw.close();
     }
