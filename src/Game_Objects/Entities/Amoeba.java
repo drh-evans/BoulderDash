@@ -9,19 +9,18 @@ import java.util.Random;
  * This class represents the Amoeba entity.
  * This class also controls the spreading of an Amoeba,
  * and the behaviour of a group of Amoebae.
+ *
  * @author Rhys Evans
  * @version 1.0
  */
 public class Amoeba extends Entity {
 
+    // The current size of a group of Amoebae.
+    private static int currentSize = 1;
     // The maxmimum size and growth rate of Amoeba.
     private int growthRate;
     private int maxSize;
     private boolean isMaximum;
-
-    // The current size of a group of Amoebae.
-    private static int currentSize = 1;
-
     // The neighbouring tiles to an Amoeba.
     private ArrayList<GameObject> neighbours = new ArrayList<>();
     // The active Amoebae.
@@ -30,6 +29,7 @@ public class Amoeba extends Entity {
 
     /**
      * Create a new Amoeba at the specified (x, y) coordinates.
+     *
      * @param x          The x position.
      * @param y          The y position.
      * @param growthRate The growth rate of the Amoeba.
@@ -50,6 +50,7 @@ public class Amoeba extends Entity {
 
     /**
      * Check if Amoebae have reached the maximum size.
+     *
      * @return isMaximum - true or false
      */
     private boolean isMaximum() {
@@ -61,11 +62,13 @@ public class Amoeba extends Entity {
 
     /**
      * Spread the amoeba.
+     *
      * @param tiles The current game tiles.
      * @param width The current game width.
      */
     public void spread(GameObject[] tiles, int width) {
         getNeighbours(tiles, width);
+        System.out.println(currentSize);
 
         if (!neighbours.isEmpty()) {
             if (currentSize < maxSize) {
@@ -82,20 +85,25 @@ public class Amoeba extends Entity {
                     tile = neighbours.get(random);
                 }
                 if (tile.getObjectToken().equals("P") || tile.getObjectToken().equals("D")) {
-                    int newTileX = tile.getX();
-                    int newTileY = tile.getY();
-                    int nextPosition = (newTileY * width) + newTileX;
-                    // Generate a new Amoeba at the position.
-                    tiles[nextPosition] = new Amoeba(newTileX, newTileY, growthRate, maxSize);
-                    activeAmoeba.add(tiles[nextPosition]);
-                    currentSize++;
+                    if (!activeAmoeba.contains(tile)) {
+                        int newTileX = tile.getX();
+                        int newTileY = tile.getY();
+                        int nextPosition = (newTileY * width) + newTileX;
+                        // Generate a new Amoeba at the position.
+                        tiles[nextPosition] = new Amoeba(newTileX, newTileY, growthRate, maxSize);
+                        neighbours.add(tiles[nextPosition]);
+                        activeAmoeba.add(tile);
+                        currentSize++;
+                    }
                 }
             }
         }
+
     }
 
     /**
      * Get the neighbours of an active amoeba.
+     *
      * @param tiles The current tiles.
      * @param width The game width.
      */
@@ -125,6 +133,7 @@ public class Amoeba extends Entity {
 
     /**
      * Validate the neighbours tile type.
+     *
      * @param tiles    The array of game tiles.
      * @param position The neighbouring position.
      * @return If the neighbour is spreadable - true or false.
@@ -137,7 +146,8 @@ public class Amoeba extends Entity {
 
     /**
      * Turns a group of Amoebae to Diamonds.
-     * @param tiles The current tiles.
+     *
+     * @param tiles     The current tiles.
      * @param gridWidth The grid width.
      */
     private void turnToBoulders(GameObject[] tiles, int gridWidth) {
