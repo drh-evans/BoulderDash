@@ -15,7 +15,7 @@ import java.util.Random;
 public class Amoeba extends Entity {
 
     // The current size of a group of Amoebae.
-    private static int currentSize = 0;
+    private static int currentSize = 1;
     // The maxmimum size and growth rate of Amoeba.
     private int growthRate;
     private int maxSize;
