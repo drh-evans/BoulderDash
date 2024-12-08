@@ -23,7 +23,8 @@ public class Firefly extends FlyingEnemy {
         objectToken = "F" + direction;
     }
 
-    /**Position-less constructor.
+    /**
+     * Position-less constructor.
      * @param direction the direction in which the firefly rotates.
      */
     public Firefly(String direction) {
@@ -31,5 +32,14 @@ public class Firefly extends FlyingEnemy {
         this.direction = direction;
 
         objectToken = "F" + direction;
+    }
+
+    /**
+     * Get the firefly's token.
+     * @return The firefly's token.
+     */
+    @Override
+    public String getObjectToken() {
+        return objectToken;
     }
 }

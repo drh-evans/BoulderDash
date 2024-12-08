@@ -1,9 +1,6 @@
 package Game_Logic;
 
-import Game_Objects.Entities.Amoeba;
-import Game_Objects.Entities.Boulder;
-import Game_Objects.Entities.Diamond;
-import Game_Objects.Entities.Frog;
+import Game_Objects.Entities.*;
 import Game_Objects.GameObject;
 import Game_Objects.Tiles.*;
 import javafx.scene.canvas.GraphicsContext;
@@ -145,9 +142,12 @@ public class Level {
                             case "RD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.RED);
                             case "YD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.YELLOW);
                             case "BD" -> gameBoard[(y * width) + x] = new LockedDoor(x, y, Colours.BLUE);
-                            //Temp values for amoeba so level can still load
-                            case "A" -> gameBoard[(y * width) + x] = new Amoeba(x,y, amoebaSpreadRate, amoebaMaxSize);
-                            case "F" -> gameBoard[(y * width) + x] = new Frog(x,y);
+                            case "A" -> gameBoard[(y * width) + x] = new Amoeba(x, y, amoebaSpreadRate, amoebaMaxSize);
+                            case "BR" -> gameBoard[(y * width) + x] = new Butterfly(x, y, "R");
+                            case "BL" -> gameBoard[(y * width) + x] = new Butterfly(x, y, "L");
+                            case "FR" -> gameBoard[(y * width) + x] = new Firefly(x, y, "R");
+                            case "FL" -> gameBoard[(y * width) + x] = new Firefly(x, y, "L");
+                            case "F" -> gameBoard[(y * width) + x] = new Frog(x, y);
                             default -> System.out.println("No tile found!");
                         }
                     }
