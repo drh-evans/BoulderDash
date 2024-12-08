@@ -7,16 +7,16 @@ package Game_Objects.Tiles;
 public class Path extends Tile {
 
     /**
-     * Creates a Path at (
-     * @param x
-     * @param y
+     * Creates a Path at position (x, y).
+     * @param x The x coordinate.
+     * @param y The y coordinate.
      */
     public Path(int x, int y) {
         super(x, y, false,true,true, "P");
     }
 
     /**
-     * Positionless constructor for use in the object token hashmap
+     * Creates a path without a position.
      */
     public Path() {
         super(false,true,true, "P");

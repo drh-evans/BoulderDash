@@ -41,20 +41,6 @@ public abstract class Tile extends GameObject {
         this.setTraversableEnemies(isTraversableEnemies);
     }
 
-    /*
-    public static GameObject changeTile(GameObject tile, String newTileToken) {
-        int xPos = tile.getX();
-        int yPos = tile.getY();
-
-        tile = GameObject.getObjectTokenMap().get(newTileToken);
-
-        tile.setX(xPos);
-        tile.setY(yPos);
-
-        return tile;
-    }
-    */
-
     /**
      * Gets whether the tile is traversible by the player
      * @return {@code true}: if the tile is traversible by the player <br>
