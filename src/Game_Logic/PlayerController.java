@@ -196,10 +196,7 @@ public class PlayerController {
     public void deleteProfile(ActionEvent event) {
         String selectedProfile = playerList.getSelectionModel().getSelectedItem();
         if (selectedProfile != null) {
-            String[] profileParts = selectedProfile.split(" ");
-            String playerName = profileParts[0];
-
-            names.removeIf(name -> name.startsWith(playerName));
+            names.removeIf(name -> name.equals(selectedProfile));
 
             writeNames();
             returnToMenu(event);
