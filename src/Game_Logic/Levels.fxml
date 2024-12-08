@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="504.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Game_Logic.LevelController">
    <children>
-      <ImageView fitHeight="703.0" fitWidth="760.0" layoutX="-200.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="703.0" fitWidth="700.0" layoutX="-200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/MenuBackground.png" />
          </image>
