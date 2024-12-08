@@ -44,9 +44,9 @@ import java.util.Scanner;
 
 
 /**
- * A class which holds the methods that control Levels and their visualisation.
+ * A class controlling levels and their visualisation.
  * It contains loading different levels and creating the game.
- * @author Liam O'Reilly, Adam Bartlett, Rhys Evans
+ * @author Adam Bartlett, Rhys Evans, Davide Belsole, Elbu Cheung, Nathan Welby
  */
 public class LevelController {
     // The width and height (in pixels) of each cell that makes up the game.
@@ -561,7 +561,6 @@ public class LevelController {
             if(player.getLevelUnlocked() == currentLevelNumber) {
                 increaseLevel();
             }
-            //scoreChecking(player, currentLevel, player.getFinalLevelScore());
             updateHighScore(player, currentLevel, player.getFinalLevelScore());
             gameRunning(false);
             menu();
@@ -573,26 +572,13 @@ public class LevelController {
     }
 
     /**
-     * Updates the high scores for the specified level. This method reads the high scores from a file,
-     * updates the score for the given player and level, and maintains the ranking of the top 10 scores
-     * for the level.
-     * @param player        the player whose score is being updated
-     * @param current       the level for which the high scores are being updated
-     * @param newHighScore  the new high score achieved by the player
-     * @throws IOException if an error occurs while reading from or writing to the high scores file
+     * Updates the high scores for the specified level.
+     * @param player        The player whose score is being updated.
+     * @param current       The level for which the high scores are being updated.
+     * @param newHighScore  The new high score achieved by the player.
+     * @throws IOException If an error occurs while reading from or writing to the high scores file.
      */
     public void updateHighScore(Player player, Level current, int newHighScore) throws IOException {
-        /*
-        for (int i = 0; i < current.highscores.length; i++) {
-            if (newHighScore > current.highscores[i]) {
-                for (int j = current.highscores.length - 1; j > i; j--) {
-                    current.highscores[j] = highscores[j - 1];
-                }
-                current.highscores[i] = newHighScore;
-                break;
-            }
-        }
-         */
 
         File ScoresData = new File("src/LevelFiles/LevelHighScores.txt");
         Scanner in = new Scanner(ScoresData);
@@ -630,14 +616,18 @@ public class LevelController {
                         }
                     }
                 }
+
                 //rank the players name by their score
-                playerScoreList.sort((a, b) -> Integer.compare(Integer.parseInt(b.split(":")[1]), Integer.parseInt(a.split(":")[1])));
+                playerScoreList.sort((a, b) -> Integer.compare(Integer.parseInt(b.split(":")[1]),
+                        Integer.parseInt(a.split(":")[1])));
+
                 //keep the rank only top 10
                 if (playerScoreList.size() > 10) {
                     playerScoreList = playerScoreList.subList(0, 10);
                 }
                 //replace that level's top 10 ranking
-                lines.set(i, current.getLevelFile().toString().replace("src/LevelFiles/", "").replace(".txt", "").toLowerCase() + ";" + String.join(",", playerScoreList));
+                lines.set(i, current.getLevelFile().toString().replace("src/LevelFiles/", "").replace(".txt", "").toLowerCase()
+                        + ";" + String.join(",", playerScoreList));
                 System.out.println();
             }
             //

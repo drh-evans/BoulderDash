@@ -9,15 +9,13 @@ import Game_Objects.Tiles.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 /**
  * Level class to load and initialise a level file.
- *
+ * Reads data from a predefined
  * @author Nathan Welby, Rhys Evans
  */
 public class Level {
