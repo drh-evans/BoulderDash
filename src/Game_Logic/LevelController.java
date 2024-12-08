@@ -586,9 +586,13 @@ public class LevelController {
                         //update the personal high score
                         if (Integer.parseInt(playerAndScore[1]) < newHighScore) {
                             playerScoreList.set(j, newPlayerAndScore);
+                            break;
                         }
                     }else {
-                        playerScoreList.add(newPlayerAndScore);
+                        if (Integer.parseInt(playerAndScore[1]) < newHighScore) {
+                            playerScoreList.add(newPlayerAndScore);
+                            break;
+                        }
                     }
                 }
                 //rank the players name by their score
