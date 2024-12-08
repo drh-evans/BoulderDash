@@ -11,7 +11,7 @@
 <?import javafx.scene.control.Accordion?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Game_Logic.PlayerController">
    <children>
-      <ImageView fitHeight="521.0" fitWidth="776.0" layoutX="-345.0" layoutY="-13.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="521.0" fitWidth="776.0" layoutX="-200.0" layoutY="-13.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/MenuBackground.png" />
          </image>
