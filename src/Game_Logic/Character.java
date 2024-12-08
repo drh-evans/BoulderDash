@@ -106,7 +106,7 @@ public class Character {
             // Convert the tile to a path.
             transformToPath(tilePos);
         } else if (checkExitTile(tilePos)) {
-            if (diamondsCollected > currentLevel.getDiamondsToWin()) {
+            if (diamondsCollected >= currentLevel.getDiamondsToWin()) {
                 System.out.println("LEVEL COMPLETE!");
                 currentPlayer.setFinalLevelScore(currentLevel);
                 System.out.println("FINAL SCORE: " + currentPlayer.getFinalLevelScore());

@@ -126,8 +126,8 @@ public class Diamond extends Entity {
                 } else if (rollableRight) {
                     setFalling(true);
                     gameBoard[lowerRight] = this;
-                    gameBoard[lowerRight].setX(lowerLeft % levelWidth);
-                    gameBoard[lowerRight].setY(lowerLeft / levelWidth);
+                    gameBoard[lowerRight].setX(lowerRight % levelWidth);
+                    gameBoard[lowerRight].setY(lowerRight / levelWidth);
                     gameBoard[index] = new Path(x, y);
                 }
             }
