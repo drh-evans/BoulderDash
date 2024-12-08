@@ -2,6 +2,7 @@ package Game_Logic;
 
 import Game_Objects.Entities.Boulder;
 import Game_Objects.Entities.Diamond;
+import Game_Objects.Entities.Frog;
 import Game_Objects.GameObject;
 import Game_Objects.Tiles.Exit;
 import Game_Objects.Tiles.MagicWall;
@@ -96,6 +97,7 @@ public class LevelController {
     private Timeline amoebaTickTimeline;
     private Timeline gravityTickTimeline;
     private Timeline rollTickTimeline;
+    private Timeline frogTickTimeLine;
 
     // Boolean to decide game status.
     private boolean gameOver = false;
@@ -314,6 +316,11 @@ public class LevelController {
         amoebaTickTimeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> amoebaTick(desiredLevel)));
         amoebaTickTimeline.setCycleCount(Animation.INDEFINITE);
 
+        // Frog tick rate
+        frogTickTimeLine = new Timeline(new KeyFrame(Duration.millis(1200), event -> frogTick(desiredLevel)));
+        frogTickTimeLine.setCycleCount(Animation.INDEFINITE);
+        frogTickTimeLine.play();
+
         // Gravity tick rate
         gravityTickTimeline = new Timeline(new KeyFrame(Duration.millis(400), event -> gravityTick(desiredLevel)));
         gravityTickTimeline.setCycleCount(Animation.INDEFINITE);
@@ -510,6 +517,21 @@ public class LevelController {
                 int tilePosition = object.getY() * gridWidth + object.getX();
                 Amoeba a = (Amoeba) gameBoard[tilePosition];
                 a.spread(gameBoard, gridWidth);
+            }
+        }
+    }
+
+    public void frogTick(Level currentLevel) {
+        GameObject[] gameBoard = currentLevel.getGameBoard();
+
+        for (GameObject object : gameBoard) {
+            if ("F".equals(object.getObjectToken())) {
+                Frog frog = (Frog) object;
+
+                Character character = getCharacter();
+
+                // Call chasePlayer method for the frog to chase the player
+                frog.chasePlayer(currentLevel, character);
             }
         }
     }
@@ -795,6 +817,7 @@ public class LevelController {
             amoebaTickTimeline.play();
             gravityTickTimeline.play();
             rollTickTimeline.play();
+            frogTickTimeLine.play();
         } else {
             clockTimeline.stop();
             playerTickTimeline.stop();
@@ -802,6 +825,7 @@ public class LevelController {
             amoebaTickTimeline.stop();
             gravityTickTimeline.stop();
             rollTickTimeline.stop();
+            frogTickTimeLine.stop();
         }
     }
 
