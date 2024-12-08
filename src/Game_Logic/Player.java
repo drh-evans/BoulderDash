@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 /**
  * Class to build and store the players relevant data.
- *
- * @author rhysevans, Adam Bartlett
+ * Controls the players inventory.
+ * @author Rhys Evans, Adam Bartlett
  */
 public class Player {
     private static final int MAX_LEVEL = 8;
@@ -20,8 +20,7 @@ public class Player {
     private ArrayList<Key> inventory = new ArrayList<>();
 
     /**
-     * Creates a new player object with a special name and level unlocked
-     *
+     * Creates a new player object with a unique name and level unlocked.
      * @param name          Players name.
      * @param levelUnlocked The highest level this player has unlocked.
      */
@@ -33,7 +32,6 @@ public class Player {
     /**
      * Creates a new player object with a special name, level unlocked
      * and desired level
-     *
      * @param name          Players name.
      * @param levelUnlocked The highest level this player has unlocked.
      * @param desiredLevel  The level in which this player will be used.
@@ -60,7 +58,6 @@ public class Player {
 
     /**
      * Adds a key to a players inventory.
-     *
      * @param key the key obtained by the player.
      */
     public void addToInventory(Key key) {
@@ -72,7 +69,6 @@ public class Player {
 
     /**
      * Checks the inventory for matching key.
-     *
      * @param colour The colour of the door.
      * @return hasKey, whether they have a key or not.
      */
@@ -88,7 +84,6 @@ public class Player {
 
     /**
      * Remove a key.
-     *
      * @param colour The doors colour.
      */
     public void removeKey(Colours colour) {
@@ -98,7 +93,6 @@ public class Player {
 
     /**
      * Getter for the Players name.
-     *
      * @return the username of the player.
      */
     public String getName() {
@@ -107,7 +101,6 @@ public class Player {
 
     /**
      * Getter for the players highest score.
-     *
      * @return the players highest score.
      */
     public int getLevelScore() {
@@ -116,7 +109,6 @@ public class Player {
 
     /**
      * Set the players highscore.
-     *
      * @param levelScore the new highscore achieved.
      */
     public void setLevelScore(int levelScore) {
@@ -124,8 +116,7 @@ public class Player {
     }
 
     /**
-     * gets the players final level score.
-     *
+     * Get the players final level score.
      * @return the players final level score.
      */
 
@@ -135,7 +126,6 @@ public class Player {
 
     /**
      * Set the players final level score.
-     *
      * @param currentLevel the level the player is currently on.
      */
     public void setFinalLevelScore(Level currentLevel) {
@@ -144,7 +134,6 @@ public class Player {
 
     /**
      * Get the players highest unlocked level.
-     *
      * @return the highest level unlocked by a player.
      */
     public int getLevelUnlocked() {
@@ -153,7 +142,6 @@ public class Player {
 
     /**
      * Set the new highest level unlocked.
-     *
      * @param levelUnlocked the new highest level playable.
      */
     public void setLevelUnlocked(int levelUnlocked) {
@@ -162,7 +150,6 @@ public class Player {
 
     /**
      * Gets the players representative.
-     *
      * @return the players representative.
      */
     public Character getPlayerCharacter() {

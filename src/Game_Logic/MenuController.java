@@ -15,7 +15,6 @@ import java.io.IOException;
 /**
  * A class containing the functionality of opening different options
  * in the menu.
- *
  * @author Adam Bartlett, Ashan Mian
  */
 public class MenuController {
@@ -25,8 +24,7 @@ public class MenuController {
 
 
     /**
-     * Opens stage for user to create name
-     *
+     * Opens stage for user to create name.
      * @param event button is press
      * @throws IOException If an error happens when processing the file.
      */
@@ -44,8 +42,7 @@ public class MenuController {
     }
 
     /**
-     * Opens stage for user to select profile
-     *
+     * Opens stage for user to select profile.
      * @param event button is press
      * @throws IOException If an error happens when processing the file.
      */
@@ -61,7 +58,6 @@ public class MenuController {
 
     /**
      * Opens stage for user to see high score table
-     *
      * @param event button is press
      * @throws IOException If an error happens when processing the file.
      */
@@ -77,7 +73,6 @@ public class MenuController {
 
     /**
      * Opens stage to display helpful information to player
-     *
      * @param event button is press
      * @throws IOException If an error happens when processing the file.
      */

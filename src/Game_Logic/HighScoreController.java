@@ -76,7 +76,7 @@ public class HighScoreController {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Return the user to the menu.
      * @param e The event of the back being activated.

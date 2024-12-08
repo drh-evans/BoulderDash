@@ -22,7 +22,6 @@ import javafx.util.Duration;
 
 /**
  * This class controls the creation,selection and deletion of a player profile.
- *
  * @Author Adam Bartlett, Elbu Cheung, Mohsin Lebdah
  */
 
@@ -52,7 +51,6 @@ public class PlayerController {
 
     /**
      * A button a user presses to create a profile.
-     *
      * @param event When the button is pushed.
      */
     @FXML
@@ -80,7 +78,6 @@ public class PlayerController {
 
     /**
      * Find if a players name has already been created.
-     *
      * @param usersName The users inputted name.
      * @return If users name has already been created.
      */
@@ -99,7 +96,6 @@ public class PlayerController {
 
     /**
      * Stage to display all levels.
-     *
      * @param event A button is pressed by a user.
      */
     public void loadLevels(ActionEvent event) {
@@ -157,7 +153,6 @@ public class PlayerController {
 
     /**
      * Returns user back to main menu.
-     *
      * @param event If an event occurs.
      */
     public void returnToMenu(ActionEvent event) {
@@ -191,7 +186,6 @@ public class PlayerController {
             playerList.getItems().addAll(names);
         }
 
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass()
                     .getResource("Levels.fxml"));
@@ -200,8 +194,6 @@ public class PlayerController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     /**
@@ -228,7 +220,6 @@ public class PlayerController {
 
     /**
      * Allows the User to delete a profile.
-     *
      * @param event If an event occurs.
      */
     @FXML

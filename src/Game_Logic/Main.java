@@ -8,17 +8,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Sample application that demonstrates the use of JavaFX Canvas for a Game.
- * This class is intentionally not structured very well. This is just a starting point to show
- * how to draw an image on a canvas, respond to arrow key presses, use a tick method that is
- * called periodically, and use drag and drop.
- *
- * Do not build the whole application in one file. This file should probably remain very small.
- *
- * @author Liam O'Reilly
+ * Launches the Game.
+ * Activates the game and all of its graphical content and logic.
+ * @author Rhys Evans, Adam Bartlett, Mohsin Lebdah, Nathan Welby, Davide Belsole,
+ *         Haoyang Qian, Ahsan Mian.
+ * @version 1.0
  */
 public class Main extends Application {
-
     /**
      * Loads the main menu
      * @param stage The stage that is to be used for the application.
@@ -35,6 +31,4 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch();
     }
-
-
 }
