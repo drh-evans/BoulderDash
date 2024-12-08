@@ -1,5 +1,10 @@
 package Game_Objects.Entities;
 
+/**
+ * Class to represent fireflies.
+ * @author Haoyang Qian
+ * @version 1.0
+ */
 public class Firefly extends FlyingEnemy {
 
     private final String objectToken;

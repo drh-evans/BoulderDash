@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 /**
  * Class to store information regarding key tiles in the game
- * @author Adam Bartlett, Nathan Welby
+ * @author Adam Bartlett, Nathan Welby, Rhys Evans
  */
 public class Key extends Tile {
 

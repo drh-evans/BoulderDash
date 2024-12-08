@@ -1,8 +1,9 @@
 package Game_Objects.Tiles;
 
 /**
- * Enum used to track the colour of Key and LockedDoor objects
+ * Enum representing the colours of objects.
  * @author Adam Bartlett
+ * @version 1.0
  */
 public enum Colours {
     RED,

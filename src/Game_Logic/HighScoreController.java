@@ -16,6 +16,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * A class controlling the high score table.
+ * @author Elbu Cheung.
+ * @version 1.0.
+ */
 public class HighScoreController {
 
     @FXML
@@ -24,7 +29,7 @@ public class HighScoreController {
     private TilePane levelButtons;
 
     /**
-     * initialize the level buttons
+     * Initialize the level display buttons.
      */
     @FXML
     public void initialize() {
@@ -32,7 +37,7 @@ public class HighScoreController {
     }
 
     /**
-     * Method to add the level buttons for users to see top 10 rank of different levels
+     * Add the level buttons.
      */
     private void addLevelButtons() {
         String [] levels = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6",
@@ -46,8 +51,8 @@ public class HighScoreController {
     }
 
     /**
-     *
-     * @param level
+     * Display the scores for a level.
+     * @param level The current level selected.
      */
     private void showTop10HighScores(String level) {
         try {
@@ -80,8 +85,8 @@ public class HighScoreController {
 
 
     /**
-     * Returns user back to main menu
-     * @param e If an event occurs
+     * Return the user to the menu.
+     * @param e The event of the back being activated.
      */
     public void returnToMenu(ActionEvent e){
         Parent menu = null;
@@ -97,5 +102,4 @@ public class HighScoreController {
         stage.setScene(new Scene(menu));
         stage.show();
     }
-
 }

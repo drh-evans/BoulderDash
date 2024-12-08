@@ -1,5 +1,10 @@
 package Game_Objects.Entities;
 
+/**
+ * Abstract Class to represent Flying Enemies.
+ * @author Haoyang Qian
+ * @version 1.0
+ */
 public abstract class FlyingEnemy extends Entity {
 
     protected String direction;

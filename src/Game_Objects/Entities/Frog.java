@@ -2,7 +2,7 @@ package Game_Objects.Entities;
 
 /**
   * Frog class represent frog entity
-  * @author elbucheung
+  * @author David Belsole, Elbu Cheung
 */
 public class Frog extends Entity {
   private int playerPositionX;

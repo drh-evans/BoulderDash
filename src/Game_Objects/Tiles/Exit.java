@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 /**
  * Class to store information regarding exit tiles in the game
  *
- * @author Adam Bartlett, Nathan Welby
+ * @author Adam Bartlett, Nathan Welby, Davide Belsole, Rhys Evans
  */
 public class Exit extends Tile {
 

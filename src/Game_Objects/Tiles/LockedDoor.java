@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 /**
  * Class to store information regarding locked door tiles in the game
- * @author Adam Bartlett, Nathan Welby
+ * @author Adam Bartlett, Nathan Welby, Rhys Evans
  */
 public class LockedDoor extends Tile {
 

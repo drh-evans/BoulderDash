@@ -7,23 +7,18 @@ import Game_Objects.Tiles.Path;
 
 /**
  * Class to represent Boulder entities.
+ * Controls the interaction of boulders.
+ * Controls the movement of boulders.
  * @author Rhys Evans, Ahsan Mian, Nathan Welby
+ * @version 1.0
  */
 public class Boulder extends Entity {
+    // Essentials for pushing the boulder.
     private boolean isPushable;
     private static String pushDirection;
 
     /**
-     * Constructor for instanstienising a boulder.
-     */
-    public Boulder() {
-        super(true, true, 10, "B");
-        isPushable = true;
-    }
-
-    /**
-     * Constructor for making a new boulder i.e moving it.
-     *
+     * Creates a Boulder at position (x, y).
      * @param x the new x.
      * @param y the new y.
      */
@@ -33,6 +28,19 @@ public class Boulder extends Entity {
         this.isDestructible = true;
     }
 
+    /**
+     * Creates a positionless Boulder.
+     */
+    public Boulder() {
+        super(true, true, 10, "B");
+        isPushable = true;
+    }
+
+    /**
+     * Check if the Boulder is pushable.
+     * @param gameObjects The current tiles.
+     * @param newPos The next position.
+     */
     public void pushableCheck(GameObject[] gameObjects, int newPos) {
         // check if the tile is pushable
         if (!gameObjects[newPos].getObjectToken().equals("P")) {
@@ -44,9 +52,8 @@ public class Boulder extends Entity {
 
 
     /**
-     * Method to push a boulder if it is pushable.
-     *
-     * @return
+     * Method to push the boulder.
+     * @return If the boulder has been pushed - true or false.
      */
     public boolean push(GameObject[] gameObjects, int tilePos, int direction) {
         int x = gameObjects[tilePos].getX();
@@ -90,8 +97,13 @@ public class Boulder extends Entity {
 
     }
 
+
     /**
-     *
+     * Method controlling boulders falling.
+     * @param gameBoard The current game board.
+     * @param levelWidth The width of the level.
+     * @param index The current boulders index.
+     * @param character The players' character.
      */
     public void dropBoulder(GameObject[] gameBoard, int levelWidth, int index, Character character) {
         int characterY = character.getCharacterY();
@@ -110,6 +122,13 @@ public class Boulder extends Entity {
         }
     }
 
+    /**
+     * Method to roll the boulder.
+     * @param gameBoard The current game board.
+     * @param levelWidth The width of the level.
+     * @param index The current boulders index.
+     * @param character The players' character.
+     */
     public void roll(GameObject[] gameBoard, int levelWidth, int index, Character character) {
         int belowPos = index + levelWidth;
         boolean lastRow = gameBoard[belowPos].getObjectToken().equals("T");
@@ -152,6 +171,10 @@ public class Boulder extends Entity {
         }
     }
 
+    /**
+     * Get the pushed direction.
+     * @return pushDirection -  "LEFT" or "RIGHT".
+     */
     public String getPushDirection() {
         return pushDirection;
     }

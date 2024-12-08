@@ -1,6 +1,11 @@
 package Game_Objects.Entities;
 import Game_Objects.GameObject;
 
+/**
+ * Class to represent all moving entities.
+ * @author Elbu Cheung
+ * @version 1.0
+ */
 public abstract class Entity extends GameObject {
 
   protected boolean isPassive;

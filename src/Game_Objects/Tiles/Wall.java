@@ -1,7 +1,7 @@
 package Game_Objects.Tiles;
 
 /**
- * Class to store information regarding wall tiles in the game
+ * Class to store information regarding wall tiles in the game.
  * @author Adam Bartlett, Nathan Welby
  */
 public class Wall extends Tile{
