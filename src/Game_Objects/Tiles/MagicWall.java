@@ -6,15 +6,14 @@ import Game_Objects.Entities.Diamond;
 import Game_Objects.GameObject;
 
 /**
- * Class to store information regarding magic wall tiles in the game
- *
+ * Class representing the Magic Wall.
+ * Controls the Magic Walls' functionality.
  * @author Adam Bartlett, Nathan Welby
  */
 public class MagicWall extends Tile {
 
     /**
-     * Basic constructor for constructing normal MagicWall objects
-     *
+     * Construct a Magic Wall at position (x, y).
      * @param x {@code int} x position of the magic wall tile
      * @param y {@code int} y position of the magic wall tile
      */
@@ -23,19 +22,17 @@ public class MagicWall extends Tile {
     }
 
     /**
-     * Positionless constructor for use in the object token hashmap
+     * Create a positionless Magic Wall.
      */
     public MagicWall() {
         super(true, false, false, "M");
     }
 
     /**
-     * If a boulder is above a magic wall they will turn into a diamond under the magic wall and likewise,
-     * diamond to boulder
-     *
-     * @param gameBoard The array containing all the pieces
-     * @param width     the width of the game board
-     * @param character The current character playing
+     * Control the logic of the magic wall, moving valid tiles below it.
+     * @param gameBoard All the current tiles.
+     * @param width     The width of the board.
+     * @param character The current character.
      */
     public static void magicWallLogic(GameObject[] gameBoard, int width, Character character) {
         for (int i = 0; i < gameBoard.length; i++) {

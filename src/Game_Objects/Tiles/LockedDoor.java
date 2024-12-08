@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public class LockedDoor extends Tile {
 
-    // Hashmap to map locked door colours to their matching tile token
+    // Hashmap to store doors and their colours.
     private static final HashMap<Colours, String> DOOR_COLOURS_MAP = new HashMap<>();
     static {
         DOOR_COLOURS_MAP.put(Colours.RED, "RD");
@@ -21,9 +21,10 @@ public class LockedDoor extends Tile {
     private final Colours colour;
 
     /**
-     * Basic constructor for constructing normal LockedDoor objects
-     * @param x {@code int} x position of the locked door tile
-     * @param y {@code int} y position of the locked door tile
+     * Create a door at positions (x, y).
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @param colour The colour of the door.
      */
     public LockedDoor(int x, int y, Colours colour) {
         super(x, y, true, false, false, "");
@@ -33,8 +34,10 @@ public class LockedDoor extends Tile {
         objectToken = DOOR_COLOURS_MAP.get(colour);
     }
 
+
     /**
-     * Positionless constructor for use in the object token hashmap
+     * Construct a positionless door.
+     * @param colour The doors colour.
      */
     public LockedDoor(Colours colour) {
         super(true, false, false, "");
