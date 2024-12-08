@@ -8,8 +8,9 @@ import Game_Objects.Tiles.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.awt.*;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -239,17 +240,22 @@ public class Level {
      *
      * @param newHighScore
      */
-    public void newHighScore(int newHighScore) {
-        for (int i = 0; i < highscores.length; i++) {
-            if (newHighScore > highscores[i]) {
-                for (int j = highscores.length - 1; j > i; j--) {
-                    highscores[j] = highscores[j - 1];
+    /*
+    public void newHighScore(Player player, Level current, int newHighScore)  {
+        for (int i = 0; i < current.highscores.length; i++) {
+            if (newHighScore > current.highscores[i]) {
+                for (int j = current.highscores.length - 1; j > i; j--) {
+                    current.highscores[j] = highscores[j - 1];
                 }
-                highscores[i] = newHighScore;
+                current.highscores[i] = newHighScore;
                 break;
             }
         }
+
+
     }
+
+     */
 
 
     /**

@@ -10,8 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class HighScoreController {
 
@@ -20,30 +23,55 @@ public class HighScoreController {
     @FXML
     private TilePane levelButtons;
 
-
+    /**
+     * initialize the level buttons
+     */
     @FXML
     public void initialize() {
         addLevelButtons();
     }
 
+    /**
+     * Method to add the level buttons for users to see top 10 rank of different levels
+     */
     private void addLevelButtons() {
-        String [] levelFiles = {"Level1.txt", "Level2.txt", "Level3.txt", "Level4.txt", "Level5.txt", "Level6.txt",
-                                "Level7.txt", "Level8.txt" };
+        String [] levels = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6",
+                                "Level7", "Level8" };
 
-        for (String levelFile : levelFiles) {
-            Button levelButton = new Button(levelFile.replace(".txt", ""));
-            levelButton.setOnAction(event -> showTop10HighScores(levelFile));
+        for (String level : levels) {
+            Button levelButton = new Button(level);
+            levelButton.setOnAction(event -> showTop10HighScores(level));
             levelButtons.getChildren().add(levelButton);
         }
     }
 
-    private void showTop10HighScores(String levelFile) {
+    /**
+     *
+     * @param level
+     */
+    private void showTop10HighScores(String level) {
         try {
-            Level level = new Level("src/LevelFiles/" + levelFile);
-            int [] highScores = level.getHighscores();
+            File ScoresData = new File("src/LevelFiles/LevelHighScores.txt");
+            Scanner in = new Scanner(ScoresData);;
             highScoresList.getItems().clear();
+            /*
             for (int i = 0;i < highScores.length;i++) {
                 highScoresList.getItems().add((i + 1) + ": " + highScores[i]);
+            }
+
+             */
+            while (in.hasNextLine()) {
+                String line = in.nextLine();
+                if (line.startsWith(level.toLowerCase() + ";")) {
+                    String[] levelNameAndData = line.split(";");
+                    String[] data = levelNameAndData[1].split(",");
+
+                    for (int i = 0;i < data.length;i++) {
+                        String[] playerAndScore = data[i].split(":");
+                        highScoresList.getItems().add((i + 1) + ": " + playerAndScore[0] + "  " + playerAndScore[1]);
+                    }
+                    break;
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

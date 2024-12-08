@@ -30,10 +30,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -301,12 +305,15 @@ public class LevelController {
     }
 
     //Score checking everytime a player finish a level
-    public void scoreChecking(Player player, Level currentLevel, int score) {
-        if (score > player.getLevelScore()) {
-            player.setLevelScore(score);
+    /*
+    public void scoreChecking(Player player, Level currentLevel, int finalScore) {
+        if (finalScore > player.getLevelScore(currentLevel)) {
+            player.setLevelScore(finalScore);
         }
-        currentLevel.newHighScore(score);
+        currentLevel.newHighScore(currentLevel, finalScore);
     }
+
+     */
 
     /**
      * Process a key event due to a key being pressed, subsequently moves the player.
@@ -434,7 +441,8 @@ public class LevelController {
             if(player.getLevelUnlocked() == currentLevelNumber) {
                 increaseLevel();
             }
-            scoreChecking(player, currentLevel, player.getLevelScore());
+            //scoreChecking(player, currentLevel, player.getFinalLevelScore());
+            updateHighScore(player, currentLevel, player.getFinalLevelScore());
             gameRunning(false);
             //TODO should be load levels but not working TEMP
             menu();
@@ -443,6 +451,71 @@ public class LevelController {
             System.out.println("You DIED!!!");
             openLevels();
         }
+    }
+    public void updateHighScore(Player player, Level current, int newHighScore) throws IOException {
+        /*
+        for (int i = 0; i < current.highscores.length; i++) {
+            if (newHighScore > current.highscores[i]) {
+                for (int j = current.highscores.length - 1; j > i; j--) {
+                    current.highscores[j] = highscores[j - 1];
+                }
+                current.highscores[i] = newHighScore;
+                break;
+            }
+        }
+         */
+
+        File ScoresData = new File("src/LevelFiles/LevelHighScores.txt");
+        Scanner in = new Scanner(ScoresData);
+        List<String> lines = new ArrayList<>();
+        List<String> playerScoreList = new ArrayList<>(10);
+        String[] playerAndScore;
+        String newPlayerAndScore = player.getName() + ":" + newHighScore;
+        //read the file
+        while (in.hasNextLine()) {
+            String line = in.nextLine();
+            lines.add(line);
+        }
+        //process data
+        for (int i = 0; i < lines.size();i++) {
+            String line = lines.get(i);
+            //check the current level with file level is the same or not
+            if (line.startsWith(current.toString() + ";")) {
+                String[] level = line.split(";");
+                String[] data = level[1].split(",");
+                playerScoreList.clear();
+                playerScoreList.addAll(List.of(data));
+                for (int j = 0;j < playerScoreList.size();j++) {
+                    playerAndScore = playerScoreList.get(j).split(":");
+                    //check is the player record exist
+                    if (playerAndScore[0].equals(player.getName())) {
+                        //update the personal high score
+                        if (Integer.parseInt(playerAndScore[1]) < newHighScore) {
+                            playerScoreList.set(j, newPlayerAndScore);
+                        }
+                    }else {
+                        playerScoreList.add(newPlayerAndScore);
+                    }
+                }
+                //rank the players name by their score
+                playerScoreList.sort((a, b) -> Integer.compare(Integer.parseInt(b.split(":")[1]), Integer.parseInt(a.split(":")[1])));
+                //keep the rank only top 10
+                if (playerScoreList.size() > 10) {
+                    playerScoreList = playerScoreList.subList(0, 10);
+                }
+                //replace that level's top 10 ranking
+                lines.set(i, current.toString() + ";" + String.join("," + playerScoreList));
+
+            }
+            //
+        }
+        //update new line back to file
+        FileWriter fw = new FileWriter(ScoresData);
+        for (String newLine : lines) {
+            fw.write(newLine + "\n");
+        }
+        in.close();
+        fw.close();
     }
 
     public void increaseLevel() throws IOException {
