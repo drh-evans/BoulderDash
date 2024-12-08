@@ -63,8 +63,7 @@ public class Level {
     private GameObject[] gameBoard;
 
     /**
-     * Initialises auxiliary attributes of the level
-     *
+     * Initialises auxiliary attributes of the level.
      * @param levelPath levelPath, a file path to a level.txt file.
      * @throws FileNotFoundException
      */
@@ -104,7 +103,6 @@ public class Level {
 
     /**
      * Loads a level's tile data.
-     *
      * @param path path, the file path of the level file.
      * @throws FileNotFoundException
      */
@@ -122,10 +120,7 @@ public class Level {
         GameObject currentObject;
         HashMap<String, GameObject> objectTokenMap = GameObject.getObjectTokenMap();
 
-        /* Set the tiles into position in the array.
-         * Reads the array one row at a time.
-         * Keeps track of position using a nested for loop .
-         */
+        // Set the tiles into position
         for (int y = 0; y < height; y++) {
             if (levelScanner.hasNextLine()) {
                 levelScanner.nextLine();
@@ -164,7 +159,6 @@ public class Level {
 
     /**
      * Method to initialise the visualisation of the level.
-     *
      * @param gc the graphics context of the canvas
      */
     public void initialiseLevel(GraphicsContext gc) {
@@ -217,8 +211,7 @@ public class Level {
     }
 
     /**
-     * Destroys the tile at the players position if it is destructible
-     *
+     * Destroys the tile at the players position if it is destructible.
      * @param player
      */
     public void destroyTile(Player player) {
@@ -238,31 +231,7 @@ public class Level {
     }
 
     /**
-     * Track and rank the top 10 score of level
-     *
-     * @param newHighScore
-     */
-    /*
-    public void newHighScore(Player player, Level current, int newHighScore)  {
-        for (int i = 0; i < current.highscores.length; i++) {
-            if (newHighScore > current.highscores[i]) {
-                for (int j = current.highscores.length - 1; j > i; j--) {
-                    current.highscores[j] = highscores[j - 1];
-                }
-                current.highscores[i] = newHighScore;
-                break;
-            }
-        }
-
-
-    }
-
-     */
-
-
-    /**
      * Gets the array of game objects
-     *
      * @return {@code GameObject[]} the array of game objects
      */
     public GameObject[] getGameBoard() {
@@ -271,7 +240,6 @@ public class Level {
 
     /**
      * Returns the width of the level in tiles
-     *
      * @return {@code int} the width of the level in tiles
      */
     public int getWidth() {
@@ -280,7 +248,6 @@ public class Level {
 
     /**
      * Returns the height of the level in tiles
-     *
      * @return {@code int} the height of the level in tiles
      */
     public int getHeight() {
@@ -289,7 +256,6 @@ public class Level {
 
     /**
      * Returns the amount of time given to complete the level
-     *
      * @return {@code int} the amount of time to complete the level
      */
     public int getTimeToComplete() {
@@ -298,7 +264,6 @@ public class Level {
 
     /**
      * Returns the amount of diamonds required to complete the level
-     *
      * @return {@code int} the amount of diamonds required to beat the level
      */
     public int getDiamondsToWin() {
@@ -307,7 +272,6 @@ public class Level {
 
     /**
      * Returns the spread rate of amoeba in the level
-     *
      * @return {@code int} the spread rate of amoeba in the level
      */
     public int getAmoebaSpreadRate() {
@@ -316,7 +280,6 @@ public class Level {
 
     /**
      * Returns the maximum size of amoeba in the level
-     *
      * @return {@code int} the maximum size of amoeba in the level
      */
     public int getAmoebaMaxSize() {
@@ -325,16 +288,23 @@ public class Level {
 
     /**
      * Gets the array of the top ten scores of the level
-     *
      * @return {@code int[]} top ten scores of the level
      */
     public int[] getHighscores() {
         return highscores;
     }
 
+    /**
+     * Set the new time to complete.
+     */
     public void setTimeToComplete() {
         timeToComplete--;
     }
+
+    /**
+     * Get the level's file.
+     * @return The level's file.
+     */
     public File getLevelFile() {
         return levelFile;
     }

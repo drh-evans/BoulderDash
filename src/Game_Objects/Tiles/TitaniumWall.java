@@ -7,16 +7,16 @@ package Game_Objects.Tiles;
 public class TitaniumWall extends Tile {
 
     /**
-     * Basic constructor for constructing normal TitaniumWall objects
-     * @param x {@code int} x position of the titanium wall tile
-     * @param y {@code int} y position of the titanium wall tile
+     * Creates a Titanium Wall at (x, y).
+     * @param x {@code int} x position of the titanium wall tile.
+     * @param y {@code int} y position of the titanium wall tile.
      */
     public TitaniumWall(int x, int y) {
         super(x, y, false, false, false, "T");
     }
 
     /**
-     * Positionless constructor for use in the object token hashmap
+     * Creates a positionless Titanium Wall.
      */
     public TitaniumWall() {
         super(false, false, false, "T");

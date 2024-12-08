@@ -2,7 +2,8 @@ package Game_Objects.Tiles;
 import Game_Objects.GameObject;
 
 /**
- * Tile class to store information regarding tiles in the game
+ * Tile class to store information regarding tiles in the game.
+ * Assists with the creation, deletion, and movement of tiles and actors.
  * @author Adam Bartlett, Nathan Welby
  */
 public abstract class Tile extends GameObject {
