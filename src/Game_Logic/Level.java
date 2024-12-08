@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 /**
  * Level class to load and initialise a level file.
- * Reads data from a predefined
+ * initialises the visualisation of the level.
  * @author Nathan Welby, Rhys Evans
  */
 public class Level {
@@ -65,7 +65,7 @@ public class Level {
     /**
      * Initialises auxiliary attributes of the level.
      * @param levelPath levelPath, a file path to a level.txt file.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException to check if the file is correct.
      */
     public Level(String levelPath) throws FileNotFoundException {
         // initialise the levelFile attribute for future reference
@@ -104,7 +104,7 @@ public class Level {
     /**
      * Loads a level's tile data.
      * @param path path, the file path of the level file.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException to check that the file is correct.
      */
     public void loadLevel(String path) throws FileNotFoundException {
         // Find file and create scanner with the space delimiter.
@@ -159,7 +159,7 @@ public class Level {
 
     /**
      * Method to initialise the visualisation of the level.
-     * @param gc the graphics context of the canvas
+     * @param gc the graphics context of the canvas.
      */
     public void initialiseLevel(GraphicsContext gc) {
         // The row / columns.
@@ -212,7 +212,7 @@ public class Level {
 
     /**
      * Destroys the tile at the players position if it is destructible.
-     * @param player
+     * @param player the player itself.
      */
     public void destroyTile(Player player) {
         // Retrieve the X and Y coordinates of the character
@@ -231,64 +231,64 @@ public class Level {
     }
 
     /**
-     * Gets the array of game objects
-     * @return {@code GameObject[]} the array of game objects
+     * Gets the array of game objects.
+     * @return {@code GameObject[]} the array of game objects.
      */
     public GameObject[] getGameBoard() {
         return gameBoard;
     }
 
     /**
-     * Returns the width of the level in tiles
-     * @return {@code int} the width of the level in tiles
+     * Returns the width of the level in tiles.
+     * @return {@code int} the width of the level in tiles.
      */
     public int getWidth() {
         return width;
     }
 
     /**
-     * Returns the height of the level in tiles
-     * @return {@code int} the height of the level in tiles
+     * Returns the height of the level in tiles.
+     * @return {@code int} the height of the level in tiles.
      */
     public int getHeight() {
         return height;
     }
 
     /**
-     * Returns the amount of time given to complete the level
-     * @return {@code int} the amount of time to complete the level
+     * Returns the amount of time given to complete the level.
+     * @return {@code int} the amount of time to complete the level.
      */
     public int getTimeToComplete() {
         return timeToComplete;
     }
 
     /**
-     * Returns the amount of diamonds required to complete the level
-     * @return {@code int} the amount of diamonds required to beat the level
+     * Returns the amount of diamonds required to complete the level.
+     * @return {@code int} the amount of diamonds required to beat the level.
      */
     public int getDiamondsToWin() {
         return diamondsToWin;
     }
 
     /**
-     * Returns the spread rate of amoeba in the level
-     * @return {@code int} the spread rate of amoeba in the level
+     * Returns the spread rate of amoeba in the level.
+     * @return {@code int} the spread rate of amoeba in the level.
      */
     public int getAmoebaSpreadRate() {
         return amoebaSpreadRate;
     }
 
     /**
-     * Returns the maximum size of amoeba in the level
-     * @return {@code int} the maximum size of amoeba in the level
+     * Returns the maximum size of amoeba in the level.
+     * @return {@code int} the maximum size of amoeba in the level.
      */
     public int getAmoebaMaxSize() {
         return amoebaMaxSize;
     }
 
     /**
-     * Gets the array of the top ten scores of the level
-     * @return {@code int[]} top ten scores of the level
+     * Gets the array of the top ten scores of the level.
+     * @return {@code int[]} top ten scores of the level.
      */
     public int[] getHighscores() {
         return highscores;
