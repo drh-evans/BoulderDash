@@ -8,11 +8,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 
 /**
- * A class which holds the methods that control menu.
+ * A class containing the functionality of opening different options
+ * in the menu.
+ *
  * @author Adam Bartlett
  */
 public class MenuController {
@@ -20,6 +23,13 @@ public class MenuController {
     private Scene scene;
     private Parent root;
 
+
+    /**
+     * Opens stage for user to create name
+     *
+     * @param event button is press
+     * @throws IOException If an error happens when processing the file.
+     */
     @FXML
     public void openCreatePlayer(ActionEvent event) throws IOException {
         //Loads new fxml
@@ -32,6 +42,12 @@ public class MenuController {
 
     }
 
+    /**
+     * Opens stage for user to select profile
+     *
+     * @param event button is press
+     * @throws IOException If an error happens when processing the file.
+     */
     @FXML
     public void openSelectPlayer(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("SelectPlayer.fxml"));
@@ -41,6 +57,12 @@ public class MenuController {
         stage.show();
     }
 
+    /**
+     * Opens stage for user to see high score table
+     *
+     * @param event button is press
+     * @throws IOException If an error happens when processing the file.
+     */
     @FXML
     public void openHighScoreTable(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("HighScoreTable.fxml"));
@@ -50,6 +72,12 @@ public class MenuController {
         stage.show();
     }
 
+    /**
+     * Opens stage to display helpful information to player
+     *
+     * @param event button is press
+     * @throws IOException If an error happens when processing the file.
+     */
     @FXML
     public void openHelp(ActionEvent event) throws IOException {
         // Load the Help.fxml file
