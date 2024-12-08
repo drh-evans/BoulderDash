@@ -1,6 +1,8 @@
-4 14
+6 14
 D D W W W W W W W W W W W W
-D P P P P P P P P P P P P W
+D P P P P P P P P P P P A W
+W P P P P P P P P P P P P W
+W P P P P P P P P P P P P W
 W P P P P P P P P P P P P W
 W W W W W W W W W W W W W W
 
