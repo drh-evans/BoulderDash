@@ -13,11 +13,9 @@ import Game_Objects.Tiles.Path;
  */
 public class Diamond extends Entity {
     private boolean pickedUp;
-    private boolean isFalling = false;
 
     /**
      * Create a Diamond at the coordinates (x, y).
-     *
      * @param x The x coordinate.
      * @param y The y coordinate.
      */
@@ -28,6 +26,9 @@ public class Diamond extends Entity {
         this.isDestructible = true;
     }
 
+    /**
+     * Position-less constructor.
+     */
     public Diamond() {
         super(true, true, 10, "*");
         this.pickedUp = false;
@@ -37,7 +38,6 @@ public class Diamond extends Entity {
 
     /**
      * Collects a diamond.
-     *
      * @param character The players' character.
      */
     public void collectDiamond(Character character) {
@@ -56,25 +56,11 @@ public class Diamond extends Entity {
     }
 
     /**
-     *
-     */
-    @Override
-    protected void removeTarget() {
-        if (pickedUp) {
-
-        }
-    }
-
-    /**
-     *
-     */
-    @Override
-    protected void isColliding() {
-
-    }
-
-    /**
-     *
+     * Method for diamonds to drop into tiles below if eligible.
+     * @param gameBoard the current game board.
+     * @param levelWidth the width of the level.
+     * @param index the current index.
+     * @param character the player itself.
      */
     public void dropDiamond(GameObject[] gameBoard, int levelWidth, int index, Character character) {
         int characterY = character.getCharacterY();
@@ -93,6 +79,13 @@ public class Diamond extends Entity {
         }
     }
 
+    /**
+     * Method for diamonds to roll off a tile in the correct direction if not occupied.
+     * @param gameBoard the current game board.
+     * @param levelWidth the width of the level.
+     * @param index the current index.
+     * @param character the player itself.
+     */
     public void roll(GameObject[] gameBoard, int levelWidth, int index, Character character) {
         int belowPos = index + levelWidth;
         boolean lastRow = gameBoard[belowPos].getObjectToken().equals("T");

@@ -7,38 +7,40 @@ import Game_Objects.GameObject;
 import java.util.Arrays;
 
 /**
-  * Frog class represent frog entity
-  * @author Davide Belsole, Elbu Cheung
+  * Frog class represent frog entity.
+  * @author Davide Belsole, Elbu Cheung.
 */
 public class Frog extends Entity {
-  private int playerPositionX;
-  private int playerPositionY;
-  private boolean playerReachable;
+    private int playerPositionX;
+    private int playerPositionY;
 
     /**
-     * Constructs the frog
-     * @param x the x coordinate of the frog
-     * @param y the y coordinate of the frog
+     * Constructs the frog.
+     * @param x the x coordinate of the frog.
+     * @param y the y coordinate of the frog.
      */
- public Frog(int x, int y) {
-  super(x, y, false, false, 10, "F");
+    public Frog(int x, int y) {
+        super(x, y, false, false, 10, "F");
 
- }
-
-  public Frog() {
-    super(false, false, 10, "F");
-
-  }
+    }
 
     /**
-     * Validates the frogs movement so that it does not traverse out of bounds or onto tiles that are not valid
-     * @param x the x coordinate
-     * @param y the y coordinate
-     * @param level The level of the game
-     * @return false if the tile is not in bounds or is not a valid tile, return true if valid
+     * Position-less constructor.
+     */
+    public Frog() {
+        super(false, false, 10, "F");
+    }
+
+    /**
+     * Validates the frogs movement so that it does not traverse out of bounds or onto tiles that are not valid.
+     *
+     * @param x     the x coordinate.
+     * @param y     the y coordinate.
+     * @param level The level of the game.
+     * @return false if the tile is not in bounds or is not a valid tile, return true if valid.
      */
     private boolean valid(int x, int y, Level level) {
-        int width  = level.getWidth();
+        int width = level.getWidth();
         int height = level.getHeight();
 
         // Checks that the position is within bounds and valid
@@ -53,10 +55,10 @@ public class Frog extends Entity {
     }
 
     /**
-     * Method to gather the current position of the character, so that the frog can move towards it based
-     on the shortest path, moving both horizontally and vertically
-     * @param level the level of the game
-     * @param character the player that will be chased by the frog
+     * Method to gather the current position of the character, so that the frog can move towards it based.
+       on the shortest path, moving both horizontally and vertically.
+     * @param level the level of the game.
+     * @param character the player that will be chased by the frog.
      */
     public void chasePlayer(Level level, Character character) {
         int posX = this.getX();
@@ -78,22 +80,11 @@ public class Frog extends Entity {
     }
 
     /**
-     * Gathers the position of the character
-     * @param character the character
+     * Gathers the position of the character.
+     * @param character the character.
      */
-  private void getPlayerPosition(Character character) {
-    playerPositionX = character.getCharacterX();
-    playerPositionY = character.getCharacterY();
-  }
-
-  @Override
-  protected void removeTarget() {
-
-  }
-
-  @Override
-  protected void isColliding() {
-
-  }
-
+    private void getPlayerPosition(Character character) {
+        playerPositionX = character.getCharacterX();
+        playerPositionY = character.getCharacterY();
+    }
 }

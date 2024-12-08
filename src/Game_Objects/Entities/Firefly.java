@@ -9,6 +9,12 @@ public class Firefly extends FlyingEnemy {
 
     private final String objectToken;
 
+    /**
+     * Construct the firefly.
+     * @param x the x coordinate.
+     * @param y the y coordinate.
+     * @param direction the direction in which the firefly rotates.
+     */
     public Firefly(int x, int y, String direction) {
 
         super(x, y, "");
@@ -17,32 +23,13 @@ public class Firefly extends FlyingEnemy {
         objectToken = "F" + direction;
     }
 
+    /**Position-less constructor.
+     * @param direction the direction in which the firefly rotates.
+     */
     public Firefly(String direction) {
         super("");
         this.direction = direction;
 
         objectToken = "F" + direction;
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void removeTarget() {
-
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void isColliding() {
-
-    }
-
-
-    @Override
-    public String getObjectToken() {
-        return objectToken;
     }
 }

@@ -9,7 +9,6 @@ import java.util.Random;
  * This class represents the Amoeba entity.
  * This class also controls the spreading of an Amoeba,
  * and the behaviour of a group of Amoebae.
- *
  * @author Rhys Evans
  * @version 1.0
  */
@@ -17,7 +16,7 @@ public class Amoeba extends Entity {
 
     // The current size of a group of Amoebae.
     private static int currentSize = 1;
-    // The maxmimum size and growth rate of Amoeba.
+    // The maximum size and growth rate of Amoeba.
     private int growthRate;
     private int maxSize;
     private boolean isMaximum;
@@ -29,7 +28,6 @@ public class Amoeba extends Entity {
 
     /**
      * Create a new Amoeba at the specified (x, y) coordinates.
-     *
      * @param x          The x position.
      * @param y          The y position.
      * @param growthRate The growth rate of the Amoeba.
@@ -42,7 +40,7 @@ public class Amoeba extends Entity {
     }
 
     /**
-     * Create a positionless Amoeba.
+     * Create a position-less Amoeba.
      */
     public Amoeba() {
         super(true, false, 10, "A");
@@ -50,8 +48,7 @@ public class Amoeba extends Entity {
 
     /**
      * Check if Amoebae have reached the maximum size.
-     *
-     * @return isMaximum - true or false
+     * @return isMaximum - true or false.
      */
     private boolean isMaximum() {
         if (currentSize == maxSize) {
@@ -162,21 +159,5 @@ public class Amoeba extends Entity {
             // Kill the Amoeba.
             activeAmoeba.remove(amoebae);
         }
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void removeTarget() {
-
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void isColliding() {
-
     }
 }

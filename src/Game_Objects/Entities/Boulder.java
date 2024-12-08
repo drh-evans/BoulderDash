@@ -15,11 +15,10 @@ import Game_Objects.Tiles.Path;
 public class Boulder extends Entity {
     // Essentials for pushing the boulder.
     private boolean isPushable;
-    private static String pushDirection;
+   // private static String pushDirection;
 
     /**
      * Creates a Boulder at position (x, y).
-     *
      * @param x the new x.
      * @param y the new y.
      */
@@ -30,7 +29,7 @@ public class Boulder extends Entity {
     }
 
     /**
-     * Creates a positionless Boulder.
+     * Creates a position-less Boulder.
      */
     public Boulder() {
         super(true, true, 10, "B");
@@ -39,7 +38,6 @@ public class Boulder extends Entity {
 
     /**
      * Check if the Boulder is pushable.
-     *
      * @param gameObjects The current tiles.
      * @param newPos      The next position.
      */
@@ -55,13 +53,12 @@ public class Boulder extends Entity {
 
     /**
      * Method to push the boulder.
-     *
      * @return If the boulder has been pushed - true or false.
      */
     public boolean push(GameObject[] gameObjects, int tilePos, int direction) {
         int x = gameObjects[tilePos].getX();
         int y = gameObjects[tilePos].getY();
-        // ive tried to implement this as straight-forward and simply as possible, please refactor as seen fit
+
         int newPos;
         if (direction == 1) {
             newPos = tilePos + 1;
@@ -85,25 +82,7 @@ public class Boulder extends Entity {
     }
 
     /**
-     *
-     */
-    @Override
-    protected void removeTarget() {
-
-    }
-
-    /**
-     *
-     */
-    @Override
-    protected void isColliding() {
-
-    }
-
-
-    /**
      * Method controlling boulders falling.
-     *
      * @param gameBoard  The current game board.
      * @param levelWidth The width of the level.
      * @param index      The current boulders index.
@@ -128,7 +107,6 @@ public class Boulder extends Entity {
 
     /**
      * Method to roll the boulder.
-     *
      * @param gameBoard  The current game board.
      * @param levelWidth The width of the level.
      * @param index      The current boulders index.
@@ -174,14 +152,5 @@ public class Boulder extends Entity {
                 }
             }
         }
-    }
-
-    /**
-     * Get the pushed direction.
-     *
-     * @return pushDirection -  "LEFT" or "RIGHT".
-     */
-    public String getPushDirection() {
-        return pushDirection;
     }
 }
