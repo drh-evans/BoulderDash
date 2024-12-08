@@ -67,7 +67,11 @@ public class LevelController {
     private final Level level1 = new Level("src/LevelFiles/Level1.txt");
     private final Level level2 = new Level("src/LevelFiles/Level2.txt");
     private final Level level3 = new Level("src/LevelFiles/Level3.txt");
-
+    private final Level level4 = new Level("src/LevelFiles/Level4.txt");
+    private final Level level5 = new Level("src/LevelFiles/Level5.txt");
+    private final Level level6 = new Level("src/LevelFiles/Level6.txt");
+    private final Level level7 = new Level("src/LevelFiles/Level7.txt");
+    private final Level level8 = new Level("src/LevelFiles/Level8.txt");
     // The canvas that the game will be drawn on.
     private Canvas canvas;
 
@@ -194,6 +198,76 @@ public class LevelController {
         }
         System.out.println("not unlocked");
     }
+    /**
+     * Creates level fours display.
+     *
+     * @param openGame The button was pressed.
+     */
+    public void createLevel4(ActionEvent openGame) {
+        player = PlayerController.getCurrentPlayer();
+        currentLevelNumber = 4;
+        if (player.getLevelUnlocked() >= 4) {
+            createLevelTemplate(openGame, level4);
+        }
+        System.out.println("not unlocked");
+    }
+
+    /**
+     * Creates level fives display.
+     *
+     * @param openGame The button was pressed.
+     */
+    public void createLevel5(ActionEvent openGame) {
+        player = PlayerController.getCurrentPlayer();
+        currentLevelNumber = 5;
+        if (player.getLevelUnlocked() >= 5) {
+            createLevelTemplate(openGame, level5);
+        }
+        System.out.println("not unlocked");
+    }
+
+    /**
+     * Creates level sixes display.
+     *
+     * @param openGame The button was pressed.
+     */
+    public void createLevel6(ActionEvent openGame) {
+        player = PlayerController.getCurrentPlayer();
+        currentLevelNumber = 6;
+        if (player.getLevelUnlocked() >= 6) {
+            createLevelTemplate(openGame, level6);
+        }
+        System.out.println("not unlocked");
+    }
+
+    /**
+     * Creates level sevens display.
+     *
+     * @param openGame The button was pressed.
+     */
+    public void createLevel7(ActionEvent openGame) {
+        player = PlayerController.getCurrentPlayer();
+        currentLevelNumber = 7;
+        if (player.getLevelUnlocked() >= 7) {
+            createLevelTemplate(openGame, level7);
+        }
+        System.out.println("not unlocked");
+    }
+
+    /**
+     * Creates level eights display.
+     *
+     * @param openGame The button was pressed.
+     */
+    public void createLevel8(ActionEvent openGame) {
+        player = PlayerController.getCurrentPlayer();
+        currentLevelNumber = 8;
+        if (player.getLevelUnlocked() >= 8) {
+            createLevelTemplate(openGame, level8);
+        }
+        System.out.println("not unlocked");
+    }
+
 
     /**
      * Updates stage to display the game.

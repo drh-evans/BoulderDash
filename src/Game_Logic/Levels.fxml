@@ -17,11 +17,11 @@
       <Button layoutX="32.0" layoutY="163.0" minWidth="175.0" mnemonicParsing="false" onAction="#createLevel1" text="Level 1" />
       <Button layoutX="236.0" layoutY="163.0" minWidth="175.0" mnemonicParsing="false" onAction="#createLevel2" text="Level 2" />
       <Button layoutX="32.0" layoutY="216.0" minWidth="175.0" mnemonicParsing="false" onAction="#createLevel3" text="Level 3" />
-      <Button layoutX="236.0" layoutY="216.0" minWidth="175.0" mnemonicParsing="false" text="Level 4" />
-      <Button layoutX="32.0" layoutY="268.0" minWidth="175.0" mnemonicParsing="false" text="Level 5" />
-      <Button layoutX="236.0" layoutY="268.0" minWidth="175.0" mnemonicParsing="false" text="Level 6" />
-      <Button layoutX="32.0" layoutY="319.0" minWidth="175.0" mnemonicParsing="false" text="Level 7" />
-      <Button layoutX="236.0" layoutY="319.0" minWidth="175.0" mnemonicParsing="false" text="Level 8" />
+      <Button layoutX="236.0" layoutY="216.0" minWidth="175.0" mnemonicParsing="false" onAction="#createLevel4" text="Level 4" />
+      <Button layoutX="32.0" layoutY="268.0" minWidth="175.0" mnemonicParsing="false" onAction="#createLevel5" text="Level 5" />
+      <Button layoutX="236.0" layoutY="268.0" minWidth="175.0" mnemonicParsing="false" onAction="#createLevel6" text="Level 6" />
+      <Button layoutX="32.0" layoutY="319.0" minWidth="175.0" mnemonicParsing="false" onAction="#createLevel7" text="Level 7" />
+      <Button layoutX="236.0" layoutY="319.0" minWidth="175.0" mnemonicParsing="false" onAction="#createLevel8" text="Level 8" />
       <Button layoutX="135.0" layoutY="380.0" minWidth="175.0" mnemonicParsing="false" onAction="#backButton" text="Back" />
 
       <Text fill="WHITE" layoutX="106.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Levels" textAlignment="CENTER" wrappingWidth="231.21630859375">
