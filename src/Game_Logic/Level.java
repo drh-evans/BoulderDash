@@ -333,4 +333,7 @@ public class Level {
     public void setTimeToComplete() {
         timeToComplete--;
     }
+    public File getLevelFile() {
+        return levelFile;
+    }
 }
