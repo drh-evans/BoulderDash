@@ -10,6 +10,7 @@ import java.util.Random;
  * This class also controls the spreading of an Amoeba,
  * and the behaviour of a group of Amoebae.
  * @author Rhys Evans
+ * @version 1.0
  */
 public class Amoeba extends Entity {
 
@@ -24,15 +25,15 @@ public class Amoeba extends Entity {
     // The neighbouring tiles to an Amoeba.
     private ArrayList<GameObject> neighbours = new ArrayList<>();
     // The active Amoebae.
-    private ArrayList<Amoeba> activeAmoeba = new ArrayList<>();
+    private ArrayList<GameObject> activeAmoeba = new ArrayList<>();
 
 
     /**
      * Create a new Amoeba at the specified (x, y) coordinates.
-     * @param x The x position.
-     * @param y The y position.
+     * @param x          The x position.
+     * @param y          The y position.
      * @param growthRate The growth rate of the Amoeba.
-     * @param maxSize The maximum size of Amoebae.
+     * @param maxSize    The maximum size of Amoebae.
      */
     public Amoeba(int x, int y, int growthRate, int maxSize) {
         super(x, y, true, false, 10, "A");
@@ -40,10 +41,17 @@ public class Amoeba extends Entity {
         this.maxSize = maxSize;
     }
 
+    /**
+     * Create a positionless Amoeba.
+     */
     public Amoeba() {
         super(true, false, 10, "A");
     }
 
+    /**
+     * Check if Amoebae have reached the maximum size.
+     * @return isMaximum - true or false
+     */
     private boolean isMaximum() {
         if (currentSize == maxSize) {
             return isMaximum = true;
@@ -52,7 +60,7 @@ public class Amoeba extends Entity {
     }
 
     /**
-     * Spreads the amoeba.
+     * Spread the amoeba.
      * @param tiles The current game tiles.
      * @param width The current game width.
      */
@@ -77,10 +85,9 @@ public class Amoeba extends Entity {
                     int newTileX = tile.getX();
                     int newTileY = tile.getY();
                     int nextPosition = (newTileY * width) + newTileX;
-
                     // Generate a new Amoeba at the position.
                     tiles[nextPosition] = new Amoeba(newTileX, newTileY, growthRate, maxSize);
-                    activeAmoeba.add((Amoeba) tiles[nextPosition]);
+                    activeAmoeba.add(tiles[nextPosition]);
                     currentSize++;
                 }
             }
@@ -93,50 +100,57 @@ public class Amoeba extends Entity {
      * @param width The game width.
      */
     public void getNeighbours(GameObject[] tiles, int width) {
+
         // Calculate the neighbouring tiles in each direction.
         int currentTilePosition = (y * width) + x;
-        int rightNeighbourPosition = ((y * width) + (x + 1));
-        int leftNeighbourPosition = ((y * width) + (x - 1));
+        int rightNeighbourPosition = currentTilePosition + 1;
+        int leftNeighbourPosition = currentTilePosition - 1;
 
-        int upperNeighbourPosition = (((y-1) * width) + x);
-        int lowerNeighbourPosition = (((y+1) * width) + x);
+        int upperNeighbourPosition = (((y - 1) * width) + x);
+        int lowerNeighbourPosition = (((y + 1) * width) + x);
 
-        // Manage if the amoebas neighbours have been  discovered.
-        boolean rightDiscovered = false;
-        boolean leftDiscovered = false;
-        boolean upperDiscovered = false;
-        boolean lowerDiscovered = false;
 
         //  Add any valid paths to a neighbours array.
         // Check the tiles in 4 cardinal directions.
-        if (validateNeighbour(tiles, rightNeighbourPosition) && !rightDiscovered) {
+        if (validateNeighbour(tiles, rightNeighbourPosition)) {
             neighbours.add(tiles[rightNeighbourPosition]);
-            rightDiscovered = true;
-        } else if (validateNeighbour(tiles, leftNeighbourPosition) && !leftDiscovered) {
+        } else if (validateNeighbour(tiles, leftNeighbourPosition)) {
             neighbours.add(tiles[leftNeighbourPosition]);
-            leftDiscovered = true;
-        } else if (validateNeighbour(tiles, upperNeighbourPosition) && !upperDiscovered) {
+        } else if (validateNeighbour(tiles, upperNeighbourPosition)) {
             neighbours.add(tiles[upperNeighbourPosition]);
-            upperDiscovered = true;
-        } else if (validateNeighbour(tiles, lowerNeighbourPosition) && !lowerDiscovered) {
+        } else if (validateNeighbour(tiles, lowerNeighbourPosition)) {
             neighbours.add(tiles[lowerNeighbourPosition]);
-            lowerDiscovered = true;
         }
     }
 
     /**
-     * Validate the neighbours type.
-     * @param tiles The array of game tiles.
+     * Validate the neighbours tile type.
+     * @param tiles    The array of game tiles.
      * @param position The neighbouring position.
-     * @return If the neighbour is spreadable.
+     * @return If the neighbour is spreadable - true or false.
      */
     public boolean validateNeighbour(GameObject[] tiles, int position) {
         if (tiles[position].getObjectToken().equals("P")) {
             return true;
-        } else if (tiles[position].getObjectToken().equals("D")) {
-            return true;
-        } else {
-            return false;
+        } else return tiles[position].getObjectToken().equals("D");
+    }
+
+    /**
+     * Turns a group of Amoebae to Diamonds.
+     * @param tiles The current tiles.
+     * @param gridWidth The grid width.
+     */
+    private void turnToBoulders(GameObject[] tiles, int gridWidth) {
+        // Check all amoebae.
+        for (GameObject amoebae : activeAmoeba) {
+            x = amoebae.getX();
+            y = amoebae.getY();
+            gridWidth = gridWidth;
+            int position = (y * gridWidth) + x;
+            // Set amoeba to be a Boulder.
+            tiles[position] = new Boulder(x, y);
+            // Kill the Amoeba.
+            activeAmoeba.remove(amoebae);
         }
     }
 
