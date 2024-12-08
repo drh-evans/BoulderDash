@@ -13,10 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,7 +28,7 @@ public class PlayerController {
     @FXML
     private TextField myTextField;
     @FXML
-    private Button myButton;
+    private Button deleteButton;
     private ArrayList<String> names = new ArrayList<>();
     @FXML
     private ListView<String> playerList;
@@ -156,7 +153,11 @@ public class PlayerController {
     }
 
     public void initialize() {
+        // initializes the player list by clearing data and reading the profiles from Players.txt and populates the names list and playerList
         if (playerList != null) {
+            names.clear();
+            playerList.getItems().clear();
+
             readArray();
             playerList.getItems().addAll(names);
         }
@@ -184,6 +185,24 @@ public class PlayerController {
             loadLevels(event);
         } else {
             statusLabel.setText("Please select a profile.");
+        }
+    }
+
+    /**
+     * Allows the User to delete a profile
+     * @param event If an event occurs
+     */
+    @FXML
+    public void deleteProfile(ActionEvent event) {
+        String selectedProfile = playerList.getSelectionModel().getSelectedItem();
+        if (selectedProfile != null) {
+            String[] profileParts = selectedProfile.split(" ");
+            String playerName = profileParts[0];
+
+            names.removeIf(name -> name.startsWith(playerName));
+
+            writeNames();
+            returnToMenu(event);
         }
     }
 }

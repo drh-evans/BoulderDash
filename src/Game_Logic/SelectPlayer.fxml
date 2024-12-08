@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,8 +15,8 @@
             <Image url="@../Images/MenuBackground.png" />
         </image>
     </ImageView>
-    <ListView fx:id="playerList" layoutX="80.0" layoutY="100.0" prefWidth="250" prefHeight="200"/>
-    <Button fx:id="selectButton" layoutX="164.0" layoutY="307.0" mnemonicParsing="false" onAction="#selectProfile" prefHeight="46.0" prefWidth="98.0" text="Select Player"/>
+    <ListView fx:id="playerList" layoutX="80.0" layoutY="100.0" prefHeight="200" prefWidth="250" />
+    <Button fx:id="selectButton" layoutX="91.0" layoutY="309.0" mnemonicParsing="false" onAction="#selectProfile" prefHeight="46.0" prefWidth="98.0" text="Select Player" />
     <Button layoutX="140.0" layoutY="390.0" minWidth="140.0" mnemonicParsing="false" onAction="#returnToMenu" text="Back" />
     <Label layoutX="78.0" layoutY="37.0" text="Select Profile" textAlignment="CENTER" textFill="WHITE">
         <font>
@@ -34,5 +28,6 @@
                 <Font size="14.0" />
             </font>
         </Label>
+      <Button fx:id="deleteButton" layoutX="231.0" layoutY="309.0" mnemonicParsing="false" onAction="#deleteProfile" prefHeight="46.0" prefWidth="98.0" text="Delete Player" />
     </children>
 </AnchorPane>
