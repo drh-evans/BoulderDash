@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author rhysevans
  */
 public class Player {
-    private static final int MAX_LEVEL = 10;
+    private static final int MAX_LEVEL = 8;
     private final String name;
     private Character playerCharacter;
     private int levelScore;

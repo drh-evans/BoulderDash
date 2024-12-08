@@ -7,9 +7,9 @@ package Game_Objects.Tiles;
 public class Path extends Tile {
 
     /**
-     * Basic constructor for constructing normal Path objects
-     * @param x {@code int} x position of the path tile
-     * @param y {@code int} y position of the path tile
+     * Creates a Path at (
+     * @param x
+     * @param y
      */
     public Path(int x, int y) {
         super(x, y, false,true,true, "P");

@@ -471,7 +471,7 @@ public class LevelController {
 
 
     /**
-     * Returns the user to the level's menu.
+     * This method loads the level menu.
      * @throws IOException If there isn't a valid fxml file.
      */
     @FXML
@@ -484,6 +484,10 @@ public class LevelController {
         stage.show();
     }
 
+    /**
+     * This method loads the main menu.
+     * @throws IOException If there isn't a valid fxml file.
+     */
     @FXML
     public void menu() throws IOException {
         //Loads new fxml
@@ -567,6 +571,16 @@ public class LevelController {
             openLevels();
         }
     }
+
+    /**
+     * Updates the high scores for the specified level. This method reads the high scores from a file,
+     * updates the score for the given player and level, and maintains the ranking of the top 10 scores
+     * for the level.
+     * @param player        the player whose score is being updated
+     * @param current       the level for which the high scores are being updated
+     * @param newHighScore  the new high score achieved by the player
+     * @throws IOException if an error occurs while reading from or writing to the high scores file
+     */
     public void updateHighScore(Player player, Level current, int newHighScore) throws IOException {
         /*
         for (int i = 0; i < current.highscores.length; i++) {
@@ -592,7 +606,7 @@ public class LevelController {
             lines.add(line);
         }
         //process data
-        for (int i = 0; i < lines.size() - 1; i++) {
+        for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
             //check the current level with file level is the same or not
             if (line.startsWith(current.getLevelFile().getName().replace("src/LevelFiles/", "").replace(".txt", "").toLowerCase() + ";")) {
@@ -600,7 +614,7 @@ public class LevelController {
                 String[] data = level[1].split(",");
                 playerScoreList.clear();
                 playerScoreList.addAll(List.of(data));
-                for (int j = 0 ;j < playerScoreList.size(); j++) {
+                for (int j = 0 ; j < playerScoreList.size(); j++) {
                     playerAndScore = playerScoreList.get(j).split(":");
                     //check is the player record exist
                     if (playerAndScore[0].equals(player.getName())) {

@@ -19,6 +19,7 @@ public class Boulder extends Entity {
 
     /**
      * Creates a Boulder at position (x, y).
+     *
      * @param x the new x.
      * @param y the new y.
      */
@@ -38,8 +39,9 @@ public class Boulder extends Entity {
 
     /**
      * Check if the Boulder is pushable.
+     *
      * @param gameObjects The current tiles.
-     * @param newPos The next position.
+     * @param newPos      The next position.
      */
     public void pushableCheck(GameObject[] gameObjects, int newPos) {
         // check if the tile is pushable
@@ -53,6 +55,7 @@ public class Boulder extends Entity {
 
     /**
      * Method to push the boulder.
+     *
      * @return If the boulder has been pushed - true or false.
      */
     public boolean push(GameObject[] gameObjects, int tilePos, int direction) {
@@ -100,10 +103,11 @@ public class Boulder extends Entity {
 
     /**
      * Method controlling boulders falling.
-     * @param gameBoard The current game board.
+     *
+     * @param gameBoard  The current game board.
      * @param levelWidth The width of the level.
-     * @param index The current boulders index.
-     * @param character The players' character.
+     * @param index      The current boulders index.
+     * @param character  The players' character.
      */
     public void dropBoulder(GameObject[] gameBoard, int levelWidth, int index, Character character) {
         int characterY = character.getCharacterY();
@@ -124,10 +128,11 @@ public class Boulder extends Entity {
 
     /**
      * Method to roll the boulder.
-     * @param gameBoard The current game board.
+     *
+     * @param gameBoard  The current game board.
      * @param levelWidth The width of the level.
-     * @param index The current boulders index.
-     * @param character The players' character.
+     * @param index      The current boulders index.
+     * @param character  The players' character.
      */
     public void roll(GameObject[] gameBoard, int levelWidth, int index, Character character) {
         int belowPos = index + levelWidth;
@@ -173,6 +178,7 @@ public class Boulder extends Entity {
 
     /**
      * Get the pushed direction.
+     *
      * @return pushDirection -  "LEFT" or "RIGHT".
      */
     public String getPushDirection() {

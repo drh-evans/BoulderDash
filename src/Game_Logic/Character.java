@@ -227,7 +227,7 @@ public class Character {
 
 
     /**
-     * Converts a tile to a path.
+     * Remove a tile from the board.
      * @param tilePos The tiles position.
      */
     private void transformToPath(int tilePos) {

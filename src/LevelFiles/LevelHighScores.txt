@@ -4,7 +4,5 @@ level3;Default:1,Default:2,Default:3,Default:4,Default:5,Default:6,Default:7,Def
 level4;Default:1,Default:2,Default:3,Default:4,Default:5,Default:6,Default:7,Default:8,Default:9,Default:10
 level5;Default:1,Default:2,Default:3,Default:4,Default:5,Default:6,Default:7,Default:8,Default:9,Default:10
 level6;Default:1,Default:2,Default:3,Default:4,Default:5,Default:6,Default:7,Default:8,Default:9,Default:10
-level7;Rhys:1100,Default:10,Default:9,Default:8,Default:7,Default:6,Default:5,Default:4,Default:3,Default:2
+level7;Default:1,Default:2,Default:3,Default:4,Default:5,Default:6,Default:7,Default:8,Default:9,Default:10
 level8;Default:1,Default:2,Default:3,Default:4,Default:5,Default:6,Default:7,Default:8,Default:9,Default:10
-level9;Default:1,Default:2,Default:3,Default:4,Default:5,Default:6,Default:7,Default:8,Default:9,Default:10
-level10;Default:1,Default:2,Default:3,Default:4,Default:5,Default:6,Default:7,Default:8,Default:9,Default:10

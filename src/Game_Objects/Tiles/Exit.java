@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 public class Exit extends Tile {
 
     /**
-     * Basic constructor for constructing normal Exit objects
+     * Create an exit tile at position (x, y).
      *
      * @param x {@code int} x position of the exit tile
      * @param y {@code int} y position of the exit tile
@@ -24,7 +24,7 @@ public class Exit extends Tile {
     }
 
     /**
-     * Positionless constructor for use in the object token hashmap
+     * Create a positionless exit tile.
      */
     public Exit() {
         super(false, true, true, "E");
@@ -38,17 +38,19 @@ public class Exit extends Tile {
      * @param width        the width of the level selected
      */
     public static boolean exitTileLogic(Level currentLevel, Character character, int width) {
+        // Math to get the character position.
         int x = character.getCharacterX();
         int y = character.getCharacterY();
         int characterPos = y * width + x;
 
+        // Get the current game board.
         GameObject[] gameBoard = currentLevel.getGameBoard();
 
         for (GameObject object : gameBoard) {
             if (object.getObjectToken().equals("E")) {
                 int tilePosition = object.getY() * width + object.getX();
-                if (characterPos == tilePosition && character.getDiamondsCollected() >=
-                        currentLevel.getDiamondsToWin()) {
+                if (characterPos == tilePosition && character.getDiamondsCollected()
+                        >= currentLevel.getDiamondsToWin()) {
                     return true;
                 }
             }
