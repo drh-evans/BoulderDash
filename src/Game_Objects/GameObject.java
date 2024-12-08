@@ -1,16 +1,17 @@
+
 package Game_Objects;
 import Game_Objects.Entities.*;
 import Game_Objects.Tiles.*;
 import java.util.HashMap;
 
+/**
+ * Class representing all Game Objects that exist on the board.
+ * @author Nathan Welby
+ * @version 1.0
+ */
 public abstract class GameObject {
 
-    protected boolean isTraversable;
-    protected boolean isDestructible;
-    private boolean isFalling;
-
-    // Hashmap to map tile tokens to their respective tile subclass
-    // NOTE: called OBJECT_TOKEN_MAP since it may be used with entities as well
+    // Hashmap to map tile tokens to their respective tile subclass.
     private static final HashMap<String, GameObject> OBJECT_TOKEN_MAP = new HashMap<>();
     static {
         OBJECT_TOKEN_MAP.put("P", new Path());
@@ -37,13 +38,16 @@ public abstract class GameObject {
         OBJECT_TOKEN_MAP.put("F", new Frog());
     }
 
-    // Inheritable attributes shared by entities and tiles
+    // Attributes shared by all entities and tiles.
     protected int x;
     protected int y;
     protected final String objectToken;
+    protected boolean isTraversable;
+    protected boolean isDestructible;
+    private boolean isFalling;
 
     /**
-     * Constructor for a default game object (including position)
+     * Create a game object at position (x, y).
      * @param x {@code int} the x position of the game object
      * @param y {@code int} the y position of the game object
      * @param objectToken {@code String} the key value of the game object in the game object hashmap
@@ -55,7 +59,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Positionless constructor (used for the game object hashmap)
+     * Create a positionless object with a token.
      * @param objectToken {@code String} the key value of the game object in the game object hashmap
      */
     public GameObject(String objectToken) {
@@ -63,7 +67,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Gets the object token map
+     * Get the object token map
      * @return {@code HashMap<String, Tile>} object token map
      */
     public static HashMap<String, GameObject> getObjectTokenMap() {
@@ -71,7 +75,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Gets the x position of the tile
+     * Get the x position of the tile
      * @return {@code int} the x position of the tile
      */
     public int getX() {
@@ -79,7 +83,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Updates the x position of the tile
+     * Update the x position of the tile
      * @param x {@code int} the new x position of the tile
      */
     public void setX(int x) {
@@ -87,7 +91,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Gets the y position of the tile
+     * Get the y position of the tile
      * @return {@code int} the y position of the tile
      */
     public int getY() {
@@ -95,7 +99,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Updates the y position of the tile
+     * Update the y position of the tile
      * @param y {@code int} the new y position of the tile
      */
     public void setY(int y) {
@@ -116,7 +120,7 @@ public abstract class GameObject {
 
 
     /**
-     * Gets whether the tile is destructible
+     * Get whether the tile is destructible
      * @return {@code true}: if the tile is destructible <br>
      * {@code false}: otherwise
      */
@@ -125,17 +129,25 @@ public abstract class GameObject {
     }
 
     /**
-     * Updates a tile's destructibility
+     * Update a tile's destructibility
      * @param destructible {@code boolean} the new destructibility of the tile
      */
     public void setDestructible(boolean destructible) {
         isDestructible = destructible;
     }
 
+    /**
+     * Get a tiles falling status.
+     * @return isFalling, the tiles falling status.
+     */
     public boolean isFalling() {
         return isFalling;
     }
 
+    /**
+     * Set the tiles falling status.
+     * @param falling, a boolean true or false.
+     */
     public void setFalling(boolean falling) {
         isFalling = falling;
     }
