@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -47,6 +48,19 @@ public class MenuController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void openHelp(ActionEvent event) throws IOException {
+        // Load the Help.fxml file
+        Parent root = FXMLLoader.load(getClass().getResource("Help.fxml"));
+
+        Stage popoutStage = new Stage();
+        popoutStage.setTitle("Help Window");
+        Scene scene = new Scene(root);
+        popoutStage.setScene(scene);
+        popoutStage.initModality(Modality.NONE);
+        popoutStage.show();
     }
 
 }

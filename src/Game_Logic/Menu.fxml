@@ -32,5 +32,9 @@
          <font>
             <Font size="16.0" />
          </font></Button>
+      <Button layoutX="113.0" layoutY="435.0" minWidth="200.0" mnemonicParsing="false" onAction="#openHelp" text="Help" textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
    </children>
 </AnchorPane>

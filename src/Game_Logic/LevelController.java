@@ -27,6 +27,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -303,6 +304,25 @@ public class LevelController {
         stage.setScene(new Scene(menu));
         stage.show();
     }
+
+    @FXML
+    public void openHelp(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Help.fxml"));
+            Stage popoutStage = new Stage();
+            popoutStage.setTitle("Help Window");
+            Scene scene = new Scene(root);
+            popoutStage.setScene(scene);
+            popoutStage.initModality(Modality.NONE);
+            popoutStage.show();
+        } catch (IOException e) {
+            // Handle the exception and provide feedback
+            e.printStackTrace();  // Print the stack trace to help debug the issue
+            System.out.println("Error loading Help.fxml");
+        }
+    }
+
+
 
     //Score checking everytime a player finish a level
     /*
@@ -672,9 +692,13 @@ public class LevelController {
         toolbar.getChildren().add(timeDisplay);
 
         // Add the option to return to the main menu.
-        Button returnToMenu = new Button("Return to main menu");
+        Button returnToMenu = new Button("Quit");
         toolbar.getChildren().add(returnToMenu);
         returnToMenu.setOnAction(this::returnToMenu);
+
+        Button helpButton = new Button("Help");
+        toolbar.getChildren().add(helpButton);
+        helpButton.setOnAction(this::openHelp);
 
         // Return the border pane that has been built.
         return root;
