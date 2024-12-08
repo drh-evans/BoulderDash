@@ -9,7 +9,6 @@ import java.util.Random;
  * This class represents the Amoeba entity.
  * This class also controls the spreading of an Amoeba,
  * and the behaviour of a group of Amoebae.
- *
  * @author Rhys Evans
  * @version 1.0
  */
@@ -133,7 +132,6 @@ public class Amoeba extends Entity {
 
     /**
      * Validate the neighbours tile type.
-     *
      * @param tiles    The array of game tiles.
      * @param position The neighbouring position.
      * @return If the neighbour is spreadable - true or false.
