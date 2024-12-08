@@ -22,7 +22,6 @@ import java.util.Scanner;
  * @version 1.0.
  */
 public class HighScoreController {
-
     @FXML
     private ListView<String> highScoresList;
     @FXML
@@ -59,12 +58,7 @@ public class HighScoreController {
             File ScoresData = new File("src/LevelFiles/LevelHighScores.txt");
             Scanner in = new Scanner(ScoresData);;
             highScoresList.getItems().clear();
-            /*
-            for (int i = 0;i < highScores.length;i++) {
-                highScoresList.getItems().add((i + 1) + ": " + highScores[i]);
-            }
 
-             */
             while (in.hasNextLine()) {
                 String line = in.nextLine();
                 if (line.startsWith(level.toLowerCase() + ";")) {
@@ -82,8 +76,7 @@ public class HighScoreController {
             e.printStackTrace();
         }
     }
-
-
+    
     /**
      * Return the user to the menu.
      * @param e The event of the back being activated.
