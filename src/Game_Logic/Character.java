@@ -9,10 +9,10 @@ import Game_Objects.Tiles.LockedDoor;
 import Game_Objects.Tiles.Path;
 
 /**
- * Character class to control the movement and representation of
- * a player's character in-game.
- *
- * @author Rhys Evans
+ * Character class representing a player in-game.
+ * Controls the characters movement.
+ * Controls the characters collisions.
+ * @author Rhys Evans, Davide Belsole, Adam Bartlett
  */
 public class Character {
     private final GameObject[] gameBoard;
@@ -24,7 +24,9 @@ public class Character {
     private Player currentPlayer;
 
     /**
-     * Creates a character to be spawned on the map.
+     * Create a new character.
+     * @param level The current level.
+     * @param player The current player.
      */
     public Character(Level level, Player player) {
         this.characterX = 1;
@@ -35,8 +37,7 @@ public class Character {
     }
 
     /**
-     * Controls the characters movement.
-     *
+     * Control the characters' movement.
      * @param keyPressed The key inputted by player.
      * @param gridWidth  The width of the game grid.
      * @param gridHeight The height of the game grid.
@@ -92,14 +93,13 @@ public class Character {
     }
 
     /**
-     * Checks if the new tile is a dirt tile, if so changes to path.
-     *
-     * @param x     the prospective x coordinate.
-     * @param y     the prospective y coordinate.
-     * @param width the grid's width.
+     * Check the next path prior to moving.
+     * @param x     The next x coordinate.
+     * @param y     The next y coordinate.
+     * @param width The grid's width.
      */
     private void checkTile(int x, int y, int width, int direction) {
-        // The position of the tile.
+        // The position of the new tile.
         int tilePos = y * width + x;
         // If the tile is a dirt tile.
         if (checkDirtTile(tilePos)) {
@@ -148,15 +148,12 @@ public class Character {
         }
     }
 
-    // TODO ADD TILE CHECK BEFORE INSTANTIATION
-
     /**
-     * Checks that the next tile is a traversable tile.
-     *
-     * @param x     the new player x.
-     * @param y     the new player y.
-     * @param width the grid width.
-     * @return boolean, if the tile is traversable.
+     * Checks that the next tile is traversable.
+     * @param x     The new player x.
+     * @param y     The new player y.
+     * @param width The grid width.
+     * @return boolean, if the tile is traversable true or false.
      */
     private boolean checkTileIsTraversable(int x, int y, int width) {
         int tilePos = y * width + x;
@@ -167,10 +164,9 @@ public class Character {
     }
 
     /**
-     * Check whether the tile is a dirt tile.
-     *
-     * @param tilePos the next tile position.
-     * @return a boolean as to the status of the tile.
+     * Check if the tile is dirt.
+     * @param tilePos The next tile position.
+     * @return boolean, true or false.
      */
     private boolean checkDirtTile(int tilePos) {
         return gameBoard[tilePos].getObjectToken().equals("D")
@@ -178,10 +174,9 @@ public class Character {
     }
 
     /**
-     * Check whether the tile is an exit tile.
-     *
-     * @param tilePos the next tile position.
-     * @return a boolean as to the status of the tile.
+     * Check if the tile is an exit tile.
+     * @param tilePos The next tile position.
+     * @return a boolean as to the status of the tile, true or false.
      */
     private boolean checkExitTile(int tilePos) {
         return gameBoard[tilePos].getObjectToken().equals("E")
@@ -189,30 +184,28 @@ public class Character {
     }
 
     /**
-     * Check whether the tile is a diamond.
-     *
-     * @param tilePos the next tile position.
-     * @return a boolean as to the status of the tile.
+     * Check if the tile is a diamond.
+     * @param tilePos The next tile position.
+     * @return boolean as to the status of the tile, true or false.
      */
     private boolean checkDiamondTile(int tilePos) {
         return gameBoard[tilePos].getObjectToken().equals("*")
                 && (gameBoard[tilePos] != null);
     }
 
+    /**
+     * Check if the tile is a diamond.
+     * @param tilePos The next tile position.
+     * @return boolean as to the status of the tile, true or false.
+     */
     private boolean checkBoulderTile(int tilePos) {
         return gameBoard[tilePos].getObjectToken().equals("B")
                 && (gameBoard[tilePos] != null);
     }
 
-    private boolean checkMagicWallTile(int tilePos) {
-        return gameBoard[tilePos].getObjectToken().equals("M")
-                && (gameBoard[tilePos] != null);
-    }
-
     /**
      * Checks if the tile is a key.
-     *
-     * @param tilePos the tiles position.
+     * @param tilePos The tiles position.
      * @return keyStatus, a boolean whether it is a key or not.
      */
     private boolean checkKeyTile(int tilePos) {
@@ -223,9 +216,8 @@ public class Character {
 
     /**
      * Checks if a tile is a door.
-     *
      * @param tilePos the tiles position.
-     * @return doorStatus, whether it is a door.
+     * @return doorStatus, true or false.
      */
     private boolean checkDoorTile(int tilePos) {
         String token = gameBoard[tilePos].getObjectToken();
@@ -234,19 +226,23 @@ public class Character {
     }
 
 
-    // TODO ADD TILE CHECK BEFORE INSTANTIATION
+    /**
+     * Converts a tile to a path.
+     * @param tilePos The tiles position.
+     */
     private void transformToPath(int tilePos) {
         // Creates a tile object so isDestructible() can be used
         GameObject tile = gameBoard[tilePos];
-        // check if the tile is destructible.
+        // Check if the tile is destructible.
         if (tile.isDestructible()) {
-            // turn the tile to path.
+            // Turn the tile to path.
             gameBoard[tilePos] = new Path(characterX, characterY);
         }
     }
 
+
     /**
-     * Resets the characters position to the starting position.
+     * Resets the characters position.
      */
     public void resetCharacterPosition() {
         this.characterX = 1;
@@ -255,35 +251,31 @@ public class Character {
 
 
     /**
-     * Getter for the characters X coordinate.
-     *
-     * @return X the characters X coordinate.
+     * Get the characters X coordinate.
+     * @return X, the characters X coordinate.
      */
     public int getCharacterX() {
         return characterX;
     }
 
     /**
-     * Setter for the characters X coordinate.
-     *
-     * @param characterX the characters new X coordinate.
+     * Set the characters X coordinate.
+     * @param characterX The characters new X coordinate.
      */
     public void setCharacterX(int characterX) {
         this.characterX = characterX;
     }
 
     /**
-     * Getter for the characters Y coordinate.
-     *
-     * @return Y the characters Y coordinate.
+     * Get the characters Y coordinate.
+     * @return Y, the characters Y coordinate.
      */
     public int getCharacterY() {
         return characterY;
     }
 
     /**
-     * Setter for the characters Y coordinate.
-     *
+     * Set the characters Y coordinate.
      * @param characterY the characters new Y coordinate.
      */
     public void setCharacterY(int characterY) {
@@ -292,7 +284,6 @@ public class Character {
 
     /**
      * Get the amount of diamonds collected by a player.
-     *
      * @return diamonds collected - the amount of diamonds collected.
      */
     public int getDiamondsCollected() {
@@ -308,8 +299,7 @@ public class Character {
 
     /**
      * Get the active player.
-     *
-     * @return a Player, the current player.
+     * @return currentPlayer, a Player object.
      */
     public Player getCurrentPlayer() {
         return currentPlayer;
