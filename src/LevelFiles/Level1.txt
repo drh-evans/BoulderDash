@@ -1,0 +1,12 @@
+4 14
+T T T T T T T T T T T T T T
+T P D * * D D P * D D P P T
+T D W D D * P P * P * P E T
+T T T T T T T T T T T T T T
+
+--LEVELDATA (highscores, timeToComplete, diamondsToWin, amoebaSpreadRate, amoebaMaxSize)
+1,2,3,4,5,6,7,8,9,10
+45
+3
+3
+15
